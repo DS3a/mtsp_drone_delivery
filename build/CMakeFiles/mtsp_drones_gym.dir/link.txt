@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -Wall -Wextra -fPIC -flto -shared  -o mtsp_drones_gym.cpython-310-x86_64-linux-gnu.so CMakeFiles/mtsp_drones_gym.dir/src/pywrap.cpp.o 
