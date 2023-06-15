@@ -10,6 +10,7 @@ namespace mtsp_drones_gym {
     /*
      * Actions for the drones
      * */
+
     struct Move {
         double x;
         double y;
@@ -53,9 +54,11 @@ namespace mtsp_drones_gym {
 
         void set_velocity(vec velocity_);
 
-        void step(double step_time);
+        Eigen::Vector4d step(double step_time);
 
         bool is_carrying_payload();
+
+        Eigen::Vector4d get_state();
 
         friend class Workspace;
     };
@@ -63,9 +66,15 @@ namespace mtsp_drones_gym {
     Drone::Drone(double x, double y, double radius, double capacity) {
         this->initial_position = vec(x, y);
         this->position = vec(x, y);
-        this->velocity = vec(0, 0);
+        this->velocity = vec(1, -1);
         this->radius_ = radius;
         this->capacity_ = capacity;
+    }
+
+    Eigen::Vector4d Drone::get_state() {
+        Eigen::Vector4d state;
+        state << this->position, this->velocity;
+        return state;
     }
 
     const vec* Drone::get_position() {
@@ -80,12 +89,16 @@ namespace mtsp_drones_gym {
         this->velocity = velocity_;
     }
 
-    void Drone::step(double step_time) {
+    Eigen::Vector4d Drone::step(double step_time) {
+        // std::cout << "the current position is " << this->position;
         this->position += this->velocity * step_time;
+        // std:: cout << "\nthe new position is " << this->position << std::endl << std::endl;
 
         if (this->is_carrying_payload_) {
             this->payload_->position = this->position;
         }
+
+        return this->get_state();
     }
 
     bool Drone::is_carrying_payload() { return this->is_carrying_payload_; }

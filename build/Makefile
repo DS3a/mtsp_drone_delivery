@@ -129,29 +129,29 @@ mtsp_drones_gym/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/build
 .PHONY : mtsp_drones_gym/fast
 
-src/pywrap.o: src/pywrap.cpp.o
-.PHONY : src/pywrap.o
+src/mtsp_environment.o: src/mtsp_environment.cpp.o
+.PHONY : src/mtsp_environment.o
 
 # target to build an object file
-src/pywrap.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/src/pywrap.cpp.o
-.PHONY : src/pywrap.cpp.o
+src/mtsp_environment.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o
+.PHONY : src/mtsp_environment.cpp.o
 
-src/pywrap.i: src/pywrap.cpp.i
-.PHONY : src/pywrap.i
+src/mtsp_environment.i: src/mtsp_environment.cpp.i
+.PHONY : src/mtsp_environment.i
 
 # target to preprocess a source file
-src/pywrap.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/src/pywrap.cpp.i
-.PHONY : src/pywrap.cpp.i
+src/mtsp_environment.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.i
+.PHONY : src/mtsp_environment.cpp.i
 
-src/pywrap.s: src/pywrap.cpp.s
-.PHONY : src/pywrap.s
+src/mtsp_environment.s: src/mtsp_environment.cpp.s
+.PHONY : src/mtsp_environment.s
 
 # target to generate assembly for a file
-src/pywrap.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/src/pywrap.cpp.s
-.PHONY : src/pywrap.cpp.s
+src/mtsp_environment.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.s
+.PHONY : src/mtsp_environment.cpp.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... mtsp_drones_gym"
-	@echo "... src/pywrap.o"
-	@echo "... src/pywrap.i"
-	@echo "... src/pywrap.s"
+	@echo "... src/mtsp_environment.o"
+	@echo "... src/mtsp_environment.i"
+	@echo "... src/mtsp_environment.s"
 .PHONY : help
 
 

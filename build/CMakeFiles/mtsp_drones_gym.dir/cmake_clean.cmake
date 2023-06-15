@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/mtsp_drones_gym.dir/src/pywrap.cpp.o"
-  "CMakeFiles/mtsp_drones_gym.dir/src/pywrap.cpp.o.d"
-  "mtsp_drones_gym.cpython-310-x86_64-linux-gnu.so"
+  "CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o"
+  "CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o.d"
+  "mtsp_drones_gym"
   "mtsp_drones_gym.pdb"
 )
 

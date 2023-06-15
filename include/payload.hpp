@@ -22,7 +22,7 @@ namespace mtsp_drones_gym {
         float mass_;
 
         // this is for graphical visualization
-        float radius_=0.5;
+        float radius_=0.05;
 
         // to be set to true if a drone picks it up
         bool is_carried = false;
@@ -32,6 +32,8 @@ namespace mtsp_drones_gym {
 
     public:
         Payload(double x, double y, double mass, double dest_x, double dest_y);
+
+        Eigen::Vector4d get_state();
 
         friend class Drone;
         friend class Workspace;
@@ -45,6 +47,12 @@ namespace mtsp_drones_gym {
         this->destination = vec(dest_x, dest_y);
 
         // std::cout << "initializing payload with mass " << this->mass_ << "\nand position " << this->position << std::endl;
+    }
+
+    Eigen::Vector4d Payload::get_state() {
+        Eigen::Vector4d state;
+        state << this->position, this->velocity;
+        return state;
     }
 
 }

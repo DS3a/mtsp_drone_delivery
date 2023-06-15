@@ -2,6 +2,7 @@
 #define BASE_H_
 
 #include <Eigen/Dense>
+#include <Eigen/Core>
 #include <memory>
 #include <variant>
 

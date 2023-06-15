@@ -1,8 +1,13 @@
 import sys
+import time
 sys.path.append("build/")
 from mtsp_drones_gym import Payload, Workspace
 
-Payload(1, 3, 1, 2, 2)
 ws = Workspace(True)
-ws.add_drone(x=1, y=3, radius=1, capacity=1)
-ws.add_payload(1, 2, 3, 4, 5)
+ws.add_drone(x=0, y=0, radius=0.1, capacity=1)
+ws.add_drone(x=-1, y=0, radius=0.1, capacity=1)
+ws.add_payload(1, 1.4, 3, 2, 1)
+ws.set_step_time(0.015)
+for i in range(100):
+    ws.step()
+    time.sleep(0.015)

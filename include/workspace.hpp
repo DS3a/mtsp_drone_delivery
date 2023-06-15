@@ -5,11 +5,10 @@
 #include "payload.hpp"
 #include "drone.hpp"
 #include <opencv2/opencv.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include "math.h"
-
-// double get_dist(const mtsp_drones_gym::vec* point1, const mtsp_drones_gym::vec* point2) {
-//     return (double)sqrt(pow(point1[0] - point2[0], 2) + pow(point1[1] - point2[1], 2));
-// }
 
 namespace mtsp_drones_gym {
     class Workspace {
@@ -25,8 +24,8 @@ namespace mtsp_drones_gym {
         std::vector<std::shared_ptr<mtsp_drones_gym::Payload>> payloads;
 
         bool render_ = false;
-        double render_resolution = 0.02;
-
+        double render_resolution = 0.01;
+        cv::Mat frame;
 
         // the distance between the center points of drones below which they will be assumed to be colliding
         double collision_threshold = 0.15;
@@ -35,20 +34,21 @@ namespace mtsp_drones_gym {
         // and the second is the graph of all drones present in the workspace containing info about which drones are colliding with which ones
         std::tuple<bool, std::vector<std::vector<bool>>> check_collisions();
 
-
         // these functions are for converting image points to the irl points and the irl points to the image points. This would be used for the costmap generation
-        vec img_to_irl(vec img_point);
+        vec img_to_irl(const vec* img_point);
 
-        vec irl_to_img(vec irl_point);
+        vec irl_to_img(const vec* irl_point);
+
+        std::vector<DroneAction> actions_;
 
       public:
         Workspace(bool render);
 
         // this function sets all the drones velocities
-        void set_actions();
+        void set_actions(std::vector<DroneAction>);
 
         // this function steps the simulator forward with the velocities of all elements
-        void step();
+        std::tuple<bool, std::vector<Eigen::Vector4d>, std::vector<Eigen::Vector4d>> step();
 
         void set_step_time(double step_time) {
             this->step_time_ = step_time;
@@ -66,26 +66,78 @@ namespace mtsp_drones_gym {
         this->render_ = render;
         std::cout << "initializing workspace\n";
         if (this->render_) {
-
+            this->frame = cv::Mat(this->length/this->render_resolution, this->width/this->render_resolution, CV_8UC3, cv::Scalar(255, 255, 255));
+            cv::namedWindow("mtsp drones");
         }
+    }
+
+    void Workspace::set_actions(std::vector<DroneAction> actions) {
+        this->actions_ = actions;
     }
 
     // TODO
-    void Workspace::step() {
-        for (Drone drone: this->drones) {
-            drone.step(this->step_time_);
+    std::tuple<bool, std::vector<Eigen::Vector4d>, std::vector<Eigen::Vector4d>> Workspace::step() {
+        std::vector<Eigen::Vector4d> drone_states;
+        std::vector<Eigen::Vector4d> payload_states;
+
+
+        /*
+        if (this->actions_.size() != this->drones.size()) {
+            return std::make_tuple(false, drone_states, payload_states);
+        } else {
+            for (int i=0; i < this->actions_.size(); i++) {
+                // std::visit()
+            }
+        }
+*/
+        for (Drone& drone: this->drones) {
+            drone_states.push_back(drone.step(this->step_time_));
         }
 
         this->check_collisions();
+
+        if (this->render_) {
+            this->frame = cv::Mat(this->length/this->render_resolution, this->width/this->render_resolution, CV_8UC3, cv::Scalar(255, 255, 255));
+            for (Drone& drone: this->drones) {
+                cv::Point center;
+                vec img_coords = this->irl_to_img(drone.get_position());
+                center.x = img_coords[0];
+                center.y = img_coords[1];
+                cv::circle(this->frame, center, drone.radius_/this->render_resolution, cv::Scalar(255, 0, 0), -1);
+            }
+
+            for (std::shared_ptr<Payload> payload: this->payloads) {
+                cv::Point center;
+                vec img_coords = this->irl_to_img(&payload->position);
+                center.x = img_coords[0];
+                center.y = img_coords[1];
+                cv::circle(this->frame, center, payload->radius_/this->render_resolution, cv::Scalar(0, 255, 0), -1);
+            }
+
+            cv::imshow("mtsp drones", this->frame);
+            if ((char)cv::waitKey(25) == 27) {
+                exit(0);
+            }
+
+            return std::make_tuple(true, drone_states, payload_states);
+        }
+
     }
 
-    vec Workspace::img_to_irl(vec img_point) {
-        double um = img_point[0] * this->render_resolution;
-        double vm = img_point[1] * this->render_resolution;
+    vec Workspace::img_to_irl(const vec* img_point) {
+        double um = (*img_point)[0] * this->render_resolution;
+        double vm = (*img_point)[1] * this->render_resolution;
 
         double y = this->origin[1] - um;
         double x = this->origin[0] - vm;
         return vec(x, y);
+    }
+
+    vec Workspace::irl_to_img(const vec* irl_point) {
+        int v = (this->origin[0] - (*irl_point)[0])/this->render_resolution;
+        int u = (this->origin[1] - (*irl_point)[1])/this->render_resolution;
+
+        return vec(u, v);
     }
 
     std::tuple<bool, std::vector<std::vector<bool>>> Workspace::check_collisions() {
