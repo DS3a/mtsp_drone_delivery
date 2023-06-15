@@ -17,7 +17,7 @@ PYBIND11_MODULE(mtsp_drones_gym, m) {
     // .def_readonly("v_gamma", &MyClass::v_gamma, byref)
 
     py::class_<mtsp_drones_gym::Workspace>(m, "Workspace")
-    .def(py::init<>())
+    .def(py::init<bool>())
     .def("add_drone", &mtsp_drones_gym::Workspace::add_drone,
          py::arg("x"), py::arg("y"), py::arg("radius"), py::arg("capacity"))
     .def("add_payload", &mtsp_drones_gym::Workspace::add_payload,

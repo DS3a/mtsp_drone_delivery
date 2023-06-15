@@ -15,14 +15,18 @@ namespace mtsp_drones_gym {
     class Workspace {
     private:
         // in meters
-        double height;
-        double width;
+        double length = 4.5; // along x axis
+        double width = 4; // along y axis
+
+        vec origin = vec(2.25, 2.00);
 
         double step_time_;
         std::vector<mtsp_drones_gym::Drone> drones;
         std::vector<std::shared_ptr<mtsp_drones_gym::Payload>> payloads;
 
-        bool render=false;
+        bool render_ = false;
+        double render_resolution = 0.02;
+
 
         // the distance between the center points of drones below which they will be assumed to be colliding
         double collision_threshold = 0.15;
@@ -32,9 +36,13 @@ namespace mtsp_drones_gym {
         std::tuple<bool, std::vector<std::vector<bool>>> check_collisions();
 
 
+        // these functions are for converting image points to the irl points and the irl points to the image points. This would be used for the costmap generation
+        vec img_to_irl(vec img_point);
+
+        vec irl_to_img(vec irl_point);
 
       public:
-        Workspace();
+        Workspace(bool render);
 
         // this function sets all the drones velocities
         void set_actions();
@@ -54,12 +62,30 @@ namespace mtsp_drones_gym {
         void add_payload(double x, double y, double mass, double dest_x, double dest_y);
     };
 
-    Workspace::Workspace() {
+    Workspace::Workspace(bool render) {
+        this->render_ = render;
         std::cout << "initializing workspace\n";
+        if (this->render_) {
+
+        }
     }
 
+    // TODO
     void Workspace::step() {
+        for (Drone drone: this->drones) {
+            drone.step(this->step_time_);
+        }
 
+        this->check_collisions();
+    }
+
+    vec Workspace::img_to_irl(vec img_point) {
+        double um = img_point[0] * this->render_resolution;
+        double vm = img_point[1] * this->render_resolution;
+
+        double y = this->origin[1] - um;
+        double x = this->origin[0] - vm;
+        return vec(x, y);
     }
 
     std::tuple<bool, std::vector<std::vector<bool>>> Workspace::check_collisions() {

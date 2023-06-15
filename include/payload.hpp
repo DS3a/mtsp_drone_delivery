@@ -25,7 +25,7 @@ namespace mtsp_drones_gym {
         float radius_=0.5;
 
         // to be set to true if a drone picks it up
-        bool grasped = false;
+        bool is_carried = false;
 
         // the destination of the payload
         vec destination;
@@ -33,6 +33,7 @@ namespace mtsp_drones_gym {
     public:
         Payload(double x, double y, double mass, double dest_x, double dest_y);
 
+        friend class Drone;
         friend class Workspace;
     };
 

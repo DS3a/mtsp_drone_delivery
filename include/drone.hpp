@@ -35,7 +35,7 @@ namespace mtsp_drones_gym {
 
         vec velocity;
 
-        bool is_carrying_payload = false;
+        bool is_carrying_payload_ = false;
         std::shared_ptr<Payload> payload_;
 
     public:
@@ -54,6 +54,8 @@ namespace mtsp_drones_gym {
         void set_velocity(vec velocity_);
 
         void step(double step_time);
+
+        bool is_carrying_payload();
 
         friend class Workspace;
     };
@@ -80,7 +82,13 @@ namespace mtsp_drones_gym {
 
     void Drone::step(double step_time) {
         this->position += this->velocity * step_time;
+
+        if (this->is_carrying_payload_) {
+            this->payload_->position = this->position;
+        }
     }
+
+    bool Drone::is_carrying_payload() { return this->is_carrying_payload_; }
 }
 
 #endif // DRONE_H_
