@@ -13,6 +13,9 @@ namespace swarm_planner {
         std::shared_lock<std::shared_mutex> read_swarm_config() const;
         bool write_swarm_config(std::vector<Eigen::Vector4d> drone_states,
                                 std::vector<Eigen::Vector2d> drone_goals);
+
+        friend class SwarmPlannerSE2;
+        friend class SwarmStateValidityChecker;
     };
 
     SwarmConfigTracker::SwarmConfigTracker() {}

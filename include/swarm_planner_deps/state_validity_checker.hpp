@@ -21,6 +21,10 @@ namespace swarm_planner {
     void SwarmStateValidityChecker::set_swarm_config_tracker(std::shared_ptr<SwarmConfigTracker> swarm_config_tracker) {
         this->swarm_config_tracker_ = swarm_config_tracker;
     }
+
+    bool SwarmStateValidityChecker::isValid(const ob::State *state) const {
+        return true;
+    }
 } // namespace swarm_planner
 
 #endif // STATE_VALIDITY_CHECKER_H_
