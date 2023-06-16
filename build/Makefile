@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named mtsp_drones_gym
+# Target rules for targets named mtsp_drone_delivery
 
 # Build rule for target.
-mtsp_drones_gym: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mtsp_drones_gym
-.PHONY : mtsp_drones_gym
+mtsp_drone_delivery: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mtsp_drone_delivery
+.PHONY : mtsp_drone_delivery
 
 # fast build rule for target.
-mtsp_drones_gym/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/build
-.PHONY : mtsp_drones_gym/fast
+mtsp_drone_delivery/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drone_delivery.dir/build.make CMakeFiles/mtsp_drone_delivery.dir/build
+.PHONY : mtsp_drone_delivery/fast
 
 src/mtsp_environment.o: src/mtsp_environment.cpp.o
 .PHONY : src/mtsp_environment.o
 
 # target to build an object file
 src/mtsp_environment.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drone_delivery.dir/build.make CMakeFiles/mtsp_drone_delivery.dir/src/mtsp_environment.cpp.o
 .PHONY : src/mtsp_environment.cpp.o
 
 src/mtsp_environment.i: src/mtsp_environment.cpp.i
@@ -142,7 +142,7 @@ src/mtsp_environment.i: src/mtsp_environment.cpp.i
 
 # target to preprocess a source file
 src/mtsp_environment.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drone_delivery.dir/build.make CMakeFiles/mtsp_drone_delivery.dir/src/mtsp_environment.cpp.i
 .PHONY : src/mtsp_environment.cpp.i
 
 src/mtsp_environment.s: src/mtsp_environment.cpp.s
@@ -150,7 +150,7 @@ src/mtsp_environment.s: src/mtsp_environment.cpp.s
 
 # target to generate assembly for a file
 src/mtsp_environment.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drone_delivery.dir/build.make CMakeFiles/mtsp_drone_delivery.dir/src/mtsp_environment.cpp.s
 .PHONY : src/mtsp_environment.cpp.s
 
 # Help Target
@@ -161,7 +161,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... mtsp_drones_gym"
+	@echo "... mtsp_drone_delivery"
 	@echo "... src/mtsp_environment.o"
 	@echo "... src/mtsp_environment.i"
 	@echo "... src/mtsp_environment.s"

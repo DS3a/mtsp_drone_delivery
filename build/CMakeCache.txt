@@ -14,6 +14,12 @@
 # EXTERNAL cache entries
 ########################
 
+//The directory containing a CMake configuration file for Boost.
+Boost_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0
+
+//Path to a file.
+Boost_INCLUDE_DIR:PATH=/usr/include
+
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 
@@ -148,7 +154,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=mtsp_drones_gym
+CMAKE_PROJECT_NAME:STATIC=mtsp_drone_delivery
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -215,6 +221,21 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 //The directory containing a CMake configuration file for Eigen3.
 Eigen3_DIR:PATH=/usr/share/eigen3/cmake
 
+//Path to a library.
+OMPLAPPBASE_LIBRARY:FILEPATH=OMPLAPPBASE_LIBRARY-NOTFOUND
+
+//Path to a library.
+OMPLAPP_LIBRARY:FILEPATH=OMPLAPP_LIBRARY-NOTFOUND
+
+//Include path for OMPL and its dependencies
+OMPL_INCLUDE_DIRS:STRING=/opt/ros/humble/include/ompl-1.6;/usr/include;/usr/include/eigen3
+
+//Path to a library.
+OMPL_LIBRARIES:FILEPATH=/opt/ros/humble/lib/x86_64-linux-gnu/libompl.so
+
+//Library path for OMPL and its dependencies
+OMPL_LIBRARY_DIRS:STRING=/opt/ros/humble/lib/x86_64-linux-gnu;/usr/lib/x86_64-linux-gnu;/usr/lib
+
 //The directory containing a CMake configuration file for OpenCV.
 OpenCV_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/opencv4
 
@@ -226,6 +247,18 @@ PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3
 
 //Path to a library.
 PYTHON_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpython3.10.so
+
+//The directory containing a CMake configuration file for boost_headers.
+boost_headers_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.74.0
+
+//Value Computed by CMake
+mtsp_drone_delivery_BINARY_DIR:STATIC=/home/ds3a/dev/mtsp_drones_gym/build
+
+//Value Computed by CMake
+mtsp_drone_delivery_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+mtsp_drone_delivery_SOURCE_DIR:STATIC=/home/ds3a/dev/mtsp_drones_gym
 
 //Value Computed by CMake
 mtsp_drones_gym_BINARY_DIR:STATIC=/home/ds3a/dev/mtsp_drones_gym/build
@@ -239,6 +272,9 @@ mtsp_drones_gym_LIB_DEPENDS:STATIC=general;opencv_calib3d;general;opencv_core;ge
 //Value Computed by CMake
 mtsp_drones_gym_SOURCE_DIR:STATIC=/home/ds3a/dev/mtsp_drones_gym
 
+//The directory containing a CMake configuration file for ompl.
+ompl_DIR:PATH=/opt/ros/humble/share/ompl/cmake
+
 //The directory containing a CMake configuration file for pybind11.
 pybind11_DIR:PATH=/usr/lib/cmake/pybind11
 
@@ -247,6 +283,8 @@ pybind11_DIR:PATH=/usr/lib/cmake/pybind11
 # INTERNAL cache entries
 ########################
 
+//ADVANCED property for variable: Boost_DIR
+Boost_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_ADDR2LINE
 CMAKE_ADDR2LINE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
@@ -390,12 +428,16 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding Boost
+FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake][c ][v1.74.0()]
 //Details about finding OpenCV
 FIND_PACKAGE_MESSAGE_DETAILS_OpenCV:INTERNAL=[/usr][v4.5.4()]
 //Details about finding PYTHON
 FIND_PACKAGE_MESSAGE_DETAILS_PYTHON:INTERNAL=/usr/bin/python33.10.6
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python3][v3.10.6(3.6)]
+//Details about finding ompl
+FIND_PACKAGE_MESSAGE_DETAILS_ompl:INTERNAL=[/opt/ros/humble/include/ompl-1.6;/usr/include;/usr/include/eigen3][/opt/ros/humble/lib/x86_64-linux-gnu;/usr/lib/x86_64-linux-gnu;/usr/lib][/opt/ros/humble/lib/x86_64-linux-gnu/libompl.so;/usr/lib/x86_64-linux-gnu/libboost_serialization.so;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;/usr/lib/x86_64-linux-gnu/libboost_system.so;ode][v()]
 //Test HAS_FLTO
 HAS_FLTO:INTERNAL=1
 //ADVANCED property for variable: PYTHON_EXECUTABLE
@@ -414,6 +456,8 @@ Python_ADDITIONAL_VERSIONS:INTERNAL=3.11;3.10;3.9;3.8;3.7;3.6;3.5;3.4
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 _Python:INTERNAL=PYTHON
+//ADVANCED property for variable: boost_headers_DIR
+boost_headers_DIR-ADVANCED:INTERNAL=1
 //Directories where pybind11 and possibly Python headers are located
 pybind11_INCLUDE_DIRS:INTERNAL=/usr/include;/usr/include/python3.10
 

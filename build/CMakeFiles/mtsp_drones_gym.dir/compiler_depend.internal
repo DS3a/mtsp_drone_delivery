@@ -500,6 +500,130 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o
  /usr/include/c++/11/variant
  /usr/include/c++/11/bits/parse_numbers.h
  /usr/include/c++/11/iostream
+ /home/ds3a/dev/mtsp_drones_gym/include/swarm_planner.hpp
+ /home/ds3a/dev/mtsp_drones_gym/include/swarm_planner_deps/state_validity_checker.hpp
+ /opt/ros/humble/include/ompl-1.6/ompl/base/SpaceInformation.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/State.h
+ /usr/include/boost/concept_check.hpp
+ /usr/include/boost/concept/assert.hpp
+ /usr/include/boost/config.hpp
+ /usr/include/boost/config/user.hpp
+ /usr/include/boost/config/detail/select_compiler_config.hpp
+ /usr/include/boost/config/compiler/gcc.hpp
+ /usr/include/boost/config/detail/select_stdlib_config.hpp
+ /usr/include/c++/11/version
+ /usr/include/boost/config/stdlib/libstdcpp3.hpp
+ /usr/include/boost/config/detail/select_platform_config.hpp
+ /usr/include/boost/config/platform/linux.hpp
+ /usr/include/boost/config/detail/posix_features.hpp
+ /usr/include/boost/config/detail/suffix.hpp
+ /usr/include/boost/config/helper_macros.hpp
+ /usr/include/boost/config/workaround.hpp
+ /usr/include/boost/concept/detail/general.hpp
+ /usr/include/boost/preprocessor/cat.hpp
+ /usr/include/boost/preprocessor/config/config.hpp
+ /usr/include/boost/concept/detail/backward_compatibility.hpp
+ /usr/include/boost/concept/detail/has_constraints.hpp
+ /usr/include/boost/type_traits/integral_constant.hpp
+ /usr/include/boost/detail/workaround.hpp
+ /usr/include/boost/type_traits/conditional.hpp
+ /usr/include/boost/type_traits/conversion_traits.hpp
+ /usr/include/boost/type_traits/is_convertible.hpp
+ /usr/include/boost/type_traits/intrinsics.hpp
+ /usr/include/boost/type_traits/detail/config.hpp
+ /usr/include/boost/version.hpp
+ /usr/include/boost/type_traits/is_complete.hpp
+ /usr/include/boost/type_traits/declval.hpp
+ /usr/include/boost/type_traits/add_rvalue_reference.hpp
+ /usr/include/boost/type_traits/is_void.hpp
+ /usr/include/boost/type_traits/is_reference.hpp
+ /usr/include/boost/type_traits/is_lvalue_reference.hpp
+ /usr/include/boost/type_traits/is_rvalue_reference.hpp
+ /usr/include/boost/type_traits/remove_reference.hpp
+ /usr/include/boost/type_traits/is_function.hpp
+ /usr/include/boost/type_traits/detail/is_function_cxx_11.hpp
+ /usr/include/boost/type_traits/detail/yes_no_type.hpp
+ /usr/include/boost/type_traits/is_array.hpp
+ /usr/include/boost/static_assert.hpp
+ /usr/include/boost/type_traits/is_arithmetic.hpp
+ /usr/include/boost/type_traits/is_integral.hpp
+ /usr/include/boost/type_traits/is_floating_point.hpp
+ /usr/include/boost/type_traits/is_abstract.hpp
+ /usr/include/boost/type_traits/add_lvalue_reference.hpp
+ /usr/include/boost/type_traits/add_reference.hpp
+ /usr/include/boost/type_traits/is_same.hpp
+ /usr/include/boost/concept/usage.hpp
+ /usr/include/boost/concept/detail/concept_def.hpp
+ /usr/include/boost/preprocessor/seq/for_each_i.hpp
+ /usr/include/boost/preprocessor/arithmetic/dec.hpp
+ /usr/include/boost/preprocessor/arithmetic/inc.hpp
+ /usr/include/boost/preprocessor/control/if.hpp
+ /usr/include/boost/preprocessor/control/iif.hpp
+ /usr/include/boost/preprocessor/logical/bool.hpp
+ /usr/include/boost/preprocessor/repetition/for.hpp
+ /usr/include/boost/preprocessor/debug/error.hpp
+ /usr/include/boost/preprocessor/facilities/empty.hpp
+ /usr/include/boost/preprocessor/detail/auto_rec.hpp
+ /usr/include/boost/preprocessor/repetition/detail/for.hpp
+ /usr/include/boost/preprocessor/control/expr_iif.hpp
+ /usr/include/boost/preprocessor/tuple/eat.hpp
+ /usr/include/boost/preprocessor/seq/seq.hpp
+ /usr/include/boost/preprocessor/seq/elem.hpp
+ /usr/include/boost/preprocessor/seq/size.hpp
+ /usr/include/boost/preprocessor/seq/detail/is_empty.hpp
+ /usr/include/boost/preprocessor/logical/compl.hpp
+ /usr/include/boost/preprocessor/tuple/elem.hpp
+ /usr/include/boost/preprocessor/facilities/expand.hpp
+ /usr/include/boost/preprocessor/facilities/overload.hpp
+ /usr/include/boost/preprocessor/variadic/size.hpp
+ /usr/include/boost/preprocessor/tuple/rem.hpp
+ /usr/include/boost/preprocessor/tuple/detail/is_single_return.hpp
+ /usr/include/boost/preprocessor/variadic/elem.hpp
+ /usr/include/boost/preprocessor/seq/enum.hpp
+ /usr/include/boost/preprocessor/comma_if.hpp
+ /usr/include/boost/preprocessor/punctuation/comma_if.hpp
+ /usr/include/boost/preprocessor/punctuation/comma.hpp
+ /usr/include/boost/concept/detail/concept_undef.hpp
+ /opt/ros/humble/include/ompl-1.6/ompl/base/StateValidityChecker.h
+ /opt/ros/humble/include/ompl-1.6/ompl/util/ClassForward.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/MotionValidator.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/StateSpace.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/StateSpaceTypes.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/StateSampler.h
+ /opt/ros/humble/include/ompl-1.6/ompl/util/RandomNumbers.h
+ /usr/include/c++/11/random
+ /usr/include/c++/11/bits/random.h
+ /usr/include/x86_64-linux-gnu/c++/11/bits/opt_random.h
+ /usr/include/c++/11/bits/random.tcc
+ /usr/include/c++/11/numeric
+ /usr/include/c++/11/bits/stl_numeric.h
+ /usr/include/c++/11/pstl/glue_numeric_defs.h
+ /opt/ros/humble/include/ompl-1.6/ompl/config.h
+ /opt/ros/humble/include/ompl-1.6/ompl/util/ProlateHyperspheroid.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/ProjectionEvaluator.h
+ /opt/ros/humble/include/ompl-1.6/ompl/util/Console.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/GenericParam.h
+ /opt/ros/humble/include/ompl-1.6/ompl/util/String.h
+ /usr/include/c++/11/map
+ /usr/include/c++/11/bits/stl_tree.h
+ /usr/include/c++/11/bits/stl_map.h
+ /usr/include/c++/11/bits/stl_multimap.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/spaces/RealVectorBounds.h
+ /usr/include/c++/11/valarray
+ /usr/include/c++/11/bits/valarray_array.h
+ /usr/include/c++/11/bits/valarray_array.tcc
+ /usr/include/c++/11/bits/valarray_before.h
+ /usr/include/c++/11/bits/slice_array.h
+ /usr/include/c++/11/bits/valarray_after.h
+ /usr/include/c++/11/bits/gslice.h
+ /usr/include/c++/11/bits/gslice_array.h
+ /usr/include/c++/11/bits/mask_array.h
+ /usr/include/c++/11/bits/indirect_array.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/ValidStateSampler.h
+ /opt/ros/humble/include/ompl-1.6/ompl/util/Exception.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/spaces/SE2StateSpace.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/spaces/RealVectorStateSpace.h
+ /opt/ros/humble/include/ompl-1.6/ompl/base/spaces/SO2StateSpace.h
  /home/ds3a/dev/mtsp_drones_gym/include/workspace.hpp
  /home/ds3a/dev/mtsp_drones_gym/include/payload.hpp
  /home/ds3a/dev/mtsp_drones_gym/include/drone.hpp
@@ -549,10 +673,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o
  /usr/include/opencv4/opencv2/core/async.hpp
  /usr/include/opencv4/opencv2/dnn/version.hpp
  /usr/include/opencv4/opencv2/dnn/dict.hpp
- /usr/include/c++/11/map
- /usr/include/c++/11/bits/stl_tree.h
- /usr/include/c++/11/bits/stl_map.h
- /usr/include/c++/11/bits/stl_multimap.h
  /usr/include/opencv4/opencv2/dnn/layer.hpp
  /usr/include/opencv4/opencv2/dnn/dnn.inl.hpp
  /usr/include/opencv4/opencv2/dnn/utils/inference_engine.hpp

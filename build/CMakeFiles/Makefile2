@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /home/ds3a/dev/mtsp_drones_gym/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/mtsp_drones_gym.dir/all
+all: CMakeFiles/mtsp_drone_delivery.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/mtsp_drones_gym.dir/clean
+clean: CMakeFiles/mtsp_drone_delivery.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/mtsp_drones_gym.dir
+# Target rules for target CMakeFiles/mtsp_drone_delivery.dir
 
 # All Build rule for target.
-CMakeFiles/mtsp_drones_gym.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ds3a/dev/mtsp_drones_gym/build/CMakeFiles --progress-num=1,2 "Built target mtsp_drones_gym"
-.PHONY : CMakeFiles/mtsp_drones_gym.dir/all
+CMakeFiles/mtsp_drone_delivery.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drone_delivery.dir/build.make CMakeFiles/mtsp_drone_delivery.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drone_delivery.dir/build.make CMakeFiles/mtsp_drone_delivery.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ds3a/dev/mtsp_drones_gym/build/CMakeFiles --progress-num=1,2 "Built target mtsp_drone_delivery"
+.PHONY : CMakeFiles/mtsp_drone_delivery.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/mtsp_drones_gym.dir/rule: cmake_check_build_system
+CMakeFiles/mtsp_drone_delivery.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ds3a/dev/mtsp_drones_gym/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/mtsp_drones_gym.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/mtsp_drone_delivery.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ds3a/dev/mtsp_drones_gym/build/CMakeFiles 0
-.PHONY : CMakeFiles/mtsp_drones_gym.dir/rule
+.PHONY : CMakeFiles/mtsp_drone_delivery.dir/rule
 
 # Convenience name for target.
-mtsp_drones_gym: CMakeFiles/mtsp_drones_gym.dir/rule
-.PHONY : mtsp_drones_gym
+mtsp_drone_delivery: CMakeFiles/mtsp_drone_delivery.dir/rule
+.PHONY : mtsp_drone_delivery
 
 # clean rule for target.
-CMakeFiles/mtsp_drones_gym.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drones_gym.dir/build.make CMakeFiles/mtsp_drones_gym.dir/clean
-.PHONY : CMakeFiles/mtsp_drones_gym.dir/clean
+CMakeFiles/mtsp_drone_delivery.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mtsp_drone_delivery.dir/build.make CMakeFiles/mtsp_drone_delivery.dir/clean
+.PHONY : CMakeFiles/mtsp_drone_delivery.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

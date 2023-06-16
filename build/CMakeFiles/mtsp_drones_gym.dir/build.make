@@ -127,6 +127,10 @@ mtsp_drones_gym: /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.5.4d
 mtsp_drones_gym: /usr/lib/x86_64-linux-gnu/libopencv_wechat_qrcode.so.4.5.4d
 mtsp_drones_gym: /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.5.4d
 mtsp_drones_gym: /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.5.4d
+mtsp_drones_gym: /opt/ros/humble/lib/x86_64-linux-gnu/libompl.so
+mtsp_drones_gym: /usr/lib/x86_64-linux-gnu/libboost_serialization.so
+mtsp_drones_gym: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+mtsp_drones_gym: /usr/lib/x86_64-linux-gnu/libboost_system.so
 mtsp_drones_gym: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.5.4d
 mtsp_drones_gym: /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.5.4d
 mtsp_drones_gym: /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.5.4d

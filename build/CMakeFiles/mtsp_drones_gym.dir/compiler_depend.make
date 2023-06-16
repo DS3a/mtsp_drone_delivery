@@ -499,6 +499,130 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
   /usr/include/c++/11/variant \
   /usr/include/c++/11/bits/parse_numbers.h \
   /usr/include/c++/11/iostream \
+  /home/ds3a/dev/mtsp_drones_gym/include/swarm_planner.hpp \
+  /home/ds3a/dev/mtsp_drones_gym/include/swarm_planner_deps/state_validity_checker.hpp \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/SpaceInformation.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/State.h \
+  /usr/include/boost/concept_check.hpp \
+  /usr/include/boost/concept/assert.hpp \
+  /usr/include/boost/config.hpp \
+  /usr/include/boost/config/user.hpp \
+  /usr/include/boost/config/detail/select_compiler_config.hpp \
+  /usr/include/boost/config/compiler/gcc.hpp \
+  /usr/include/boost/config/detail/select_stdlib_config.hpp \
+  /usr/include/c++/11/version \
+  /usr/include/boost/config/stdlib/libstdcpp3.hpp \
+  /usr/include/boost/config/detail/select_platform_config.hpp \
+  /usr/include/boost/config/platform/linux.hpp \
+  /usr/include/boost/config/detail/posix_features.hpp \
+  /usr/include/boost/config/detail/suffix.hpp \
+  /usr/include/boost/config/helper_macros.hpp \
+  /usr/include/boost/config/workaround.hpp \
+  /usr/include/boost/concept/detail/general.hpp \
+  /usr/include/boost/preprocessor/cat.hpp \
+  /usr/include/boost/preprocessor/config/config.hpp \
+  /usr/include/boost/concept/detail/backward_compatibility.hpp \
+  /usr/include/boost/concept/detail/has_constraints.hpp \
+  /usr/include/boost/type_traits/integral_constant.hpp \
+  /usr/include/boost/detail/workaround.hpp \
+  /usr/include/boost/type_traits/conditional.hpp \
+  /usr/include/boost/type_traits/conversion_traits.hpp \
+  /usr/include/boost/type_traits/is_convertible.hpp \
+  /usr/include/boost/type_traits/intrinsics.hpp \
+  /usr/include/boost/type_traits/detail/config.hpp \
+  /usr/include/boost/version.hpp \
+  /usr/include/boost/type_traits/is_complete.hpp \
+  /usr/include/boost/type_traits/declval.hpp \
+  /usr/include/boost/type_traits/add_rvalue_reference.hpp \
+  /usr/include/boost/type_traits/is_void.hpp \
+  /usr/include/boost/type_traits/is_reference.hpp \
+  /usr/include/boost/type_traits/is_lvalue_reference.hpp \
+  /usr/include/boost/type_traits/is_rvalue_reference.hpp \
+  /usr/include/boost/type_traits/remove_reference.hpp \
+  /usr/include/boost/type_traits/is_function.hpp \
+  /usr/include/boost/type_traits/detail/is_function_cxx_11.hpp \
+  /usr/include/boost/type_traits/detail/yes_no_type.hpp \
+  /usr/include/boost/type_traits/is_array.hpp \
+  /usr/include/boost/static_assert.hpp \
+  /usr/include/boost/type_traits/is_arithmetic.hpp \
+  /usr/include/boost/type_traits/is_integral.hpp \
+  /usr/include/boost/type_traits/is_floating_point.hpp \
+  /usr/include/boost/type_traits/is_abstract.hpp \
+  /usr/include/boost/type_traits/add_lvalue_reference.hpp \
+  /usr/include/boost/type_traits/add_reference.hpp \
+  /usr/include/boost/type_traits/is_same.hpp \
+  /usr/include/boost/concept/usage.hpp \
+  /usr/include/boost/concept/detail/concept_def.hpp \
+  /usr/include/boost/preprocessor/seq/for_each_i.hpp \
+  /usr/include/boost/preprocessor/arithmetic/dec.hpp \
+  /usr/include/boost/preprocessor/arithmetic/inc.hpp \
+  /usr/include/boost/preprocessor/control/if.hpp \
+  /usr/include/boost/preprocessor/control/iif.hpp \
+  /usr/include/boost/preprocessor/logical/bool.hpp \
+  /usr/include/boost/preprocessor/repetition/for.hpp \
+  /usr/include/boost/preprocessor/debug/error.hpp \
+  /usr/include/boost/preprocessor/facilities/empty.hpp \
+  /usr/include/boost/preprocessor/detail/auto_rec.hpp \
+  /usr/include/boost/preprocessor/repetition/detail/for.hpp \
+  /usr/include/boost/preprocessor/control/expr_iif.hpp \
+  /usr/include/boost/preprocessor/tuple/eat.hpp \
+  /usr/include/boost/preprocessor/seq/seq.hpp \
+  /usr/include/boost/preprocessor/seq/elem.hpp \
+  /usr/include/boost/preprocessor/seq/size.hpp \
+  /usr/include/boost/preprocessor/seq/detail/is_empty.hpp \
+  /usr/include/boost/preprocessor/logical/compl.hpp \
+  /usr/include/boost/preprocessor/tuple/elem.hpp \
+  /usr/include/boost/preprocessor/facilities/expand.hpp \
+  /usr/include/boost/preprocessor/facilities/overload.hpp \
+  /usr/include/boost/preprocessor/variadic/size.hpp \
+  /usr/include/boost/preprocessor/tuple/rem.hpp \
+  /usr/include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+  /usr/include/boost/preprocessor/variadic/elem.hpp \
+  /usr/include/boost/preprocessor/seq/enum.hpp \
+  /usr/include/boost/preprocessor/comma_if.hpp \
+  /usr/include/boost/preprocessor/punctuation/comma_if.hpp \
+  /usr/include/boost/preprocessor/punctuation/comma.hpp \
+  /usr/include/boost/concept/detail/concept_undef.hpp \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/StateValidityChecker.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/util/ClassForward.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/MotionValidator.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/StateSpace.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/StateSpaceTypes.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/StateSampler.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/util/RandomNumbers.h \
+  /usr/include/c++/11/random \
+  /usr/include/c++/11/bits/random.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/opt_random.h \
+  /usr/include/c++/11/bits/random.tcc \
+  /usr/include/c++/11/numeric \
+  /usr/include/c++/11/bits/stl_numeric.h \
+  /usr/include/c++/11/pstl/glue_numeric_defs.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/config.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/util/ProlateHyperspheroid.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/ProjectionEvaluator.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/util/Console.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/GenericParam.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/util/String.h \
+  /usr/include/c++/11/map \
+  /usr/include/c++/11/bits/stl_tree.h \
+  /usr/include/c++/11/bits/stl_map.h \
+  /usr/include/c++/11/bits/stl_multimap.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/spaces/RealVectorBounds.h \
+  /usr/include/c++/11/valarray \
+  /usr/include/c++/11/bits/valarray_array.h \
+  /usr/include/c++/11/bits/valarray_array.tcc \
+  /usr/include/c++/11/bits/valarray_before.h \
+  /usr/include/c++/11/bits/slice_array.h \
+  /usr/include/c++/11/bits/valarray_after.h \
+  /usr/include/c++/11/bits/gslice.h \
+  /usr/include/c++/11/bits/gslice_array.h \
+  /usr/include/c++/11/bits/mask_array.h \
+  /usr/include/c++/11/bits/indirect_array.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/ValidStateSampler.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/util/Exception.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/spaces/SE2StateSpace.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/spaces/RealVectorStateSpace.h \
+  /opt/ros/humble/include/ompl-1.6/ompl/base/spaces/SO2StateSpace.h \
   /home/ds3a/dev/mtsp_drones_gym/include/workspace.hpp \
   /home/ds3a/dev/mtsp_drones_gym/include/payload.hpp \
   /home/ds3a/dev/mtsp_drones_gym/include/drone.hpp \
@@ -548,10 +672,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
   /usr/include/opencv4/opencv2/core/async.hpp \
   /usr/include/opencv4/opencv2/dnn/version.hpp \
   /usr/include/opencv4/opencv2/dnn/dict.hpp \
-  /usr/include/c++/11/map \
-  /usr/include/c++/11/bits/stl_tree.h \
-  /usr/include/c++/11/bits/stl_map.h \
-  /usr/include/c++/11/bits/stl_multimap.h \
   /usr/include/opencv4/opencv2/dnn/layer.hpp \
   /usr/include/opencv4/opencv2/dnn/dnn.inl.hpp \
   /usr/include/opencv4/opencv2/dnn/utils/inference_engine.hpp \
@@ -691,8 +811,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/opencv4/opencv2/stitching.hpp:
 
-/usr/include/opencv4/opencv2/objdetect/face.hpp:
-
 /usr/include/opencv4/opencv2/objdetect.hpp:
 
 /usr/include/opencv4/opencv2/imgproc/segmentation.hpp:
@@ -739,8 +857,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/opencv4/opencv2/flann/nn_index.h:
 
-/usr/include/opencv4/opencv2/flann/saving.h:
-
 /usr/include/opencv4/opencv2/flann/any.h:
 
 /usr/include/opencv4/opencv2/flann/params.h:
@@ -753,7 +869,159 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/opencv4/opencv2/flann/general.h:
 
+/usr/include/opencv4/opencv2/core/async.hpp:
+
+/usr/include/opencv4/opencv2/dnn/dnn.hpp:
+
+/usr/include/opencv4/opencv2/dnn.hpp:
+
+/usr/include/opencv4/opencv2/core/affine.hpp:
+
+/usr/include/opencv4/opencv2/flann/config.h:
+
+/usr/include/opencv4/opencv2/core/ovx.hpp:
+
+/usr/include/c++/11/ratio:
+
+/usr/include/c++/11/chrono:
+
+/usr/include/opencv4/opencv2/core/utility.hpp:
+
+/usr/include/opencv4/opencv2/core/operations.hpp:
+
+/usr/include/opencv4/opencv2/core/persistence.hpp:
+
+/usr/include/opencv4/opencv2/core/mat.inl.hpp:
+
+/usr/include/opencv4/opencv2/core/bufferpool.hpp:
+
+/usr/include/libintl.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
+
+/usr/include/opencv4/opencv2/core/fast_math.hpp:
+
+/usr/include/opencv4/opencv2/core/saturate.hpp:
+
+/usr/include/opencv4/opencv2/core/vsx_utils.hpp:
+
+/usr/include/opencv4/opencv2/core/check.hpp:
+
+/usr/include/opencv4/opencv2/core/neon_utils.hpp:
+
+/usr/include/opencv4/opencv2/core/cvstd.hpp:
+
+/usr/include/opencv4/opencv2/core/hal/interface.h:
+
+/usr/include/opencv4/opencv2/core/version.hpp:
+
+/usr/include/opencv4/opencv2/opencv_modules.hpp:
+
+/usr/include/opencv4/opencv2/opencv.hpp:
+
+/home/ds3a/dev/mtsp_drones_gym/include/drone.hpp:
+
+/home/ds3a/dev/mtsp_drones_gym/include/workspace.hpp:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/spaces/SO2StateSpace.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/spaces/RealVectorStateSpace.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/util/Exception.h:
+
+/usr/include/c++/11/bits/gslice.h:
+
+/usr/include/c++/11/bits/slice_array.h:
+
 /usr/include/opencv4/opencv2/dnn/layer.hpp:
+
+/usr/include/c++/11/bits/valarray_before.h:
+
+/usr/include/c++/11/bits/valarray_array.h:
+
+/usr/include/c++/11/bits/stl_multimap.h:
+
+/usr/include/opencv4/opencv2/core/cvstd_wrapper.hpp:
+
+/usr/include/c++/11/map:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/GenericParam.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/util/Console.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/ProjectionEvaluator.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/util/ProlateHyperspheroid.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/config.h:
+
+/usr/include/c++/11/pstl/glue_numeric_defs.h:
+
+/usr/include/c++/11/bits/stl_numeric.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/opt_random.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/util/RandomNumbers.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/StateSampler.h:
+
+/usr/include/opencv4/opencv2/core/base.hpp:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/StateSpaceTypes.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/StateSpace.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/MotionValidator.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/util/ClassForward.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/StateValidityChecker.h:
+
+/usr/include/boost/preprocessor/punctuation/comma.hpp:
+
+/usr/include/boost/preprocessor/punctuation/comma_if.hpp:
+
+/usr/include/boost/preprocessor/comma_if.hpp:
+
+/usr/include/opencv4/opencv2/objdetect/face.hpp:
+
+/usr/include/boost/preprocessor/variadic/elem.hpp:
+
+/usr/include/boost/preprocessor/variadic/size.hpp:
+
+/usr/include/boost/preprocessor/facilities/expand.hpp:
+
+/usr/include/boost/preprocessor/tuple/elem.hpp:
+
+/usr/include/boost/preprocessor/logical/compl.hpp:
+
+/usr/include/boost/preprocessor/seq/detail/is_empty.hpp:
+
+/usr/include/boost/preprocessor/seq/size.hpp:
+
+/usr/include/boost/preprocessor/seq/elem.hpp:
+
+/usr/include/boost/preprocessor/tuple/eat.hpp:
+
+/usr/include/boost/preprocessor/repetition/detail/for.hpp:
+
+/usr/include/boost/preprocessor/detail/auto_rec.hpp:
+
+/usr/include/boost/preprocessor/facilities/empty.hpp:
+
+/usr/include/boost/preprocessor/debug/error.hpp:
+
+/usr/include/boost/preprocessor/logical/bool.hpp:
+
+/usr/include/boost/preprocessor/control/if.hpp:
+
+/usr/include/boost/preprocessor/arithmetic/inc.hpp:
+
+/usr/include/boost/preprocessor/arithmetic/dec.hpp:
+
+/usr/include/boost/concept/detail/concept_def.hpp:
+
+/usr/include/c++/11/bits/gslice_array.h:
 
 /usr/include/c++/11/bits/stl_bvector.h:
 
@@ -776,6 +1044,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h:
 
 /usr/include/eigen3/Eigen/src/Core/products/SelfadjointMatrixVector.h:
+
+/usr/include/boost/concept/detail/concept_undef.hpp:
 
 /usr/include/c++/11/bits/uses_allocator.h:
 
@@ -811,10 +1081,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/bits/stl_iterator_base_types.h:
 
-/usr/include/libintl.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
-
 /usr/include/c++/11/bits/sstream.tcc:
 
 /usr/include/c++/11/bits/predefined_ops.h:
@@ -824,6 +1090,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
 /usr/include/c++/11/bits/locale_facets.h:
+
+/usr/include/boost/concept/detail/general.hpp:
 
 /usr/include/c++/11/bits/vector.tcc:
 
@@ -863,11 +1131,19 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
+/usr/include/c++/11/valarray:
+
 /usr/include/c++/11/bits/alloc_traits.h:
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 
 /usr/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h:
+
+/usr/include/c++/11/bits/unique_lock.h:
+
+/usr/include/c++/11/mutex:
+
+/usr/include/eigen3/Eigen/src/Core/CommaInitializer.h:
 
 /usr/include/c++/11/bits/stl_vector.h:
 
@@ -883,8 +1159,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/bits/stl_function.h:
 
-/usr/include/c++/11/tuple:
-
 /usr/include/opencv4/opencv2/stitching/detail/blenders.hpp:
 
 /usr/include/eigen3/Eigen/src/Core/Dot.h:
@@ -897,6 +1171,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
+/usr/include/boost/concept/usage.hpp:
+
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
@@ -907,6 +1183,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
+/usr/include/boost/type_traits/is_void.hpp:
+
 /usr/include/c++/11/backward/binders.h:
 
 /usr/include/pthread.h:
@@ -914,6 +1192,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/time.h:
 
 /usr/include/c++/11/string_view:
+
+/usr/include/boost/type_traits/detail/config.hpp:
 
 /usr/include/wctype.h:
 
@@ -933,11 +1213,7 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctions.h:
 
-/usr/include/opencv4/opencv2/core/cvstd.hpp:
-
 /usr/include/c++/11/functional:
-
-/usr/include/x86_64-linux-gnu/bits/local_lim.h:
 
 /usr/include/c++/11/bits/stl_heap.h:
 
@@ -950,6 +1226,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/c++/11/bits/refwrap.h:
 
 /usr/include/stdint.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/State.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
 
@@ -967,21 +1245,27 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
-/usr/include/c++/11/bits/unique_ptr.h:
+/usr/include/opencv4/opencv2/flann/miniflann.hpp:
+
+/usr/include/c++/11/bits/cxxabi_forced.h:
+
+/usr/include/boost/preprocessor/seq/for_each_i.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
-/usr/include/c++/11/mutex:
+/usr/include/opencv4/opencv2/core/matx.hpp:
 
-/usr/include/eigen3/Eigen/src/Core/CommaInitializer.h:
-
-/usr/include/c++/11/bits/unique_lock.h:
+/usr/include/c++/11/ext/numeric_traits.h:
 
 /usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h:
 
 /usr/include/c++/11/bits/stl_iterator_base_funcs.h:
 
 /usr/include/opencv4/opencv2/flann/hierarchical_clustering_index.h:
+
+/usr/include/boost/preprocessor/repetition/for.hpp:
+
+/usr/include/boost/preprocessor/cat.hpp:
 
 /usr/include/eigen3/Eigen/src/Core/NoAlias.h:
 
@@ -1013,6 +1297,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/cstring:
 
+/usr/include/boost/config/user.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
 /usr/include/eigen3/Eigen/src/Core/util/Meta.h:
@@ -1032,6 +1318,14 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/eigen3/Eigen/src/Core/Transpositions.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+
+/usr/include/opencv4/opencv2/features2d.hpp:
+
+/usr/include/c++/11/bits/nested_exception.h:
+
+/usr/include/c++/11/bits/range_access.h:
+
+/usr/include/c++/11/bits/random.tcc:
 
 /usr/include/c++/11/vector:
 
@@ -1059,13 +1353,7 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/compare:
 
-/usr/include/c++/11/bits/basic_ios.tcc:
-
 /usr/include/eigen3/Eigen/src/QR/HouseholderQR.h:
-
-/usr/include/opencv4/opencv2/dnn/version.hpp:
-
-/usr/include/opencv4/opencv2/dnn/dict.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
@@ -1074,10 +1362,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
 /usr/include/eigen3/Eigen/src/LU/FullPivLU.h:
-
-/usr/include/c++/11/set:
-
-/usr/include/c++/11/bits/stl_relops.h:
 
 /usr/include/c++/11/cstdlib:
 
@@ -1093,21 +1377,21 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/SVD/SVDBase.h:
 
+/usr/include/boost/config/detail/select_platform_config.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
 
 /usr/include/eigen3/Eigen/src/misc/Image.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
 
-/usr/include/ctype.h:
+/usr/include/boost/config/detail/select_stdlib_config.hpp:
 
-/usr/include/opencv4/opencv2/core/ovx.hpp:
+/usr/include/ctype.h:
 
 /usr/include/c++/11/bits/ranges_base.h:
 
 /usr/include/c++/11/tr1/gamma.tcc:
-
-/usr/include/opencv4/opencv2/core/saturate.hpp:
 
 /usr/include/errno.h:
 
@@ -1124,10 +1408,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
 /usr/include/c++/11/bits/exception.h:
-
-/usr/include/opencv4/opencv2/core/optim.hpp:
-
-/usr/include/c++/11/cmath:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
@@ -1159,11 +1439,21 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/ext/type_traits.h:
 
+/usr/include/opencv4/opencv2/core/mat.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
+
+/usr/include/boost/type_traits/is_floating_point.hpp:
+
 /usr/include/eigen3/Eigen/src/Core/util/ConfigureVectorization.h:
 
 /usr/include/c++/11/bits/allocated_ptr.h:
 
 /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h:
+
+/usr/include/c++/11/ctime:
+
+/usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /home/ds3a/dev/mtsp_drones_gym/include/base.hpp:
 
@@ -1173,6 +1463,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/bits/hashtable_policy.h:
 
+/usr/include/boost/type_traits/remove_reference.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 
 /usr/include/c++/11/bits/iterator_concepts.h:
@@ -1180,12 +1472,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
 /usr/include/stdio.h:
-
-/usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h:
-
-/usr/include/opencv4/opencv2/core/base.hpp:
-
-/usr/include/c++/11/cwchar:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
 
@@ -1205,11 +1491,13 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
 
+/usr/include/c++/11/cwchar:
+
+/usr/include/boost/type_traits/is_lvalue_reference.hpp:
+
 /usr/include/eigen3/Eigen/src/Core/VectorBlock.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
-
-/usr/include/eigen3/Eigen/src/Core/util/IndexedViewHelper.h:
 
 /usr/include/c++/11/bits/locale_facets_nonio.tcc:
 
@@ -1239,9 +1527,9 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/tr1/poly_hermite.tcc:
 
-/usr/include/c++/11/ext/concurrence.h:
+/usr/include/c++/11/tuple:
 
-/usr/include/eigen3/Eigen/Core:
+/usr/include/boost/config/workaround.hpp:
 
 /usr/include/c++/11/complex:
 
@@ -1253,9 +1541,21 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/Core/util/Constants.h:
 
+/usr/include/opencv4/opencv2/dnn/dict.hpp:
+
+/usr/include/boost/type_traits/conditional.hpp:
+
+/usr/include/c++/11/bits/valarray_array.tcc:
+
+/usr/include/c++/11/bits/stl_tree.h:
+
+/usr/include/c++/11/initializer_list:
+
 /usr/include/c++/11/bits/std_function.h:
 
 /usr/include/c++/11/bits/stringfwd.h:
+
+/usr/include/boost/preprocessor/seq/seq.hpp:
 
 /usr/include/eigen3/Eigen/src/Geometry/Hyperplane.h:
 
@@ -1297,7 +1597,7 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/Core/functors/UnaryFunctors.h:
 
-/usr/include/opencv4/opencv2/core/utility.hpp:
+/usr/include/boost/preprocessor/seq/enum.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
@@ -1316,6 +1616,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
 /usr/include/c++/11/bits/ranges_cmp.h:
+
+/usr/include/c++/11/random:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h:
 
@@ -1341,13 +1643,15 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/type_traits:
 
-/usr/include/opencv4/opencv2/core/vsx_utils.hpp:
-
 /usr/include/c++/11/numbers:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/spaces/SE2StateSpace.h:
 
 /usr/include/c++/11/bits/ptr_traits.h:
 
 /usr/include/c++/11/sstream:
+
+/usr/include/boost/type_traits/is_same.hpp:
 
 /usr/include/c++/11/bits/stl_uninitialized.h:
 
@@ -1377,11 +1681,13 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
-/usr/include/x86_64-linux-gnu/bits/locale.h:
-
 /usr/include/eigen3/Eigen/src/Cholesky/LDLT.h:
 
 /usr/include/c++/11/bits/stl_iterator.h:
+
+/usr/include/boost/type_traits/conversion_traits.hpp:
+
+/usr/include/boost/type_traits/detail/is_function_cxx_11.hpp:
 
 /usr/include/c++/11/debug/debug.h:
 
@@ -1392,6 +1698,10 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/x86_64-linux-gnu/asm/unistd_64.h:
 
 /usr/include/c++/11/tr1/bessel_function.tcc:
+
+/usr/include/c++/11/bits/basic_ios.tcc:
+
+/usr/include/boost/type_traits/is_reference.hpp:
 
 /usr/include/opencv4/opencv2/flann/linear_index.h:
 
@@ -1445,13 +1755,13 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/string.h:
 
-/usr/include/opencv4/opencv2/opencv.hpp:
-
 /usr/include/strings.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
 /usr/include/c++/11/bits/ranges_util.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/util/String.h:
 
 /usr/include/x86_64-linux-gnu/asm/unistd.h:
 
@@ -1459,13 +1769,9 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h:
-
 /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverMatrix.h:
 
 /usr/include/limits.h:
-
-/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
 
 /usr/include/linux/limits.h:
 
@@ -1489,7 +1795,11 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/iterator:
 
-/usr/include/opencv4/opencv2/core/mat.inl.hpp:
+/usr/include/boost/type_traits/detail/yes_no_type.hpp:
+
+/usr/include/opencv4/opencv2/core/cvstd.inl.hpp:
+
+/usr/include/c++/11/pstl/glue_algorithm_defs.h:
 
 /usr/include/opencv4/opencv2/stitching/detail/matchers.hpp:
 
@@ -1509,17 +1819,21 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/opencv4/opencv2/stitching/detail/seam_finders.hpp:
 
+/usr/include/boost/type_traits/is_function.hpp:
+
 /usr/include/eigen3/Eigen/src/Core/Array.h:
 
 /usr/include/eigen3/Eigen/src/Core/Map.h:
 
 /usr/include/eigen3/Eigen/src/Core/util/XprHelper.h:
 
-/usr/include/eigen3/Eigen/src/Core/util/Memory.h:
-
-/usr/include/opencv4/opencv2/dnn/dnn.hpp:
-
 /usr/include/eigen3/Eigen/src/Core/util/SymbolicIndex.h:
+
+/usr/include/opencv4/opencv2/core.hpp:
+
+/usr/include/boost/preprocessor/control/expr_iif.hpp:
+
+/usr/include/eigen3/Eigen/src/Core/NumTraits.h:
 
 /usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:
 
@@ -1537,6 +1851,12 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/Core/arch/Default/Settings.h:
 
+/usr/include/opencv4/opencv2/core/cv_cpu_dispatch.h:
+
+/usr/include/locale.h:
+
+/usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h:
+
 /usr/include/eigen3/Eigen/src/Core/GlobalFunctions.h:
 
 /usr/include/eigen3/Eigen/src/Core/functors/BinaryFunctors.h:
@@ -1546,8 +1866,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/eigen3/Eigen/src/Core/functors/NullaryFunctors.h:
 
 /usr/include/eigen3/Eigen/Jacobi:
-
-/usr/include/c++/11/chrono:
 
 /usr/include/eigen3/Eigen/src/Core/functors/StlFunctors.h:
 
@@ -1569,7 +1887,7 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/Core/EigenBase.h:
 
-/home/ds3a/dev/mtsp_drones_gym/include/drone.hpp:
+/usr/include/boost/preprocessor/facilities/overload.hpp:
 
 /usr/include/eigen3/Eigen/src/Core/Fuzzy.h:
 
@@ -1584,10 +1902,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/eigen3/Eigen/src/Core/ArrayBase.h:
 
 /usr/include/eigen3/Eigen/src/Core/DenseStorage.h:
-
-/usr/include/c++/11/system_error:
-
-/usr/include/eigen3/Eigen/src/Core/ReturnByValue.h:
 
 /usr/include/eigen3/Eigen/src/Core/Product.h:
 
@@ -1617,10 +1931,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/Core/SelfCwiseBinaryOp.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
-
-/usr/include/eigen3/Eigen/src/Core/StableNorm.h:
-
 /usr/include/c++/11/bits/basic_ios.h:
 
 /usr/include/eigen3/Eigen/src/Core/MapBase.h:
@@ -1636,8 +1946,6 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/eigen3/Eigen/src/Core/DiagonalMatrix.h:
 
 /usr/include/eigen3/Eigen/src/Eigenvalues/ComplexSchur.h:
-
-/usr/include/c++/11/bits/stl_multimap.h:
 
 /usr/include/eigen3/Eigen/src/Core/DiagonalProduct.h:
 
@@ -1656,6 +1964,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/eigen3/Eigen/src/Core/SolverBase.h:
 
 /usr/include/eigen3/Eigen/src/Core/PermutationMatrix.h:
+
+/usr/include/boost/config/detail/select_compiler_config.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
@@ -1685,6 +1995,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/x86_64-linux-gnu/sys/syscall.h:
 
+/usr/include/c++/11/numeric:
+
 /usr/include/eigen3/Eigen/src/SVD/BDCSVD.h:
 
 /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrix.h:
@@ -1694,6 +2006,10 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/opencv4/opencv2/ml.hpp:
 
 /usr/include/eigen3/Eigen/src/Core/products/SelfadjointProduct.h:
+
+/usr/include/c++/11/ext/concurrence.h:
+
+/opt/ros/humble/include/ompl-1.6/ompl/base/SpaceInformation.h:
 
 /usr/include/eigen3/Eigen/src/Core/products/SelfadjointRank2Update.h:
 
@@ -1711,6 +2027,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/Core/products/TriangularMatrixMatrix.h:
 
+/usr/include/boost/preprocessor/tuple/rem.hpp:
+
 /usr/include/eigen3/Eigen/src/Householder/BlockHouseholder.h:
 
 /usr/include/eigen3/Eigen/src/Geometry/Quaternion.h:
@@ -1725,19 +2043,39 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/opencv4/opencv2/imgcodecs.hpp:
 
+/usr/include/boost/preprocessor/control/iif.hpp:
+
 /usr/include/eigen3/Eigen/src/Core/Random.h:
 
 /usr/include/eigen3/Eigen/src/Core/Replicate.h:
 
 /usr/include/c++/11/bits/shared_ptr.h:
 
+/opt/ros/humble/include/ompl-1.6/ompl/base/spaces/RealVectorBounds.h:
+
+/usr/include/eigen3/Eigen/src/Core/arch/SSE/TypeCasting.h:
+
+/usr/include/boost/concept_check.hpp:
+
 /usr/include/c++/11/variant:
 
+/usr/include/boost/type_traits/is_complete.hpp:
+
 /usr/include/eigen3/Eigen/src/Core/util/ReenableStupidWarnings.h:
+
+/usr/include/c++/11/bits/stl_map.h:
+
+/usr/include/boost/type_traits/declval.hpp:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h:
 
 /usr/include/eigen3/Eigen/LU:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+/usr/include/eigen3/Eigen/src/Core/StableNorm.h:
+
+/usr/include/boost/type_traits/is_array.hpp:
 
 /usr/include/opencv4/opencv2/flann/autotuned_index.h:
 
@@ -1751,6 +2089,10 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/LU/arch/InverseSize4.h:
 
+/usr/include/c++/11/bits/indirect_array.h:
+
+/home/ds3a/dev/mtsp_drones_gym/include/swarm_planner.hpp:
+
 /usr/include/eigen3/Eigen/src/Jacobi/Jacobi.h:
 
 /usr/include/eigen3/Eigen/QR:
@@ -1759,9 +2101,9 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/Householder/Householder.h:
 
-/usr/include/x86_64-linux-gnu/bits/setjmp.h:
-
 /usr/include/opencv4/opencv2/core/traits.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
 /usr/include/eigen3/Eigen/src/QR/CompleteOrthogonalDecomposition.h:
 
@@ -1776,6 +2118,8 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 /usr/include/opencv4/opencv2/highgui.hpp:
 
 /usr/include/eigen3/Eigen/src/Geometry/Homogeneous.h:
+
+/usr/include/c++/11/bits/valarray_after.h:
 
 /usr/include/eigen3/Eigen/src/Geometry/Rotation2D.h:
 
@@ -1797,15 +2141,25 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/Geometry/ParametrizedLine.h:
 
+/usr/include/c++/11/bits/mask_array.h:
+
 /usr/include/eigen3/Eigen/src/Geometry/arch/Geometry_SIMD.h:
 
 /usr/include/eigen3/Eigen/Eigenvalues:
 
 /usr/include/eigen3/Eigen/src/Eigenvalues/Tridiagonalization.h:
 
+/usr/include/c++/11/bits/codecvt.h:
+
+/usr/include/opencv4/opencv2/core/types.hpp:
+
+/usr/include/eigen3/Eigen/src/Eigenvalues/RealSchur.h:
+
 /usr/include/c++/11/tr1/poly_laguerre.tcc:
 
 /usr/include/eigen3/Eigen/src/Eigenvalues/HessenbergDecomposition.h:
+
+/usr/include/c++/11/version:
 
 /usr/include/c++/11/algorithm:
 
@@ -1817,13 +2171,13 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/eigen3/Eigen/src/Eigenvalues/ComplexEigenSolver.h:
 
-/home/ds3a/dev/mtsp_drones_gym/include/workspace.hpp:
-
-/usr/include/opencv4/opencv2/core/operations.hpp:
-
 /usr/include/c++/11/bits/stl_queue.h:
 
+/usr/include/boost/concept/detail/has_constraints.hpp:
+
 /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h:
+
+/usr/include/boost/preprocessor/tuple/detail/is_single_return.hpp:
 
 /usr/include/eigen3/Eigen/src/Core/arch/Default/BFloat16.h:
 
@@ -1833,6 +2187,12 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/bits/shared_ptr_atomic.h:
 
+/usr/include/c++/11/set:
+
+/usr/include/c++/11/bits/stl_relops.h:
+
+/usr/include/boost/type_traits/is_arithmetic.hpp:
+
 /usr/include/c++/11/backward/auto_ptr.h:
 
 /usr/include/c++/11/ext/atomicity.h:
@@ -1841,90 +2201,90 @@ CMakeFiles/mtsp_drones_gym.dir/src/mtsp_environment.cpp.o: /home/ds3a/dev/mtsp_d
 
 /usr/include/c++/11/bits/uses_allocator_args.h:
 
-/usr/include/opencv4/opencv2/core/version.hpp:
-
-/usr/include/c++/11/cstdio:
-
-/usr/include/c++/11/iostream:
-
-/usr/include/opencv4/opencv2/opencv_modules.hpp:
-
-/usr/include/eigen3/Eigen/src/Core/NumTraits.h:
-
-/usr/include/opencv4/opencv2/core.hpp:
-
-/usr/include/opencv4/opencv2/core/hal/interface.h:
-
-/usr/include/locale.h:
-
-/usr/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h:
-
-/usr/include/opencv4/opencv2/core/cv_cpu_dispatch.h:
-
-/usr/include/opencv4/opencv2/core/check.hpp:
-
-/usr/include/opencv4/opencv2/core/neon_utils.hpp:
-
-/usr/include/c++/11/ext/numeric_traits.h:
-
-/usr/include/opencv4/opencv2/core/matx.hpp:
-
-/usr/include/opencv4/opencv2/core/fast_math.hpp:
-
-/usr/include/c++/11/bits/codecvt.h:
-
-/usr/include/eigen3/Eigen/src/Eigenvalues/RealSchur.h:
-
-/usr/include/opencv4/opencv2/core/types.hpp:
+/usr/include/c++/11/cfloat:
 
 /usr/include/c++/11/bits/unordered_map.h:
 
 /usr/include/c++/11/bits/parse_numbers.h:
 
-/usr/include/c++/11/cfloat:
+/usr/include/c++/11/cstdio:
 
-/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
+/usr/include/c++/11/iostream:
 
-/usr/include/opencv4/opencv2/core/mat.hpp:
+/opt/ros/humble/include/ompl-1.6/ompl/base/ValidStateSampler.h:
 
-/usr/include/opencv4/opencv2/core/bufferpool.hpp:
+/home/ds3a/dev/mtsp_drones_gym/include/swarm_planner_deps/state_validity_checker.hpp:
 
-/usr/include/opencv4/opencv2/core/persistence.hpp:
+/usr/include/boost/concept/assert.hpp:
 
-/usr/include/c++/11/pstl/glue_algorithm_defs.h:
+/usr/include/boost/config.hpp:
 
-/usr/include/opencv4/opencv2/core/cvstd.inl.hpp:
+/usr/include/boost/config/compiler/gcc.hpp:
 
-/usr/include/c++/11/ratio:
+/usr/include/c++/11/bits/random.h:
 
-/usr/include/x86_64-linux-gnu/bits/time64.h:
+/usr/include/boost/config/stdlib/libstdcpp3.hpp:
 
-/usr/include/c++/11/ctime:
+/usr/include/boost/config/platform/linux.hpp:
 
-/usr/include/c++/11/bits/nested_exception.h:
+/usr/include/x86_64-linux-gnu/bits/locale.h:
 
-/usr/include/c++/11/bits/range_access.h:
+/usr/include/boost/config/detail/posix_features.hpp:
 
-/usr/include/opencv4/opencv2/features2d.hpp:
+/usr/include/boost/config/detail/suffix.hpp:
 
-/usr/include/c++/11/bits/cxxabi_forced.h:
+/usr/include/c++/11/bits/unique_ptr.h:
 
-/usr/include/opencv4/opencv2/flann/miniflann.hpp:
+/usr/include/boost/config/helper_macros.hpp:
 
-/usr/include/opencv4/opencv2/flann/config.h:
+/usr/include/boost/preprocessor/config/config.hpp:
 
-/usr/include/opencv4/opencv2/core/affine.hpp:
+/usr/include/eigen3/Eigen/src/Core/util/IndexedViewHelper.h:
 
-/usr/include/opencv4/opencv2/dnn.hpp:
+/usr/include/boost/concept/detail/backward_compatibility.hpp:
 
-/usr/include/opencv4/opencv2/core/async.hpp:
+/usr/include/opencv4/opencv2/core/optim.hpp:
 
-/usr/include/opencv4/opencv2/core/cvstd_wrapper.hpp:
+/usr/include/c++/11/cmath:
 
-/usr/include/c++/11/map:
+/usr/include/boost/type_traits/integral_constant.hpp:
 
-/usr/include/c++/11/initializer_list:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h:
 
-/usr/include/c++/11/bits/stl_tree.h:
+/usr/include/boost/type_traits/add_lvalue_reference.hpp:
 
-/usr/include/c++/11/bits/stl_map.h:
+/usr/include/boost/detail/workaround.hpp:
+
+/usr/include/opencv4/opencv2/flann/saving.h:
+
+/usr/include/boost/type_traits/is_convertible.hpp:
+
+/usr/include/eigen3/Eigen/Core:
+
+/usr/include/boost/type_traits/intrinsics.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/local_lim.h:
+
+/usr/include/boost/version.hpp:
+
+/usr/include/boost/type_traits/add_rvalue_reference.hpp:
+
+/usr/include/boost/type_traits/is_rvalue_reference.hpp:
+
+/usr/include/c++/11/system_error:
+
+/usr/include/eigen3/Eigen/src/Core/ReturnByValue.h:
+
+/usr/include/boost/static_assert.hpp:
+
+/usr/include/opencv4/opencv2/dnn/version.hpp:
+
+/usr/include/boost/type_traits/add_reference.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+
+/usr/include/boost/type_traits/is_integral.hpp:
+
+/usr/include/eigen3/Eigen/src/Core/util/Memory.h:
+
+/usr/include/boost/type_traits/is_abstract.hpp:
