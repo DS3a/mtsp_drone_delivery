@@ -18,13 +18,17 @@ namespace swarm_planner {
     SwarmConfigTracker::SwarmConfigTracker() {}
 
     bool SwarmConfigTracker::write_swarm_config(std::vector<Eigen::Vector4d> drone_states,
-                                                std::vector<Eigen::Vector2s> drone_goals) {
+                                                std::vector<Eigen::Vector2d> drone_goals) {
         if (drone_states.size() != drone_goals.size()) {
             return false;
         }
 
         *(this->drone_states_) = drone_states;
         *(this->drone_goals_) = drone_goals;
+    }
+
+    std::shared_lock<std::shared_mutex> SwarmConfigTracker::read_swarm_config() const {
+        return std::shared_lock<std::shared_mutex>(this->swarm_config_mut);
     }
 }
 

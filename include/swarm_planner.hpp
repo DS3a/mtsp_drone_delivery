@@ -8,6 +8,7 @@
 #include "base.hpp"
 #include "workspace.hpp"
 #include "swarm_planner_deps/state_validity_checker.hpp"
+#include "swarm_planner_deps/swarm_config_tracker.hpp"
 
 #include "ompl/base/SpaceInformation.h"
 #include "ompl/base/spaces/SE2StateSpace.h"
@@ -20,20 +21,16 @@ namespace swarm_planner {
     private:
         std::shared_ptr<ob::SE2StateSpace> space;
 
-        mutable std::shared_mutex drones_config_mut;
-        std::shared_ptr<std::vector<Eigen::Vector4d>> drone_states_; // use this to get start
-        std::shared_ptr<std::vector<Eigen::Vector2d>> drone_goals_;
+        std::shared_ptr<SwarmConfigTracker> swarm_config_tracker_;
 
         std::shared_ptr<std::vector<Eigen::Vector2d>> drone_paths;
+
+        std::shared_ptr<SwarmStateValidityChecker> state_validity_checker_;
 
     public:
         SwarmPlannerSE2(std::vector<Eigen::Vector2d> bounds);
         bool write_states_and_goals(std::vector<Eigen::Vector4d> drone_states,
                                     std::vector<Eigen::Vector2d> drone_goals);
-
-        std::shared_lock<std::shared_mutex> read_drone_states();
-
-        friend class SwarmStateValidityChecker;
     };
 
     SwarmPlannerSE2::SwarmPlannerSE2(std::vector<Eigen::Vector2d> workspace_bounds) {
@@ -45,23 +42,14 @@ namespace swarm_planner {
         bounds.setLow(1, workspace_bounds[1][1]);
 
         this->space->setBounds(bounds);
-    }
 
-    std::shared_lock<std::shared_mutex> SwarmPlannerSE2::read_drone_states() {
-        return std::shared_lock<std::shared_mutex>(this->drones_config_mut);
+        // this->state_validity_checker_ = std::make_shared<SwarmStateValidityChecker>(si);
+
     }
 
     bool SwarmPlannerSE2::write_states_and_goals(std::vector<Eigen::Vector4d> drone_states,
                                                  std::vector<Eigen::Vector2d> drone_goals) {
-        std::unique_lock<std::shared_mutex> write_lock(this->drones_config_mut);
-        if (drone_states.size() != drone_goals.size()) {
-            return false;
-        }
-
-        *(this->drone_states_) = drone_states;
-        *(this->drone_goals_) = drone_goals;
-
-        return true;
+        return this->swarm_config_tracker_->write_swarm_config(drone_states, drone_goals);
     }
 } // namespace swarm_planner
 
