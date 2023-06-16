@@ -4,6 +4,8 @@
 #define DOUBLE_PRECISION
 
 #include <shared_mutex>
+#include <thread>
+#include <future>
 
 #include "base.hpp"
 #include "workspace.hpp"
@@ -28,7 +30,11 @@ namespace swarm_planner {
         std::shared_ptr<og::FMT> fmt_planner_;
 
         std::shared_ptr<SwarmConfigTracker> swarm_config_tracker_;
-        std::shared_ptr<std::vector<Eigen::Vector2d>> drone_paths;
+        std::shared_ptr<std::vector<std::vector<Eigen::Vector2d>>> drone_paths;
+
+        void plan_path(std::promise<std::vector<Eigen::Vector2d>> && planned_path,
+                       Eigen::Vector4d drone_state,
+                       Eigen::Vector2d drone_goal);
 
     public:
         SwarmPlannerSE2(std::vector<Eigen::Vector2d> bounds);
@@ -54,11 +60,34 @@ namespace swarm_planner {
         this->fmt_planner_ = std::make_shared<og::FMT>(this->si);
     }
 
+    void SwarmPlannerSE2::plan_path(std::promise<std::vector<Eigen::Vector2d>> && planned_path,
+                                    Eigen::Vector4d drone_state,
+                                    Eigen::Vector2d drone_goal) {
+        auto pdef(std::make_shared<ob::ProblemDefinition>(this->si));
+    }
+
     bool SwarmPlannerSE2::write_states_and_goals(std::vector<Eigen::Vector4d> drone_states,
                                                  std::vector<Eigen::Vector2d> drone_goals) {
         bool valid_config = this->swarm_config_tracker_->write_swarm_config(drone_states, drone_goals);
         if (valid_config) {
-            // TODO generate pdefs here
+            this->drone_paths->resize(drone_states.size());
+            std::vector<std::vector<Eigen::Vector2d>> temp_paths(drone_states.size());
+
+            std::vector<std::jthread> planning_threads;
+            for (int i = 0; i < drone_states.size(); i++) {
+                Eigen::Vector4d temp_drone_state = drone_states[i];
+                Eigen::Vector2d temp_drone_goal = drone_goals[i];
+                planning_threads.push_back(std::jthread([&temp_paths, i, temp_drone_state, temp_drone_goal, this]() {
+                    auto pdef(std::make_shared<ob::ProblemDefinition>(this->si));
+                    // TODO define problem statement, call planner, and modify temp_paths[i]
+                    temp_paths[i] = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 1), Eigen::Vector2d(2, 2)};
+              }));
+            }
+
+            for (int i=0; i<planning_threads.size(); i++) {
+                planning_threads[i].join();
+                *(this->drone_paths) = temp_paths;
+            }
         }
 
         return valid_config;
