@@ -1,3 +1,0 @@
-/home/ds3a/dev/mtsp_drones_gym/build/CMakeFiles/mtsp_drone_delivery.dir
-/home/ds3a/dev/mtsp_drones_gym/build/CMakeFiles/edit_cache.dir
-/home/ds3a/dev/mtsp_drones_gym/build/CMakeFiles/rebuild_cache.dir
