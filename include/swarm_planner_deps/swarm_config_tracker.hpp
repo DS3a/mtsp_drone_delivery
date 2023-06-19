@@ -4,9 +4,12 @@
 namespace swarm_planner {
     class SwarmConfigTracker {
     private:
+        int num_drones = -1;
         mutable std::shared_mutex swarm_config_mut;
         std::shared_ptr<std::vector<Eigen::Vector4d>> drone_states_;
         std::shared_ptr<std::vector<Eigen::Vector2d>> drone_goals_;
+        std::shared_ptr<std::vector<double>> drone_radii_;
+        std::shared_ptr<std::vector<double>> drone_capacities_;
 
     public:
         SwarmConfigTracker();
@@ -29,6 +32,7 @@ namespace swarm_planner {
             return false;
         }
 
+        this->num_drones = drone_states.size();
         std::cout << "assigning values to drone_states_ and drone_goals_\n";
 
         if (this->drone_states_)

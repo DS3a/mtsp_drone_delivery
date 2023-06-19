@@ -1,5 +1,6 @@
 #include "payload.hpp"
 #include "swarm_planner.hpp"
+#include "swarm_planner_deps/swarm_config_tracker.hpp"
 #include "workspace.hpp"
 #include "base.hpp"
 #include <chrono>
@@ -25,15 +26,19 @@ int main() {
     workspace_dims.push_back(Eigen::Vector2d(2.25, -2.25));
     workspace_dims.push_back(Eigen::Vector2d(2, -2));
 
-    swarm_planner::SwarmPlannerSE2 planner(workspace_dims);
+    std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker = std::make_shared<swarm_planner::SwarmConfigTracker>();
+    swarm_config_tracker->write_swarm_config(std::vector<Eigen::Vector4d>{Eigen::Vector4d(0, 0, 0, 0), Eigen::Vector4d(-1.5, 0, 0.1, 1)}, goals);
+
+    swarm_planner::SwarmPlannerSE2 planner(workspace_dims, swarm_config_tracker);
 
     std::vector<Eigen::Vector4d> payload_states;
 
     for (int i=0; i<100; i++) {
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
-        std::cout << drone_states.size() << std::endl;
-        planner.write_states_and_goals(drone_states, goals);
+        swarm_config_tracker->write_swarm_config(drone_states, goals);
+        planner.plan_paths();
+        // planner.write_states_and_goals(drone_states, goals);
         std::vector<bool> paths_found;
         std::vector<std::vector<Eigen::Vector2d>> paths;
 
