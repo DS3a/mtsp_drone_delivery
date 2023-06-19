@@ -52,10 +52,14 @@ namespace mtsp_drones_gym {
 
         std::vector<DroneAction> actions_;
 
+        void update_window();
+
         std::vector<vec> get_bounds();
 
-      public:
+    public:
         Workspace(bool render);
+
+        void draw_paths(std::vector<std::vector<vec>> paths);
 
         // this function sets all the drones velocities
         void set_actions(std::vector<DroneAction>);
@@ -94,6 +98,27 @@ namespace mtsp_drones_gym {
 
     void Workspace::set_actions(std::vector<DroneAction> actions) {
         this->actions_ = actions;
+    }
+
+    void Workspace::update_window() {
+        cv::imshow("mtsp drones", this->frame);
+        if ((char)cv::waitKey(25) == 27) {
+            exit(0);
+        }
+    }
+
+    void Workspace::draw_paths(std::vector<std::vector<vec>> paths) {
+        for (auto path: paths) {
+            for (int i=0; i < path.size() - 1; i++) {
+                vec img_coords_0 = this->irl_to_img(&path[i]);
+                vec img_coords_1 = this->irl_to_img(&path[i+1]);
+                cv::Point start_point(img_coords_0[0], img_coords_0[1]);
+                cv::Point end_point(img_coords_1[0], img_coords_1[1]);
+                cv::line(this->frame, start_point, end_point, cv::Scalar(0, 0, 255), 2);
+            }
+        }
+
+        this->update_window();
     }
 
     // TODO
@@ -140,11 +165,7 @@ namespace mtsp_drones_gym {
                 cv::circle(this->frame, center, payload->radius_/this->render_resolution, cv::Scalar(0, 255, 0), -1);
             }
 
-            cv::imshow("mtsp drones", this->frame);
-            if ((char)cv::waitKey(25) == 27) {
-                exit(0);
-            }
-
+            this->update_window();
             return std::make_tuple(true, drone_states, payload_states);
         }
 

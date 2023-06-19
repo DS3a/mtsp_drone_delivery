@@ -18,12 +18,15 @@
 #include "ompl/base/Path.h"
 // #include "ompl/geometry/
 #include "ompl/geometric/planners/fmt/FMT.h"
+#include <ompl/geometric/planners/rrt/RRTConnect.h>
+
 #include "ompl/geometric/PathGeometric.h"
 
 namespace ob = ompl::base;
 namespace og = ompl::geometric;
 
 using current_planner = og::FMT;
+// using current_planner = og::RRTConnect;
 
 namespace swarm_planner {
     class SwarmPlannerSE2 {
@@ -69,7 +72,7 @@ namespace swarm_planner {
         this->state_validity_checker_->set_swarm_config_tracker(this->swarm_config_tracker_);
 
         this->si->setStateValidityChecker(this->state_validity_checker_);
-        this->planner_ = std::make_shared<og::FMT>(this->si);
+        this->planner_ = std::make_shared<current_planner>(this->si);
     }
 
     void SwarmPlannerSE2::plan_path(std::promise<std::vector<Eigen::Vector2d>> && planned_path,

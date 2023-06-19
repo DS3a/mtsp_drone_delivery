@@ -17,7 +17,7 @@ int main() {
 
     mtsp_drones_gym::Move dronea, droneb;
     dronea = (mtsp_drones_gym::Move) {.x = 1, .y = 0};
-    droneb = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
+    droneb = (mtsp_drones_gym::Move) {.x = 1, .y = 0};
     ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea, droneb});
     // ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea});
 
@@ -38,6 +38,8 @@ int main() {
         std::vector<std::vector<Eigen::Vector2d>> paths;
 
         std::tie(paths_found, paths) = planner.get_paths();
+        ws.draw_paths(paths);
+
 
         std::this_thread::sleep_for(std::chrono::milliseconds(75));
     }
