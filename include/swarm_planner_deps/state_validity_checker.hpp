@@ -37,19 +37,33 @@ namespace swarm_planner {
 
     // TODO
     bool SwarmStateValidityChecker::isValid(const ob::State *state) const {
-        return true;
         const auto* se2_state = state->as<ob::SE2StateSpace::StateType>();
         double x = se2_state->getX();
         double y = se2_state->getY();
+        // this is the x and y of the sampled state, we are ignoring yaw for now
+
         std::shared_lock<std::shared_mutex> read_lock = this->swarm_config_tracker_->read_swarm_config();
+
+        // TODO get the current drone's state
+        // find the footprint extension factor based on the distance to this point
         bool collision = false;
 
+        Eigen::Vector4d current_drone_state = (*this->swarm_config_tracker_->drone_states_)[this->drone_index_];
+        double dist_to_sampled_point = calculate_distance(x, y, current_drone_state[0], current_drone_state[1]);
+        double drone_speed = calculate_distance(current_drone_state[2], 0, 0, current_drone_state[3]);
+        // check function definition to clarify this, drone_state[2] is x_vel and drone_state[3] is y_vel
+
+        double time_to_reach_sample = dist_to_sampled_point / drone_speed;
+
         for (int i=0; i < this->swarm_config_tracker_->drone_states_->size(); i++) {
+            if (i == this->drone_index_) {
+                continue;
+            }
             Eigen::Vector4d drone_state = (*this->swarm_config_tracker_->drone_states_)[i];
             const double drone_x = drone_state[0];
             const double drone_y = drone_state[1];
 
-            if (std::sqrt((x-drone_x)*(x-drone_x) + (y-drone_y)*(y-drone_y)) < 0.2) {
+            if (calculate_distance(x, y, drone_x, drone_y) < 0.3) {
                 collision = true;
                 return !collision;
             }

@@ -19,6 +19,10 @@
 // #include "ompl/geometry/
 #include "ompl/geometric/planners/fmt/FMT.h"
 #include <ompl/geometric/planners/rrt/RRTConnect.h>
+#include <ompl/geometric/planners/rrt/InformedRRTstar.h>
+#include <ompl/geometric/planners/rrt/SORRTstar.h>
+
+
 #include <ompl/geometric/planners/est/EST.h>
 
 #include "ompl/geometric/PathGeometric.h"
@@ -26,7 +30,9 @@
 namespace ob = ompl::base;
 namespace og = ompl::geometric;
 
-using current_planner = og::FMT;
+// using current_planner = og::FMT;
+using current_planner = og::InformedRRTstar;
+// using current_planner = og::SORRTstar;
 // using current_planner = og::RRTConnect;
 // using current_planner = og::EST;
 
@@ -83,14 +89,6 @@ namespace swarm_planner {
         if (this->swarm_config_tracker_->num_drones != -1) {
             this->initialize_planners();
         }
-/*
-        this->si = std::make_shared<ob::SpaceInformation>(this->space);
-
-        this->state_validity_checker_ = std::make_shared<SwarmStateValidityChecker>(this->si);
-        this->state_validity_checker_->set_swarm_config_tracker(this->swarm_config_tracker_);
-
-        this->si->setStateValidityChecker(this->state_validity_checker_);
-        this->planner_ = std::make_shared<current_planner>(this->si);*/
     }
 
     std::tuple<std::vector<bool>, std::vector<std::vector<Eigen::Vector2d>>> SwarmPlannerSE2::get_paths() {
@@ -121,6 +119,12 @@ namespace swarm_planner {
                 // std::cout << "start position " << (*this->swarm_config_tracker_->drone_states_)[i] << std::endl;
                 planning_threads.push_back(std::jthread([&temp_paths, &temp_path_founds, i, this]() {
                     auto planner(std::make_shared<current_planner>(this->si_vector[i]));
+                    planner->setRange(1.1);
+                    // planner->setNearestNeighbors();
+                    planner->setKNearest(2);
+                    planner->setGoalBias(0.1); // Adjust the goalBias parameter
+                    // planner->setPruneThreshold(5.1); // Adjust the pruneThreshold parameter
+
                     auto pdef(std::make_shared<ob::ProblemDefinition>(this->si_vector[i]));
                     std::cout << "initialized pdef in thread " << i << std::endl;
 
@@ -146,11 +150,15 @@ namespace swarm_planner {
                     pdef->setStartAndGoalStates(start, goal);
                     // std::cout << temp_drone_state[0];
 
+                    // this->planner_vector[i]->setProblemDefinition(pdef);
                     planner->setProblemDefinition(pdef);
+
                     planner->setup();
+                    // this->planner_vector[i]->setup();
 
                     std::cout << "attempting to solve for a path for drone " << i << std::endl;
                     // std::cout << "the start point is " << start << std::endl;
+                    // ob::PlannerStatus solved = this->planner_vector[i]->ob::Planner::solve(0.015);
                     ob::PlannerStatus solved = planner->ob::Planner::solve(0.015);
                     std::cout << "attempt complete for drone " << i << std::endl;
                     if (solved) {
@@ -171,6 +179,8 @@ namespace swarm_planner {
                             std::cout << "Drone " << i << " path idx " << j << ": (" << x << ", " << y << ")\n";
                             temp_paths[i].push_back(Eigen::Vector2d(x, y));
                         }
+                    } else {
+                        temp_path_founds[i] = false;
                     }
                 }));
             }
@@ -182,6 +192,7 @@ namespace swarm_planner {
             }
 
         }
+        return true;
     }
 /*
     bool SwarmPlannerSE2::write_states_and_goals(std::vector<Eigen::Vector4d> drone_states,

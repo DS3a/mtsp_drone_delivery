@@ -9,17 +9,21 @@
 int main() {
     mtsp_drones_gym::Workspace ws(true);
     ws.add_drone(0, 0, 0.1, 1);
-    ws.add_drone(-1.5, 0, 0.1, 1);
+    ws.add_drone(0, 1, 0.1, 1);
+    ws.add_drone(0, -1, 0.1, 1);
+    ws.add_drone(-1, -1, 0.1, 1);
     ws.set_step_time(0.015);
 
-    std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 1.5)};
+    std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 1), Eigen::Vector2d(1, -1), Eigen::Vector2d(1, -1), Eigen::Vector2d(1, 0)};
     // std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 0)};
 
 
-    mtsp_drones_gym::Move dronea, droneb;
-    dronea = (mtsp_drones_gym::Move) {.x = 1, .y = 0};
-    droneb = (mtsp_drones_gym::Move) {.x = 1, .y = 0};
-    ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea, droneb});
+    mtsp_drones_gym::Move dronea, droneb, dronec, droned;
+    dronea = (mtsp_drones_gym::Move) {.x = 0.5, .y = 0.5};
+    droneb = (mtsp_drones_gym::Move) {.x = 2, .y = -4};
+    dronec = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
+    droned = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
+    ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea, droneb, dronec, droned});
     // ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea});
 
     std::vector<Eigen::Vector2d> workspace_dims = std::vector<Eigen::Vector2d>();
@@ -27,8 +31,7 @@ int main() {
     workspace_dims.push_back(Eigen::Vector2d(2, -2));
 
     std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker = std::make_shared<swarm_planner::SwarmConfigTracker>();
-    swarm_config_tracker->write_swarm_config(std::vector<Eigen::Vector4d>{Eigen::Vector4d(0, 0, 0, 0), Eigen::Vector4d(-1.5, 0, 0.1, 1)}, goals);
-
+    swarm_config_tracker->write_swarm_config(std::vector<Eigen::Vector4d>{Eigen::Vector4d(0, 0, 0, 0), Eigen::Vector4d(0, 1, 0.1, 1), Eigen::Vector4d(0, -1, 0, 0), Eigen::Vector4d(1, -1, 0, 0)}, goals);
     swarm_planner::SwarmPlannerSE2 planner(workspace_dims, swarm_config_tracker);
 
     std::vector<Eigen::Vector4d> payload_states;
