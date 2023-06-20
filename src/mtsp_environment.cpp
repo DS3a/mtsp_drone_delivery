@@ -49,7 +49,7 @@ int main() {
         ws.draw_paths(paths);
 
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(75));
+        // std::this_thread::sleep_for(std::chrono::milliseconds(75));
     }
 
     return 0;

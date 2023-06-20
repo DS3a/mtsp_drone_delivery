@@ -165,7 +165,7 @@ namespace mtsp_drones_gym {
                 cv::circle(this->frame, center, payload->radius_/this->render_resolution, cv::Scalar(0, 255, 0), -1);
             }
 
-            this->update_window();
+            // this->update_window();
             return std::make_tuple(true, drone_states, payload_states);
         }
 

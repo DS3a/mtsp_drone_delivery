@@ -10,6 +10,7 @@ namespace swarm_planner {
         std::shared_ptr<std::vector<Eigen::Vector2d>> drone_goals_;
         std::shared_ptr<std::vector<double>> drone_radii_;
         std::shared_ptr<std::vector<double>> drone_capacities_;
+        std::shared_ptr<std::vector<bool>> drone_active_;
 
     public:
         SwarmConfigTracker();

@@ -44,8 +44,6 @@ namespace swarm_planner {
 
         std::shared_lock<std::shared_mutex> read_lock = this->swarm_config_tracker_->read_swarm_config();
 
-        // TODO get the current drone's state
-        // find the footprint extension factor based on the distance to this point
         bool collision = false;
 
         Eigen::Vector4d current_drone_state = (*this->swarm_config_tracker_->drone_states_)[this->drone_index_];
@@ -53,17 +51,50 @@ namespace swarm_planner {
         double drone_speed = calculate_distance(current_drone_state[2], 0, 0, current_drone_state[3]);
         // check function definition to clarify this, drone_state[2] is x_vel and drone_state[3] is y_vel
 
-        double time_to_reach_sample = dist_to_sampled_point / drone_speed;
+        if (drone_speed == 0) {
+            drone_speed = 0.01; // to prevent divide-by-zero errors
+        }
+
+        double time_to_reach_sampled_state = dist_to_sampled_point / drone_speed;
+        // TODO propagate the state of each drone in the for loop by this time and avoid those regions as well.
 
         for (int i=0; i < this->swarm_config_tracker_->drone_states_->size(); i++) {
             if (i == this->drone_index_) {
                 continue;
             }
+            // TODO check if drone is active, continue the loop if it isn't
             Eigen::Vector4d drone_state = (*this->swarm_config_tracker_->drone_states_)[i];
             const double drone_x = drone_state[0];
             const double drone_y = drone_state[1];
 
-            if (calculate_distance(x, y, drone_x, drone_y) < 0.3) {
+            const double drone_vx = drone_state[2];
+            const double drone_vy = drone_state[3];
+
+            Eigen::Vector2d drone_position = Eigen::Vector2d(drone_x, drone_y);
+            Eigen::Vector2d drone_velocity = Eigen::Vector2d(drone_vx, drone_vy);
+            Eigen::Vector2d projected_position = drone_position + drone_velocity * time_to_reach_sampled_state;
+
+            double dist_to_future_state = calculate_distance(drone_position[0], drone_position[1], projected_position[0], projected_position[1]);
+            double line_slope = (projected_position[1] - drone_position[1]) / (projected_position[0] - drone_position[0]);
+            double perpendicular_line_slope = -1/line_slope;
+
+            double A = perpendicular_line_slope;
+            double B = -1;
+
+            double Cl1 = -perpendicular_line_slope * drone_position.x() + drone_position.y();
+            double Cl2 = -perpendicular_line_slope * projected_position.x() + projected_position.y();
+            double l1_dist = std::abs(A*x + B*y + Cl1) / std::sqrt(A*A + B*B);
+            double l2_dist = std::abs(A*x + B*y + Cl2) / std::sqrt(A*A + B*B);
+
+            if (l1_dist+l2_dist - dist_to_future_state <= 0.01) {
+                A = line_slope;
+                double C = -line_slope * drone_position.x() + drone_position.y();
+                double l0_dist = std::abs(A*x + B*y + C) / std::sqrt(A*A + B*B);
+                if (l0_dist < 0.3) {
+                    collision = true;
+                    return !collision;
+                }
+            } else if (calculate_distance(x, y, drone_x, drone_y) < 0.3) {
                 collision = true;
                 return !collision;
             }
