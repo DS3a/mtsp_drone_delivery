@@ -22,7 +22,7 @@ int main() {
     dronea = (mtsp_drones_gym::Move) {.x = 0.5, .y = 0.5};
     droneb = (mtsp_drones_gym::Move) {.x = 2, .y = -4};
     dronec = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
-    droned = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
+    droned = (mtsp_drones_gym::Move) {.x = 1, .y = 0.5};
     ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea, droneb, dronec, droned});
     // ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea});
 
