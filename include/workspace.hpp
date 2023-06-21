@@ -35,7 +35,7 @@ namespace mtsp_drones_gym {
         std::vector<std::shared_ptr<mtsp_drones_gym::Payload>> payloads;
 
         bool render_ = false;
-        double render_resolution = 0.01;
+        double render_resolution = 0.005;
         cv::Mat frame;
 
         // the distance between the center points of drones below which they will be assumed to be colliding
