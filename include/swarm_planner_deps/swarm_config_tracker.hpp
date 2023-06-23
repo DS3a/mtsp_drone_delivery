@@ -20,9 +20,17 @@ namespace swarm_planner {
         std::shared_ptr<std::vector<double>> drone_capacities_;
         std::shared_ptr<std::vector<bool>> drone_active_;
 
+        bool num_drones_is_set();
+
     public:
         SwarmConfigTracker();
         std::shared_lock<std::shared_mutex> read_swarm_config() const;
+        bool set_num_drones(int drones);
+        bool write_drone_states(std::vector<Eigen::Vector4d> drone_states);
+        bool write_drone_goals(std::vector<Eigen::Vector2d> drone_goals);
+        bool write_drone_active_vector(std::vector<bool> drone_active);
+        bool write_drone_radii(std::vector<double> drone_radii);
+        bool write_drone_capacities(std::vector<double> drone_capacities);
         bool write_swarm_config(std::vector<Eigen::Vector4d> drone_states,
                                 std::vector<Eigen::Vector2d> drone_goals);
 
