@@ -15,7 +15,7 @@ int main() {
     ws.add_drone(-1.5, -1, 0.1, 1);
     ws.set_step_time(0.015);
 
-    std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 1), Eigen::Vector2d(1, -1), Eigen::Vector2d(1, -1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 1)};
+    std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(0, 0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, 0), Eigen::Vector2d(-0, 0)};
     // std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 0)};
 
 
@@ -33,6 +33,8 @@ int main() {
     workspace_dims.push_back(Eigen::Vector2d(2, -2));
 
     std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker = std::make_shared<swarm_planner::SwarmConfigTracker>();
+    swarm_config_tracker->set_num_drones(5);
+
     swarm_config_tracker->write_swarm_config(std::vector<Eigen::Vector4d> {
         Eigen::Vector4d(0, 0, 0, 0),
         Eigen::Vector4d(0, 1, 0.1, 1),
@@ -40,6 +42,8 @@ int main() {
         Eigen::Vector4d(1, -1, 0, 0),
         Eigen::Vector4d(-1.5, -1, 0, 0)
     }, goals);
+    swarm_config_tracker->write_drone_active_vector(std::vector<bool>({true, true, true, true, true}));
+
     swarm_planner::SwarmPlannerSE2 planner(workspace_dims, swarm_config_tracker);
 
     std::vector<Eigen::Vector4d> payload_states;
