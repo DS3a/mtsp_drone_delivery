@@ -34,6 +34,9 @@ namespace swarm_planner {
         bool write_swarm_config(std::vector<Eigen::Vector4d> drone_states,
                                 std::vector<Eigen::Vector2d> drone_goals);
 
+
+        std::vector<Eigen::Vector4d> read_drone_states() const;
+
         friend class SwarmPlannerSE2;
         friend class SwarmStateValidityChecker;
     };
