@@ -3,7 +3,6 @@
 #include<vector>
 #include<cmath>
 #include <map>
-#include <string.h>
 #include "Eigen/Core"
 #include "Eigen/Dense"
 #include "include/swarm_planner_deps/swarm_config_tracker.hpp"
@@ -11,21 +10,33 @@
 
 class mission{
     private:
-    int mission_len;
-    std::vector<int> mission_idx;
-    int drones_len;
-    std::vector<std::vector<int>> drone_mission;
-    std::vector <int> status;
-    std::map<std::string, std::vector<int>> drone_planner;
-    std::map<std::string, std::vector<int>> mission_logger;
-    std::vector<std::string> drones_list;
+    int mission_len; //payload len
+    std::vector<int> mission_idx; //payload id
+    int drones_len; //no of drones
+    std::vector<std::vector<int>> drone_mission; //list of list of matrix
+    std::vector <int> status; 
+    std::map<int, std::vector<int>> drone_planner;
+    std::map<int, std::vector<int>> mission_logger;
+    std::vector<int> drones_list;
     std::vector<Eigen::Vector4d> drone_states;
     std::vector<Eigen::Vector4d> payload_points;
     std::vector<Eigen::Vector2d> goals_;
     std::vector<double> radii_;
     std::vector<bool> drones_active;
+    std::vector<Eigen::Vector2d> payload_dict; // payload_id, drone_id
 
     public:
+
+    void initization(std::vector<std::vector<int>> mission_){
+        this->createstatus_list;
+        this->setmissions_len(mission_.size());
+        this->setmission_idx(mission_.size());
+        this->setdrones_len(mission_[0].size());
+        this->setdrones_mission(mission_);
+        this->createstatus_list(void);
+        this->setdrones(void)
+        this->missions(void);
+    }
 
     int get_mission_len(){
         return mission_len;
@@ -47,15 +58,15 @@ class mission{
         return status;
     }
 
-    std::map<std::string, std::vector<int>> getdrone_planner(void){
+    std::map<int, std::vector<int>> getdrone_planner(void){
         return drone_planner;
     }
     
-    std::map<std::string, std::vector<int>> getmission_logger(void){
+    std::map<int, std::vector<int>> getmission_logger(void){
         return mission_logger;
     }
 
-    std::vector<std::string> getdrones(void){
+    std::vector<int> getdrones(void){
         return drones_list;
     }
     //set functions
@@ -63,17 +74,18 @@ class mission{
     void setmissions_len(int x){
         mission_len = x;
     }
-    void setmission_idx(const std::vector<int>& payload_idx_){
-        if(payload_idx_.size()==mission_len){
-            mission_idx = payload_idx_;
+    void setmission_idx(int x){
+        std::vector<int> payload_idx; 
+        for(int i=0;i<x;i++){
+            payload_idx.push_back(i);
         }
-        else{
-            printf("the lenght of the mission is not same as lenghtr of mission_idx");
-        }
+        mission_idx = payload_idx;
     }
+    
     void setdrones_len(int  x){
         drones_len = x;
     }
+
 
     void setdrones_mission(const std::vector<std::vector<int>> x){
         if (x.size() == mission_len && x[0].size()==drones_len){
@@ -84,12 +96,9 @@ class mission{
         }
     }
      
-    void setdrones(const std::vector<std::string> drone_){
-        if(drone_.size() == drones_len ){
-            drones_list = drone_;
-        }
-        else{
-            printf("the drone list lenght is not same as drone lenght");
+    void setdrones(void){
+        for(int i =0;i<drones_len){
+            drones_list.push_back(i);
         }
     }
 
@@ -115,12 +124,11 @@ class mission{
     //other methods
 
     void missions(void){
-        std::string drone;
+        int drone;
         std::vector<int> data;
         int payload; 
         int x;
         std::vector<int> temp;
-        //std::vector<std::string> current_mission_drones;
         data.push_back(-1);
         for(int i = 0; i<drones_len;i++){
             drone = drones_list[i];
@@ -153,7 +161,7 @@ class mission{
     void mission_check(void){
         int len_ = mission_len; //payload lenght
         int drones_len_ = drones_len; // drones lenght
-        std::string drone_;
+        int drone_;
         std::vector<int> temp;
         int drone_current_mission;
         int check = 1;
@@ -163,6 +171,7 @@ class mission{
         int first_check;
         int index_;
         int counter;
+        Eigen::Vector2d pay_;
         for(int i=0 ;i<drones_len_;i++){
             drone_ = drones_list[i];
             temp = drone_planner[drone_];
@@ -217,6 +226,10 @@ class mission{
                         radii[index_] = 0.15 + 0.5 *(counter-1); 
                         
                         //update payload_idx with drone_active 
+                        //add dict
+                        pay_(1)=index_;
+                        pay_(0)=drone_current_mission;
+                        payload_dict.push_back(pay_)
                     }
                     
                     
@@ -269,5 +282,11 @@ class mission{
                 }
             }
         }
+        swarm_config_tracker->write_drone_goals(goals_);
+        swarm_config_tracker->write_drone_active_vector(drones_active);
+        swarm_config_tracker->write_drone_radii(radii_);
+        
+
+
     }
 };
