@@ -8,7 +8,7 @@
 
 int main() {
     mtsp_drones_gym::Workspace ws(true);
-    ws.add_drone(0, 0, 0.1, 1);
+    ws.add_drone(0, 0, 0.2, 1);
     ws.add_drone(0, 1, 0.1, 1);
     ws.add_drone(0, -1, 0.1, 1);
     ws.add_drone(-1, -1, 0.1, 1);
