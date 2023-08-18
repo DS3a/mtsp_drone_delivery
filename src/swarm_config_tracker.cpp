@@ -117,9 +117,9 @@ namespace swarm_planner {
         std::vector<double> drone_radii;
         {
             this->read_swarm_config();
-            std::cout << "reading drone radii\n" << this->drone_radii_->size() << std::endl;
+            // std::cout << "reading drone radii\n" << this->drone_radii_->size() << std::endl;
             drone_radii = *this->drone_radii_;
-            std::cout << drone_radii[0] << "dronee radiiii\n";
+            // std::cout << drone_radii[0] << "dronee radiiii\n";
         }
         return drone_radii;
     }
