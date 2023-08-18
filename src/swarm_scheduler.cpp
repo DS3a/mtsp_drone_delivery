@@ -7,6 +7,7 @@
 #include "Eigen/Core"
 #include "Eigen/Dense"
 #include "include/swarm_planner_deps/swarm_config_tracker.hpp"
+#include "include/workspace.hpp"
 
 class mission{
     private:
@@ -19,6 +20,7 @@ class mission{
     std::map<std::string, std::vector<int>> mission_logger;
     std::vector<std::string> drones_list;
     std::vector<Eigen::Vector4d> drone_states;
+    std::vector<Eigen::Vector4d> payload_points;
 
     public:
 
@@ -148,6 +150,7 @@ class mission{
         int check = 1;
         int reach;
         float final_x,final_y,current_x,current_y;
+        float distance;
         for(int i=0 ;i<drones_len_;i++){
             drone_ = drones_list[i];
             temp = drone_planner[drone_];
@@ -156,16 +159,26 @@ class mission{
             }
             else{
                 drone_states = swarm_config_tracker->read_drone_states();
+                payload_points = workspace->read_payloads()
                 drone_current_mission = temp[0];
                 if (status[drone_current_mission] == 0){
                     check = 1;
+                    final_x = payload_points[drone_current_mission][0];
+                    final_y = payload_points[drone_current_mission][1];
+                    
                     //goto pickup point
+
                     for(int j=0; j<drones_len_;j++){
                         if (drone_mission[drone_current_mission][j]==1){
                             current_x = drone_states[j][0];
                             current_y = drone_states[j][1];
-
-                            //check if all reached
+                            distance = math.sqrt((current_x-final_x)**2+(current_y-final_y)**2);
+                            if (distance<=0.01){
+                                reach = 1;
+                            }
+                            else{
+                                reach = 0;
+                            } 
                             check = check *reach;
                         }
                     }
@@ -177,54 +190,34 @@ class mission{
                     
                 }
                 else if (status[drone_current_mission]==1){
+                    check = 1;
+                    final_x = payload_points[drone_current_mission][3];
+                    final_y = payload_points[drone_current_mission][4];
                     //goto drop off
-                    //check if any drone is reached 
-                    //update status = 2 
-                    //pop mission from the drones in mission
-                }
 
-                
-                
-
-                    for(int j=0; j<drones_len;j++){
-                        drone_mission
-                    }
-                
-            }
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-            if (status[i]==0){
-                int check = 1;
-                for (int j =0 ; j<drones_len_; j++){
-                    if(drone_mission[i][j]==1){
-                        //check if the drones have reached postion
-                        check = check*1;
-                        if(check == 1 ){
-                            this -> mission_start();
-                            status[i] = 1;
+                    or(int j=0; j<drones_len_;j++){
+                        if (drone_mission[drone_current_mission][j]==1){
+                            current_x = drone_states[j][0];
+                            current_y = drone_states[j][1];
+                            distance = math.sqrt((current_x-final_x)**2+(current_y-final_y)**2);
+                            if (distance<=0.01){
+                                reach = 1;
+                            }
+                            else{
+                                reach = 0;
+                            } 
+                            check = check *reach;
                         }
                     }
-
-                }
-            }
-            else if (status[i]==1){
-                for(int j =0; j<drones_len_;j++){
-                    if (drone_mission[i][j]==1){
-                        //
+                    if(check == 1){
+                        status[drone_current_mission]=2 
+                        //change raduis 
+                        //pop mission from the drones in mission
                     }
+                    
                 }
+
+                
             }
         }
     }
