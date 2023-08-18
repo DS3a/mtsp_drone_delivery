@@ -30,6 +30,7 @@ namespace swarm_planner {
         double drone_speed = calculate_distance(current_drone_state[2], 0, 0, current_drone_state[3]);
         // check function definition to clarify this, drone_state[2] is x_vel and drone_state[3] is y_vel
 
+        double current_drone_radius = (*this->swarm_config_tracker_->drone_radii_)[this->drone_index_];
         if (drone_speed == 0) {
             drone_speed = 0.1; // to prevent divide-by-zero errors
         }
@@ -43,6 +44,7 @@ namespace swarm_planner {
             } else if ((*this->swarm_config_tracker_->drone_active_)[i] != true) {
                 continue;
             }
+            double drone_radius = (*this->swarm_config_tracker_->drone_radii_)[i];
             // TODO check if drone is active, continue the loop if it isn't
             Eigen::Vector4d drone_state = (*this->swarm_config_tracker_->drone_states_)[i];
             const double drone_x = drone_state[0];
@@ -75,7 +77,7 @@ namespace swarm_planner {
                     collision = true;
                     return !collision;
                 }
-            } else if (calculate_distance(x, y, drone_x, drone_y) < 0.3) {
+            } else if (calculate_distance(x, y, drone_x, drone_y) - current_drone_radius - drone_radius < 0.1) {
                 // ENHANCEMENT check if the drone will be there in `time_to_reach_sampled_state`
                 collision = true;
                 return !collision;

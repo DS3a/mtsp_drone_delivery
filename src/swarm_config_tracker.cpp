@@ -105,11 +105,32 @@ namespace swarm_planner {
     std::vector<Eigen::Vector4d> SwarmConfigTracker::read_drone_states() const {
         std::vector<Eigen::Vector4d> drone_states;
         {
-            this->read_swarm_config().lock();
+            this->read_swarm_config();
             //creating a deep copy, chaging drone_states will not change drone_states_
             drone_states = *(this->drone_states_);
         }
 
         return drone_states;
+    }
+
+    std::vector<double> SwarmConfigTracker::read_drone_radii() const {
+        std::vector<double> drone_radii;
+        {
+            this->read_swarm_config();
+            // std::cout << "reading drone radii\n" << this->drone_radii_->size() << std::endl;
+            drone_radii = *this->drone_radii_;
+            // std::cout << drone_radii[0] << "dronee radiiii\n";
+        }
+        return drone_radii;
+    }
+
+    std::vector<bool> SwarmConfigTracker::read_drone_active() const {
+        std::vector<bool> drone_active;
+        {
+            this->read_swarm_config();
+            drone_active = *(this->drone_active_);
+        }
+
+        return drone_active;
     }
 } // namespace swarm_planner
