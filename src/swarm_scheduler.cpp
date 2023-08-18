@@ -21,6 +21,9 @@ class mission{
     std::vector<std::string> drones_list;
     std::vector<Eigen::Vector4d> drone_states;
     std::vector<Eigen::Vector4d> payload_points;
+    std::vector<Eigen::Vector2d> goals_;
+    std::vector<double> radii_;
+    std::vector<bool> drones_active;
 
     public:
 
@@ -100,6 +103,12 @@ class mission{
             //status = 2 drop off done 
         }
     }
+
+    void radius_create(void){
+        for(int i=0;i<drones_len;i++){
+            radii_.push_back(0.15);
+        }
+    }
     
     
 
@@ -151,6 +160,9 @@ class mission{
         int reach;
         float final_x,final_y,current_x,current_y;
         float distance;
+        int first_check;
+        int index_;
+        int counter;
         for(int i=0 ;i<drones_len_;i++){
             drone_ = drones_list[i];
             temp = drone_planner[drone_];
@@ -165,8 +177,10 @@ class mission{
                     check = 1;
                     final_x = payload_points[drone_current_mission][0];
                     final_y = payload_points[drone_current_mission][1];
-                    
+
                     //goto pickup point
+                    goals[i](0) = final_x;
+                    goals[i](1) = final_y;
 
                     for(int j=0; j<drones_len_;j++){
                         if (drone_mission[drone_current_mission][j]==1){
@@ -184,7 +198,25 @@ class mission{
                     }
                     if(check == 1){
                         status[drone_current_mission]=1 
+                        
+                        first_check = 0;
+                        counter = 0;
+                        for(int j = 0;j<drones_len_;j++){
+                            if(drone_mission[drone_current_mission][j]==1){
+                                if(first_check==0){
+                                    index_ = j; 
+                                }
+                                else{
+                                    //change drones active list
+                                    drones_active[j]=false;
+                                }
+                                counter = counter+1;
+                            }
+                        }
                         //change raduis 
+                        radii[index_] = 0.15 + 0.5 *(counter-1); 
+                        
+                        //update payload_idx with drone_active 
                     }
                     
                     
@@ -193,7 +225,10 @@ class mission{
                     check = 1;
                     final_x = payload_points[drone_current_mission][3];
                     final_y = payload_points[drone_current_mission][4];
+                    
                     //goto drop off
+                    goals[i](0) = final_x;
+                    goals[i](1) = final_y;
 
                     or(int j=0; j<drones_len_;j++){
                         if (drone_mission[drone_current_mission][j]==1){
@@ -211,19 +246,28 @@ class mission{
                     }
                     if(check == 1){
                         status[drone_current_mission]=2 
+                        first_check = 0;
+                        for(int j = 0;j<drones_len_;j++){
+                            if(drone_mission[drone_current_mission][j]==1){
+                                if(first_check==0){
+                                    index_ = j; 
+                                }
+                                else{
+                                    //change drones active list
+                                    drones_active[j]=true;
+                                }
+                                //pop mission from the drones in mission
+                                drone = drones_list[j];
+                                temp = drone_planner[drone];
+                                temp.erase(temp.begin());
+                                drone_planner[drone] = temp;
+                            }
+                        }
                         //change raduis 
-                        //pop mission from the drones in mission
-                    }
-                    
+                        radii_[index_] = 0.15;
+                    }   
                 }
-
-                
             }
         }
     }
-
-    void mission_start(){
-        //start
-    }
-
 };
