@@ -5,6 +5,7 @@
 #include "payload.hpp"
 #include "drone.hpp"
 #include "swarm_planner.hpp"
+#include "swarm_planner_deps/swarm_config_tracker.hpp"
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -33,6 +34,7 @@ namespace mtsp_drones_gym {
         double step_time_;
         std::vector<mtsp_drones_gym::Drone> drones;
         std::vector<std::shared_ptr<mtsp_drones_gym::Payload>> payloads;
+        std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker_;
 
         bool render_ = false;
         double render_resolution = 0.005;
@@ -79,6 +81,9 @@ namespace mtsp_drones_gym {
         void add_payload(double x, double y, double mass, double dest_x, double dest_y);
 
         std::vector<Eigen::Vector4d> read_payloads() const;
+
+        void set_swarm_config_tracker(std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker);
+
     };
 
     // END Workspace declaration
@@ -92,6 +97,10 @@ namespace mtsp_drones_gym {
             this->frame = cv::Mat(this->length/this->render_resolution, this->width/this->render_resolution, CV_8UC3, cv::Scalar(255, 255, 255));
             cv::namedWindow("mtsp drones");
         }
+    }
+
+    void Workspace::set_swarm_config_tracker(std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker) {
+        this->swarm_config_tracker_ = swarm_config_tracker;
     }
 
     std::vector<vec> Workspace::get_bounds() {
@@ -150,13 +159,17 @@ namespace mtsp_drones_gym {
         this->check_collisions();
 
         if (this->render_) {
+            std::cout << "getting drone radii\n";
+            std::vector<double> drone_radii = this->swarm_config_tracker_->read_drone_radii();
+            // std::cout << "got drone radii " << drone_radii[0] << std::endl;
             this->frame = cv::Mat(this->length/this->render_resolution, this->width/this->render_resolution, CV_8UC3, cv::Scalar(255, 255, 255));
+            int i = 0;
             for (Drone& drone: this->drones) {
                 cv::Point center;
                 vec img_coords = this->irl_to_img(drone.get_position());
                 center.x = img_coords[0];
                 center.y = img_coords[1];
-                cv::circle(this->frame, center, drone.radius_/this->render_resolution, cv::Scalar(255, 0, 0), -1);
+                cv::circle(this->frame, center, drone_radii[i++]/this->render_resolution, cv::Scalar(255, 0, 0), -1);
             }
 
             for (std::shared_ptr<Payload> payload: this->payloads) {
