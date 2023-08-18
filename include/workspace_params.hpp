@@ -13,7 +13,7 @@ namespace mtsp_drone_delivery {
 
         std::vector<Eigen::Vector4d> drone_states;
         std::vector<Eigen::Vector4d> payload_states;
-    }
+    };
 }
 
 
