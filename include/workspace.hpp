@@ -77,6 +77,8 @@ namespace mtsp_drones_gym {
         void add_drone(double x, double y, double radius, double capacity);
 
         void add_payload(double x, double y, double mass, double dest_x, double dest_y);
+
+        std::vector<Eigen::Vector4d> read_payloads() const;
     };
 
     // END Workspace declaration
@@ -223,6 +225,17 @@ namespace mtsp_drones_gym {
                                 double dest_x, double dest_y) {
         std::cout << "adding a payload at " << x << ", " << y << std::endl;
         this->payloads.push_back(std::make_shared<Payload>(Payload(x, y, mass, dest_x, dest_y)));
+    }
+
+    std::vector<Eigen::Vector4d> Workspace::read_payloads() const {
+        // Returns std::vector<(start_x, start_y, end_x, end_y)>
+        std::vector<Eigen::Vector4d> payload_states;
+
+        for (int i=0; i < this->payloads.size(); i++) {
+            payload_states.push_back(this->payloads[i]->get_start_and_dest());
+        }
+
+        return payload_states;
     }
 }
 
