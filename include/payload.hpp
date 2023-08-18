@@ -35,6 +35,8 @@ namespace mtsp_drones_gym {
 
         Eigen::Vector4d get_state();
 
+        Eigen::Vector4d get_start_and_dest();
+
         friend class Drone;
         friend class Workspace;
     };
@@ -55,6 +57,11 @@ namespace mtsp_drones_gym {
         return state;
     }
 
+    Eigen::Vector4d Payload::get_start_and_dest() {
+        Eigen::Vector4d start_and_dest;
+        start_and_dest << this->initial_position, this->destination;
+        return start_and_dest;
+    }
 }
 
 
