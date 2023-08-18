@@ -58,6 +58,8 @@ int main() {
         std::vector<std::vector<Eigen::Vector2d>> paths;
 
         std::tie(paths_found, paths) = planner.get_paths();
+
+        
         ws.draw_paths(paths);
 
 
