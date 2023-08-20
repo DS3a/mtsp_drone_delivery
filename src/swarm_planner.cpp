@@ -175,6 +175,8 @@ namespace swarm_planner {
                             temp_path_founds[i] = false;
                         }
                     }));
+                } else {
+                    temp_path_founds[i] = false;
                 }
             }
 

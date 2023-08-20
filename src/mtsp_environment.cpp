@@ -17,6 +17,7 @@ int main() {
     ws.set_step_time(0.015);
     
 
+    ws.add_payload(0, 1, 3, 2, 1);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(0, 0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, 0), Eigen::Vector2d(-0, 0)};
  
         
@@ -44,6 +45,7 @@ int main() {
         Eigen::Vector4d(-1.5, -1, 0.1, 0)
     }, goals);
     swarm_config_tracker->write_drone_active_vector(std::vector<bool>({true, true, true, true, true}));
+    swarm_config_tracker->write_drone_radii(std::vector<double>({0.1, 0.1, 0.1, 0.1, 0.1}));
 
     swarm_planner::SwarmPlannerSE2 planner(workspace_dims, swarm_config_tracker);
 
@@ -51,6 +53,7 @@ int main() {
     std::vector<
     std::variant<mtsp_drones_gym::Move, mtsp_drones_gym::Drop, mtsp_drones_gym::Attach, mtsp_drones_gym::Detach>> drone_list; 
 
+    ws.set_swarm_config_tracker(swarm_config_tracker);
     for (int i=0; i<100; i++) {
         std::cout << "STEP " << i << std::endl;
         auto output = ws.step();
