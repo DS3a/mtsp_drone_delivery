@@ -1,33 +1,9 @@
 
-#include<stdio.h>
-#include<vector>
-#include<cmath>
-#include <map>
-#include "Eigen/Core"
-#include "Eigen/Dense"
-#include "include/swarm_planner_deps/swarm_config_tracker.hpp"
-#include "include/workspace.hpp"
+#include "swarm_scheduler.hpp"
+namespace swarm_scheduler{
 
-class mission{
-    private:
-    int mission_len; //payload len
-    std::vector<int> mission_idx; //payload id
-    int drones_len; //no of drones
-    std::vector<std::vector<int>> drone_mission; //list of list of matrix
-    std::vector <int> status; 
-    std::map<int, std::vector<int>> drone_planner;
-    std::map<int, std::vector<int>> mission_logger;
-    std::vector<int> drones_list;
-    std::vector<Eigen::Vector4d> drone_states;
-    std::vector<Eigen::Vector4d> payload_points;
-    std::vector<Eigen::Vector2d> goals_;
-    std::vector<double> radii_;
-    std::vector<bool> drones_active;
-    std::vector<Eigen::Vector2d> payload_dict; // payload_id, drone_id
 
-    public:
-
-    void initization(std::vector<std::vector<int>> mission_){
+    void SwarmScheduler::initization(std::vector<std::vector<int>> mission_){
         this->createstatus_list;
         this->setmissions_len(mission_.size());
         this->setmission_idx(mission_.size());
@@ -38,43 +14,43 @@ class mission{
         this->missions(void);
     }
 
-    int get_mission_len(){
+    int SwarmScheduler::get_mission_len(){
         return mission_len;
     }
 
-    std::vector<int> getmission_idx(void){
+    std::vector<int> SwarmScheduler::getmission_idx(void){
         return mission_idx;
     }
 
-    int getdrone_len(void){
+    int SwarmScheduler::getdrone_len(void){
         return drones_len;
     }
 
-    std::vector<std::vector<int>> getdrone_mission(void){
+    std::vector<std::vector<int>> SwarmScheduler::getdrone_mission(void){
         return drone_mission;
     }
 
-    std:: vector<int> getstatus (void){
+    std:: vector<int> SwarmScheduler::getstatus (void){
         return status;
     }
 
-    std::map<int, std::vector<int>> getdrone_planner(void){
+    std::map<int, std::vector<int>> SwarmScheduler::getdrone_planner(void){
         return drone_planner;
     }
     
-    std::map<int, std::vector<int>> getmission_logger(void){
+    std::map<int, std::vector<int>> SwarmScheduler::getmission_logger(void){
         return mission_logger;
     }
 
-    std::vector<int> getdrones(void){
+    std::vector<int> SwarmScheduler::getdrones(void){
         return drones_list;
     }
     //set functions
 
-    void setmissions_len(int x){
+    void SwarmScheduler::setmissions_len(int x){
         mission_len = x;
     }
-    void setmission_idx(int x){
+    void SwarmScheduler::setmission_idx(int x){
         std::vector<int> payload_idx; 
         for(int i=0;i<x;i++){
             payload_idx.push_back(i);
@@ -82,12 +58,12 @@ class mission{
         mission_idx = payload_idx;
     }
     
-    void setdrones_len(int  x){
+    void SwarmScheduler::setdrones_len(int  x){
         drones_len = x;
     }
 
 
-    void setdrones_mission(const std::vector<std::vector<int>> x){
+    void SwarmScheduler::setdrones_mission(const std::vector<std::vector<int>> x){
         if (x.size() == mission_len && x[0].size()==drones_len){
             drone_mission = x;
         }
@@ -96,14 +72,14 @@ class mission{
         }
     }
      
-    void setdrones(void){
+    void SwarmScheduler::setdrones(void){
         for(int i =0;i<drones_len){
             drones_list.push_back(i);
         }
     }
 
 
-    void createstatus_list(){
+    void SwarmScheduler::createstatus_list(){
         status.clear();
         for(int i=0 ; i<mission_len; i++){
             status.push_back(0);
@@ -113,7 +89,7 @@ class mission{
         }
     }
 
-    void radius_create(void){
+    void SwarmScheduler::radius_create(void){
         for(int i=0;i<drones_len;i++){
             radii_.push_back(0.15);
         }
@@ -123,7 +99,7 @@ class mission{
 
     //other methods
 
-    void missions(void){
+    void SwarmScheduler::missions(void){
         int drone;
         std::vector<int> data;
         int payload; 
@@ -158,7 +134,7 @@ class mission{
         } 
     }
 
-    void mission_check(void){
+    void SwarmScheduler::mission_check(void){
         int len_ = mission_len; //payload lenght
         int drones_len_ = drones_len; // drones lenght
         int drone_;
@@ -289,4 +265,4 @@ class mission{
 
 
     }
-};
+}
