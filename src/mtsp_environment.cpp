@@ -5,6 +5,8 @@
 #include "base.hpp"
 #include <chrono>
 #include <thread>
+#include<vector>
+#include "swarm_scheduler.hpp"
 
 int main() {
     mtsp_drones_gym::Workspace ws(true);
@@ -18,7 +20,19 @@ int main() {
     ws.add_payload(0, 1, 3, 2, 1);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(0, 0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, 0), Eigen::Vector2d(-0, 0)};
     // std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 0)};
+    
+    
+    std::vector<std::vector<int>> mission_drones_list = {
+        {0,0,0,1},
+        {0,1,1,0},
+        {1,1,0,1},
+        {1,0,1,0},
+        {0,1,0,0}
+    };
 
+    int lenght = 4;
+    //swarm_scheduler::SwarmScheduler mission_scheduler;
+    //mission_scheduler.setmissions_len(lenght);
 
     mtsp_drones_gym::Move dronea, droneb, dronec, droned, dronee;
     dronea = (mtsp_drones_gym::Move) {.x = 0.5, .y = 0.5};

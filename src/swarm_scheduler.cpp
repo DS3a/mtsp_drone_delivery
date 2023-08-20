@@ -1,8 +1,8 @@
 
 #include "swarm_scheduler.hpp"
+
+
 namespace swarm_scheduler{
-
-
     void SwarmScheduler::initization(std::vector<std::vector<int>> mission_){
         this->createstatus_list;
         this->setmissions_len(mission_.size());
@@ -63,7 +63,7 @@ namespace swarm_scheduler{
     }
 
 
-    void SwarmScheduler::setdrones_mission(const std::vector<std::vector<int>> x){
+    void SwarmScheduler::setdrones_mission(std::vector<std::vector<int>> x){
         if (x.size() == mission_len && x[0].size()==drones_len){
             drone_mission = x;
         }
@@ -135,7 +135,7 @@ namespace swarm_scheduler{
     }
 
     void SwarmScheduler::mission_check(void){
-        int len_ = mission_len; //payload lenght
+        //int len_ = mission_len; //payload lenght
         int drones_len_ = drones_len; // drones lenght
         int drone_;
         std::vector<int> temp;
@@ -266,3 +266,5 @@ namespace swarm_scheduler{
 
     }
 }
+
+

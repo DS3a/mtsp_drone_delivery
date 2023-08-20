@@ -27,7 +27,7 @@ add_library(swarm_planner
   src/swarm_planner.cpp
   src/swarm_config_tracker.cpp
   src/state_validity_checker.cpp
-  src/swarm_scheduler.cpp
+  
 )
 
 # pybind11_add_module(${PROJECT_NAME} src/pywrap.cpp)
