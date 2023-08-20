@@ -105,7 +105,7 @@ namespace swarm_planner {
     std::vector<Eigen::Vector4d> SwarmConfigTracker::read_drone_states() const {
         std::vector<Eigen::Vector4d> drone_states;
         {
-            this->read_swarm_config().lock();
+            this->read_swarm_config();
             //creating a deep copy, chaging drone_states will not change drone_states_
             drone_states = *(this->drone_states_);
         }
