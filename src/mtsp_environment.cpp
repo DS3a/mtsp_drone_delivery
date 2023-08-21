@@ -78,7 +78,7 @@ int main() {
         sc.mission_check();
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
-        swarm_config_tracker->write_swarm_config(drone_states, goals);
+        swarm_config_tracker->write_swarm_config(drone_states);
         // std::vector<double> v{i*0.01, i*0.01, i*0.01, i*0.01, i*0.01}; // vector with 100 ints.
         // std::iota (std::begin(v), std::end(v), 0.1); // Fill with 0, 1, ..., 99.
 
