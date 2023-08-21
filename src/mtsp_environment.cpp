@@ -78,7 +78,7 @@ int main() {
         sc.mission_check();
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
-        swarm_config_tracker->write_swarm_config(drone_states, goals);
+        swarm_config_tracker->write_drone_states(drone_states);
         // std::vector<double> v{i*0.01, i*0.01, i*0.01, i*0.01, i*0.01}; // vector with 100 ints.
         // std::iota (std::begin(v), std::end(v), 0.1); // Fill with 0, 1, ..., 99.
 
@@ -91,8 +91,16 @@ int main() {
         std::tie(paths_found, paths) = planner.get_paths();
         ws.draw_paths(paths, paths_found);
 
-        if (i==5)
+        if (i==5) {
+            swarm_config_tracker->write_drone_goals(std::vector<Eigen::Vector2d> {
+                Eigen::Vector2d(1, 0),
+                Eigen::Vector2d(1, 1),
+                Eigen::Vector2d(2, -1),
+                Eigen::Vector2d(1, 1),
+                Eigen::Vector2d(-1.5, 1)
+            });
             swarm_config_tracker->write_drone_active_vector(std::vector<bool>({true, true, true, true, false}));
+        }
 
         // std::this_thread::sleep_for(std::chrono::milliseconds(75));
     }
