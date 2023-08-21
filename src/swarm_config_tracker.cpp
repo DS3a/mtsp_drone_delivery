@@ -41,7 +41,7 @@ namespace swarm_planner {
             if (this->num_drones == drone_goals.size()) {
                 std::cout << "drone goals updated\n";
                 (*this->drone_goals_) = drone_goals;
-                std::cout << *this->drone_goals_[0] << std::endl;
+                std::cout << (*this->drone_goals_)[0] << std::endl;
                 return true;
             }
         }
