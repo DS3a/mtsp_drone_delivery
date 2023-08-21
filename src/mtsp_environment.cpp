@@ -17,7 +17,11 @@ int main() {
     ws.add_drone(-1.5, -1, 0.1, 1);
     ws.set_step_time(0.015);
 
-    ws.add_payload(0, 1, 3, 2, 1);
+    ws.add_payload(0, 1, 1, 2, 1);
+    ws.add_payload(0,-1, 1,-2, 1);
+    ws.add_payload(-1,2, 1, 1, 2);
+    ws.add_payload(-1, 0, 1,-1,-1);
+    ws.add_payload(-2,-1,1, 0,-1);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(0, 0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, 0), Eigen::Vector2d(-0, 0)};
     // std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 0)};
     
@@ -55,17 +59,23 @@ int main() {
     ws.set_swarm_config_tracker(swarm_config_tracker);
 
     std::vector<std::vector<int>> mission_drones_list = {
-        {0,1},
-        {0,1}
+        {0,0,1,0,0},
+        {0,1,0,0,0},
+        {0,0,0,1,0},
+        {1,0,0,0,0},
+        {0,0,0,0,1}
         //{0,1,0,0,1}
     };
     swarm_scheduler::SwarmScheduler sc;
     sc.intilization(mission_drones_list);
     sc.getpayload_data(ws.read_payloads());
+    sc.set_swarm_config_tracker(swarm_config_tracker);
 
     for (int i=0; i<100; i++) {
         std::cout<<"in for loop"<<std::endl;
         sc.print_mission();
+        sc.print_payloads();
+        sc.mission_check();
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
         swarm_config_tracker->write_swarm_config(drone_states, goals);
