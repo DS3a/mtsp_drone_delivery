@@ -27,7 +27,6 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
 
         double current_drone_state_x = current_drone_state[i][0];
         double current_drone_state_y = current_drone_state[i][1];
-        
         double path_x = path[i][0][0];
         double path_y = path[i][0][1];
         double drone_setpoint_error_x = path_x - current_drone_state_x;

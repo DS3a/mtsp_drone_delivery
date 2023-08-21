@@ -21,14 +21,14 @@ int main() {
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(0, 0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, 0), Eigen::Vector2d(-0, 0)};
  
         
-    // mtsp_drones_gym::Move dronea, droneb, dronec, droned, dronee;
-    // dronea = (mtsp_drones_gym::Move) {.x = 0.0, .y = 0.5};
-    // droneb = (mtsp_drones_gym::Move) {.x = 2, .y = -4};
-    // dronec = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
-    // droned = (mtsp_drones_gym::Move) {.x = 1, .y = 0.5};
-    // dronee = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
-    // ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea, droneb, dronec, droned, dronee});
-    // ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea});
+    mtsp_drones_gym::Move dronea, droneb, dronec, droned, dronee;
+    dronea = (mtsp_drones_gym::Move) {.x = 0.0, .y = 0.5};
+    droneb = (mtsp_drones_gym::Move) {.x = 2, .y = -4};
+    dronec = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
+    droned = (mtsp_drones_gym::Move) {.x = 1, .y = 0.5};
+    dronee = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
+    ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea, droneb, dronec, droned, dronee});
+    //ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea});
 
     std::vector<Eigen::Vector2d> workspace_dims = std::vector<Eigen::Vector2d>();
     workspace_dims.push_back(Eigen::Vector2d(2.25, -2.25));
