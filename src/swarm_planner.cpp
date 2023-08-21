@@ -106,10 +106,12 @@ namespace swarm_planner {
                         std::shared_lock<std::shared_mutex> current_lock =
                             this->swarm_config_tracker_->read_swarm_config();
 
-                        temp_drone_state =
-                            (*this->swarm_config_tracker_->drone_states_)[i];
-                        temp_drone_goal =
-                            (*this->swarm_config_tracker_->drone_goals_)[i];
+                        // std::cout << "\nreading drone state\n";
+                        temp_drone_state = this->swarm_config_tracker_->read_drone_states()[i];
+                            // (*this->swarm_config_tracker_->drone_states_)[i];
+                        std::cout << "\nreading drone goals\n";
+                        temp_drone_goal = this->swarm_config_tracker_->read_drone_goals()[i];
+                            // (*this->swarm_config_tracker_->drone_goals_)[i];
 
                         current_lock.unlock();
 

@@ -135,4 +135,20 @@ namespace swarm_planner {
 
         return drone_active;
     }
+
+    std::vector<Eigen::Vector2d> SwarmConfigTracker::read_drone_goals() const {
+        std::vector<Eigen::Vector2d> drone_goals;
+        {
+            this->read_swarm_config();
+            std::cout << "the drone goals are\n";
+            drone_goals = *(this->drone_goals_);
+            for(int i=0; i < drone_goals.size(); i++) {
+                std::cout << drone_goals[i] << " ";
+            }
+            std::cout << std::endl;
+        }
+
+        return drone_goals;
+    }
+
 } // namespace swarm_planner
