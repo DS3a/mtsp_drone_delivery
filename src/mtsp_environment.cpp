@@ -74,8 +74,8 @@ int main() {
     };
     swarm_scheduler::SwarmScheduler sc;
     sc.intilization(mission_drones_list);
-    sc.getpayload_data(ws.read_payloads());
-    sc.set_swarm_config_tracker(swarm_config_tracker);
+    // sc.getpayload_data(ws.read_payloads());
+    // sc.set_swarm_config_tracker(swarm_config_tracker);
 
     for (int i=0; i<1000; i++) {
         std::cout << "Entered For loop " << i << std::endl;

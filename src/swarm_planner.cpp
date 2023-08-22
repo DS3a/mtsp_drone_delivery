@@ -38,6 +38,8 @@ namespace swarm_planner {
         this->swarm_config_tracker_ = swarm_config_tracker;
         this->drone_paths = std::make_shared<std::vector<std::vector<Eigen::Vector2d>>>();
         this->drones_path_found = std::make_shared<std::vector<bool>>();
+        this->drone_paths_ompl = std::make_shared<std::vector<ob::PathPtr>>();
+
 
         this->space = std::make_shared<ob::SE2StateSpace>();
         ob::RealVectorBounds bounds(2);
@@ -71,6 +73,7 @@ namespace swarm_planner {
             std::cout << "all conditions have been met, planning paths now\n";
             this->drone_paths->resize(this->swarm_config_tracker_->num_drones);
             this->drones_path_found->resize(this->swarm_config_tracker_->num_drones);
+            this->drone_paths_ompl->resize(this->swarm_config_tracker_->num_drones);
 
             std::cout << "resized the drone paths\n";
             std::vector<std::vector<Eigen::Vector2d>> temp_paths(this->swarm_config_tracker_->num_drones);
@@ -86,11 +89,11 @@ namespace swarm_planner {
                                                             this]() {
                         auto planner(
                             std::make_shared<current_planner>(this->si_vector[i]));
-                        planner->setRange(0.5);
+                        planner->setRange(0.9);
                         // planner->setNearestNeighbors();
                         planner->setKNearest(20);
                         // planner->setGoalBias(0.1); // Adjust the goalBias parameter
-                        planner->setPruneThreshold(0.51); // Adjust the
+                        // planner->setPruneThreshold(5.1); // Adjust the
                         // pruneThreshold parameter
 
                         auto pdef(std::make_shared<ob::ProblemDefinition>(
@@ -133,55 +136,55 @@ namespace swarm_planner {
                         pdef->setStartAndGoalStates(start, goal);
                         // std::cout << temp_drone_state[0];
 
-                        if (*(this->drones_path_found)[i]) {
-                            pdef->
-                        }
+                        if (!valid || !path_found) {
+                            // this->planner_vector[i]->setProblemDefinition(pdef);
+                            planner->setProblemDefinition(pdef);
 
-                        // this->planner_vector[i]->setProblemDefinition(pdef);
-                        planner->setProblemDefinition(pdef);
-
-                        planner->setup();
-                        // this->planner_vector[i]->setup();
+                            planner->setup();
+                            // this->planner_vector[i]->setup();
 
                         std::cout << "attempting to solve for a path for drone " << i
                                   << std::endl;
                         std::cout << "the start point is " << start << std::endl;
                         // ob::PlannerStatus solved =
                         // this->planner_vector[i]->ob::Planner::solve(0.015);
-                        ob::PlannerStatus solved = planner->ob::Planner::solve(0.5575);
+                        ob::PlannerStatus solved = planner->ob::Planner::solve(0.175);
                         std::cout << "attempt complete for drone " << i << std::endl;
                         if (solved) {
                             std::cout << "path for drone " << i << " found\n";
                             temp_path_founds[i] = true;
                             ob::PathPtr base_path = pdef->getSolutionPath();
 
-                            og::PathGeometric path(
-                                dynamic_cast<const og::PathGeometric &>(*base_path));
+                                og::PathGeometric path(
+                                    dynamic_cast<const og::PathGeometric &>(*base_path));
 
-                            unsigned int path_len = path.getStateCount();
-                            std::vector<ob::State *> states = path.getStates();
-                            temp_paths[i].clear();
-                            for (int j = 0; j < path_len; j++) {
-                                const ob::State *state = states[j];
-                                const auto *se2_state =
-                                    state->as<ob::SE2StateSpace::StateType>();
-                                double x = se2_state->getX();
-                                double y = se2_state->getY();
-                                printf("Drone %d path idx %d (%f, %f)\n", i, j, x, y);
-                                // if (j!=0) {
-                                //     float distance = (temp_paths[i][j-1] - Eigen::Vector2d(x, y)).norm();
-                                //     if (distance > RESOLUTION) {
-                                //         int num_points = 1 + (distance/RESOLUTION);
-                                //         std::vector<Eigen::Vector2d> interpolated_pts = generate_points_between(temp_paths[i][j-1], Eigen::Vector2d(x, y), num_points);
-                                //         for (const Eigen::Vector2d& point : interpolated_pts) {
-                                //             temp_paths[i].push_back(point);
-                                //         }
-                                //     }
-                                // }
-                                temp_paths[i].push_back(Eigen::Vector2d(x, y));
+                                unsigned int path_len = path.getStateCount();
+                                std::vector<ob::State *> states = path.getStates();
+                                temp_paths[i].clear();
+                                for (int j = 0; j < path_len; j++) {
+                                    const ob::State *state = states[j];
+                                    const auto *se2_state =
+                                        state->as<ob::SE2StateSpace::StateType>();
+                                    double x = se2_state->getX();
+                                    double y = se2_state->getY();
+                                    printf("Drone %d path idx %d (%f, %f)\n", i, j, x, y);
+                                    // if (j!=0) {
+                                    //     float distance = (temp_paths[i][j-1] - Eigen::Vector2d(x, y)).norm();
+                                    //     if (distance > RESOLUTION) {
+                                    //         int num_points = 1 + (distance/RESOLUTION);
+                                    //         std::vector<Eigen::Vector2d> interpolated_pts = generate_points_between(temp_paths[i][j-1], Eigen::Vector2d(x, y), num_points);
+                                    //         for (const Eigen::Vector2d& point : interpolated_pts) {
+                                    //             temp_paths[i].push_back(point);
+                                    //         }
+                                    //     }
+                                    // }
+                                    temp_paths[i].push_back(Eigen::Vector2d(x, y));
+                                }
+                            } else {
+                                temp_path_founds[i] = false;
                             }
                         } else {
-                            temp_path_founds[i] = false;
+                            temp_path_founds[i] = true;
                         }
                     }));
                 } else {

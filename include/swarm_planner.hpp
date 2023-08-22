@@ -46,6 +46,7 @@ namespace swarm_planner {
 
         std::shared_ptr<SwarmConfigTracker> swarm_config_tracker_;
         std::shared_ptr<std::vector<std::vector<Eigen::Vector2d>>> drone_paths;
+        std::shared_ptr<std::vector<ob::PathPtr>> drone_paths_ompl;
         std::shared_ptr<std::vector<bool>> drones_path_found;
 
 
