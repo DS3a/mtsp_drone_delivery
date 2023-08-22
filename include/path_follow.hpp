@@ -6,7 +6,11 @@
 #include "Eigen/Core"
 #include "Eigen/Dense"
 
+<<<<<<< HEAD
 #define kp 10
+=======
+#define kp 1
+>>>>>>> parent of 5e13e50... changed freq
 
 namespace path_follow {
 
