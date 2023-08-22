@@ -71,6 +71,7 @@ int main() {
     sc.getpayload_data(ws.read_payloads());
     sc.set_swarm_config_tracker(swarm_config_tracker);
 
+
     for (int i=0; i<100; i++) {
         std::cout<<"in for loop"<<std::endl;
         sc.print_mission();
