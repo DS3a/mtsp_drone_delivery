@@ -15,18 +15,6 @@ namespace mtsp_drones_gym {
         double x;
         double y;
     };
-    struct Pick {};
-    struct Drop {};
-    struct Attach {};
-    struct Detach {};
-
-    using DroneAction = std::variant<
-      Move,
-      Drop,
-      Attach,
-      Detach>;
-
-
     // The drone class
     class Drone {
     private:

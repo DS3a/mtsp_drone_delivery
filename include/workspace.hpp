@@ -13,14 +13,6 @@
 #include "math.h"
 
 
-// helper type for the visitor #4
-template<class... Ts>
-struct overloaded : Ts... { using Ts::operator()...; };
-
-// explicit deduction guide (not needed as of C++20)
-template<class... Ts>
-overloaded(Ts...) -> overloaded<Ts...>;
-
 
 namespace mtsp_drones_gym {
     class Workspace {
@@ -52,7 +44,7 @@ namespace mtsp_drones_gym {
 
         vec irl_to_img(const vec* irl_point);
 
-        std::vector<DroneAction> actions_;
+        std::vector<Move> actions_;
 
         void update_window();
 
@@ -64,7 +56,7 @@ namespace mtsp_drones_gym {
         void draw_paths(std::vector<std::vector<vec>> paths, std::vector<bool> paths_found);
 
         // this function sets all the drones velocities
-        void set_actions(std::vector<DroneAction>);
+        void set_actions(std::vector<Move>);
 
         // this function steps the simulator forward with the velocities of all elements
         std::tuple<bool, std::vector<Eigen::Vector4d>, std::vector<Eigen::Vector4d>> step();
@@ -80,7 +72,7 @@ namespace mtsp_drones_gym {
 
         void add_payload(double x, double y, double mass, double dest_x, double dest_y);
 
-        std::vector<Eigen::Vector4d> read_payloads() const;
+        std::vector<std::shared_ptr<mtsp_drones_gym::Payload>> get_payloads();
 
         void set_swarm_config_tracker(std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker);
 
@@ -107,7 +99,7 @@ namespace mtsp_drones_gym {
         return std::vector<vec> {vec(length-origin[0], -length+origin[0]), vec(width-origin[0], -width+origin[0])};
     }
 
-    void Workspace::set_actions(std::vector<DroneAction> actions) {
+    void Workspace::set_actions(std::vector<Move> actions) {
         this->actions_ = actions;
     }
 
@@ -119,8 +111,10 @@ namespace mtsp_drones_gym {
     }
 
     void Workspace::draw_paths(std::vector<std::vector<vec>> paths, std::vector<bool> paths_found) {
+        std::cout << "drawing paths\n";
         int i=0;
         for (auto path: paths) {
+            std::cout << "inside the for loop\n";
             if (paths_found[i++]) {
                 for (int i=0; i < path.size() - 1; i++) {
                     vec img_coords_0 = this->irl_to_img(&path[i]);
@@ -128,11 +122,14 @@ namespace mtsp_drones_gym {
                     cv::Point start_point(img_coords_0[0], img_coords_0[1]);
                     cv::Point end_point(img_coords_1[0], img_coords_1[1]);
                     cv::line(this->frame, start_point, end_point, cv::Scalar(0, 0, 255), 2);
+                    std::cout << "drawing a new line\n";
                 }
             }
         }
+        std::cout << "done drawing lines\n";
 
         this->update_window();
+        std::cout << "donen updating window\n";
     }
 
     // TODO
@@ -145,13 +142,14 @@ namespace mtsp_drones_gym {
             return std::make_tuple(false, drone_states, payload_states);
         } else {
             for (int i=0; i < this->actions_.size(); i++) {
-                std::visit(overloaded {
-                    [this, i](Move m) {this->drones[i].set_velocity(vec(m.x, m.y));},
-                    [this, i](Pick p) {this->drones[i].set_velocity(vec(0, 0));},
-                    [this, i](Drop d) {this->drones[i].set_velocity(vec(0, 0));},
-                    [this, i](Attach a) {this->drones[i].set_velocity(vec(0, 0));},
-                    [this, i](Detach d) {this->drones[i].set_velocity(vec(0, 0));}
-                }, this->actions_[i]);
+                // std::visit(overloaded {
+                    // [this, i](Move m) {this->drones[i].set_velocity(vec(m.x, m.y));},
+                    // [this, i](Pick p) {this->drones[i].set_velocity(vec(0, 0));},
+                    // [this, i](Drop d) {this->drones[i].set_velocity(vec(0, 0));},
+                    // [this, i](Attach a) {this->drones[i].set_velocity(vec(0, 0));},
+                    // [this, i](Detach d) {this->drones[i].set_velocity(vec(0, 0));}
+                // }, this->actions_[i]);
+                this->drones[i].set_velocity(vec(this->actions_[i].x, this->actions_[i].y));
             }
         }
 
@@ -246,15 +244,15 @@ namespace mtsp_drones_gym {
         this->payloads.push_back(std::make_shared<Payload>(Payload(x, y, mass, dest_x, dest_y)));
     }
 
-    std::vector<Eigen::Vector4d> Workspace::read_payloads() const {
+    std::vector<std::shared_ptr<mtsp_drones_gym::Payload>> Workspace::get_payloads() {
         // Returns std::vector<(start_x, start_y, end_x, end_y)>
-        std::vector<Eigen::Vector4d> payload_states;
+        // std::vector<Eigen::Vector4d> payload_states;
 
-        for (int i=0; i < this->payloads.size(); i++) {
-            payload_states.push_back(this->payloads[i]->get_start_and_dest());
-        }
+        // for (int i=0; i < this->payloads.size(); i++) {
+            // payload_states.push_back(this->payloads[i]->get_start_and_dest());
+        // }
 
-        return payload_states;
+        return this->payloads;
     }
 }
 
