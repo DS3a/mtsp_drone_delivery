@@ -86,11 +86,11 @@ namespace swarm_planner {
                                                             this]() {
                         auto planner(
                             std::make_shared<current_planner>(this->si_vector[i]));
-                        planner->setRange(0.9);
+                        planner->setRange(0.5);
                         // planner->setNearestNeighbors();
                         planner->setKNearest(20);
                         // planner->setGoalBias(0.1); // Adjust the goalBias parameter
-                        // planner->setPruneThreshold(5.1); // Adjust the
+                        planner->setPruneThreshold(0.51); // Adjust the
                         // pruneThreshold parameter
 
                         auto pdef(std::make_shared<ob::ProblemDefinition>(
@@ -127,8 +127,15 @@ namespace swarm_planner {
                             (double)temp_drone_goal[0], (double)temp_drone_goal[1]);
                         goal->as<ompl::base::SE2StateSpace::StateType>()->setYaw(0);
 
+
+
+
                         pdef->setStartAndGoalStates(start, goal);
                         // std::cout << temp_drone_state[0];
+
+                        if (*(this->drones_path_found)[i]) {
+                            pdef->
+                        }
 
                         // this->planner_vector[i]->setProblemDefinition(pdef);
                         planner->setProblemDefinition(pdef);
@@ -141,7 +148,7 @@ namespace swarm_planner {
                         std::cout << "the start point is " << start << std::endl;
                         // ob::PlannerStatus solved =
                         // this->planner_vector[i]->ob::Planner::solve(0.015);
-                        ob::PlannerStatus solved = planner->ob::Planner::solve(0.175);
+                        ob::PlannerStatus solved = planner->ob::Planner::solve(0.5575);
                         std::cout << "attempt complete for drone " << i << std::endl;
                         if (solved) {
                             std::cout << "path for drone " << i << " found\n";

@@ -60,7 +60,7 @@ int main() {
     swarm_planner::SwarmPlannerSE2 planner(workspace_dims, swarm_config_tracker);
 
     std::vector<Eigen::Vector4d> payload_states;
-    std::vector<mtsp_drones_gym::DroneAction> drone_list; 
+    std::vector<mtsp_drones_gym::Move> drone_list(5); 
 
     ws.set_swarm_config_tracker(swarm_config_tracker);
 
@@ -77,7 +77,7 @@ int main() {
     sc.getpayload_data(ws.read_payloads());
     sc.set_swarm_config_tracker(swarm_config_tracker);
 
-    for (int i=0; i<100; i++) {
+    for (int i=0; i<1000; i++) {
         std::cout << "Entered For loop " << i << std::endl;
         auto output = ws.step();
         std::cout << "STEP" << i << std::endl;
@@ -107,26 +107,32 @@ int main() {
         std::vector<Eigen::Vector2d> drone_setpoints = path_follow::get_drone_velocity_setpoint(drone_states, paths,paths_found);
               
 
-        //std::cout << "got setpoint" << i << std::endl;
-        
+        std::cout << "got setpoint" << i << std::endl;
+        drone_list.clear();
+        std::cout<<"drone list cleared"<<std::endl;
+        std::cout<<"path size is:"<<paths.size()<<std::endl;
 
          for (int j=0; j < paths.size(); j++) {
-             std::cout << "path x: " << paths[j][1][0] << std::endl;
-             std::cout << "path y: " << paths[j][1][1] << std::endl;
+             std::cout<<"in for loop2"<<std::endl;
+             //std::cout << "path x: " << paths[j][1][0] << std::endl;
+             //std::cout << "path y: " << paths[j][1][1] << std::endl;
              std::cout << "current x: " << drone_states[j][0] << std::endl;
              std::cout << "current y: " << drone_states[j][1] << std::endl;
              std::cout << "drone setpoints are : " << drone_setpoints[j] << std::endl;
             
 
              drone_list.push_back((mtsp_drones_gym::Move) {.x = drone_setpoints[j][0],.y = drone_setpoints[j][1]});
+             //drone_list.push_back((mtsp_drones_gym::Move){.x = 1, .y = 1});
          }
         
         // std::cout << "gave setpoint " << i << std::endl;
+        ws.set_actions(drone_list);
         
 
      }
 
-     ws.set_actions(drone_list);
+     
+        
 
 
 
