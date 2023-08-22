@@ -111,8 +111,10 @@ namespace mtsp_drones_gym {
     }
 
     void Workspace::draw_paths(std::vector<std::vector<vec>> paths, std::vector<bool> paths_found) {
+        std::cout << "drawing paths\n";
         int i=0;
         for (auto path: paths) {
+            std::cout << "inside the for loop\n";
             if (paths_found[i++]) {
                 for (int i=0; i < path.size() - 1; i++) {
                     vec img_coords_0 = this->irl_to_img(&path[i]);
@@ -120,11 +122,14 @@ namespace mtsp_drones_gym {
                     cv::Point start_point(img_coords_0[0], img_coords_0[1]);
                     cv::Point end_point(img_coords_1[0], img_coords_1[1]);
                     cv::line(this->frame, start_point, end_point, cv::Scalar(0, 0, 255), 2);
+                    std::cout << "drawing a new line\n";
                 }
             }
         }
+        std::cout << "done drawing lines\n";
 
         this->update_window();
+        std::cout << "donen updating window\n";
     }
 
     // TODO

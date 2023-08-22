@@ -66,10 +66,13 @@ int main() {
         {0,0,0,0,1}
         //{0,1,0,0,1}
     };
+
     swarm_scheduler::SwarmScheduler sc;
-    sc.intilization(mission_drones_list);
-    sc.getpayload_data(ws.read_payloads());
+    sc.set_payload_tracker(ws.get_payloads()); // sharing payload pointer with scheduler;
     sc.set_swarm_config_tracker(swarm_config_tracker);
+    sc.intilization(mission_drones_list);
+    sc.getpayload_data(sc.get_mission_len());
+
 
 
     for (int i=0; i<100; i++) {
@@ -90,8 +93,10 @@ int main() {
         std::vector<std::vector<Eigen::Vector2d>> paths;
 
         std::tie(paths_found, paths) = planner.get_paths();
-        ws.draw_paths(paths, paths_found);
+        std::cout<<"got paths"<<std::endl;
 
+        ws.draw_paths(paths, paths_found);
+        std::cout<<"completed for loop once"<<std::endl;
         // std::this_thread::sleep_for(std::chrono::milliseconds(75));
     }
 
