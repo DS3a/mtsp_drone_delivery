@@ -15,12 +15,12 @@ int main() {
     ws.add_drone(0, 1.5, 0.2, 1);
     ws.add_drone(0, 1, 0.1, 1);
     ws.add_drone(0, -1, 0.1, 1);
-    ws.add_drone(1, -1, 0.1, 1);
+    ws.add_drone(-1, -1, 0.1, 1);
     ws.add_drone(-1.5, -1, 0.1, 1);
     ws.set_step_time(0.015);
     
 
-    ws.add_payload(0, 1, 1, 2, 1);
+    ws.add_payload(0,-1, 1, 2, 1);
     ws.add_payload(0,-1, 1,-2, 1);
     ws.add_payload(1, 2, 1, 1, 2);
     ws.add_payload(1, 0, 1,-1,-1);
@@ -72,13 +72,29 @@ int main() {
         {0,0,0,0,1}
         //{0,1,0,0,1}
     };
+
     swarm_scheduler::SwarmScheduler sc;
+<<<<<<< HEAD
+    sc.set_payload_tracker(ws.get_payloads()); // sharing payload pointer with scheduler;
+    sc.set_swarm_config_tracker(swarm_config_tracker);
+    sc.intilization(mission_drones_list);
+    sc.getpayload_data(sc.get_mission_len());
+
+
+
+    for (int i=0; i<100; i++) {
+        std::cout<<"in for loop"<<std::endl;
+        sc.print_mission();
+        sc.print_payloads();
+        sc.mission_check();
+=======
     sc.intilization(mission_drones_list);
     // sc.getpayload_data(ws.read_payloads());
     // sc.set_swarm_config_tracker(swarm_config_tracker);
 
     for (int i=0; i<1000; i++) {
         std::cout << "Entered For loop " << i << std::endl;
+>>>>>>> ee6d3718edc68e211e38b2e02e7ac35bbbe20eaa
         auto output = ws.step();
         std::cout << "STEP" << i << std::endl;
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
@@ -96,6 +112,14 @@ int main() {
         std::cout << "paths " << i << std::endl;
         if(i%20 == 0|| i == 0)
         std::tie(paths_found, paths) = planner.get_paths();
+<<<<<<< HEAD
+        std::cout<<"got paths"<<std::endl;
+
+        ws.draw_paths(paths, paths_found);
+        std::cout<<"completed for loop once"<<std::endl;
+        // std::this_thread::sleep_for(std::chrono::milliseconds(75));
+    }
+=======
         std::cout << "got paths" << i << std::endl;
         drone_states = swarm_config_tracker->read_drone_states();
         
@@ -131,6 +155,7 @@ int main() {
 
     
 
+>>>>>>> ee6d3718edc68e211e38b2e02e7ac35bbbe20eaa
 
         
    return 0;

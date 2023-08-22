@@ -24,6 +24,7 @@ namespace swarm_scheduler{
             std::vector<Eigen::Vector2d> payload_dict={{0,0}}; // payload_id, drone_id
             std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker_;
             std::vector<Eigen::Vector4d> payload_points={{0,0,0,0}};
+            std::vector<std::shared_ptr<mtsp_drones_gym::Payload>> payloads_;
 
         public:
 
@@ -38,6 +39,7 @@ namespace swarm_scheduler{
             std::map<int,std::vector<int>> getmission_logger();
             std::vector<int> getdrones();
             void set_swarm_config_tracker(std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker);
+            void set_payload_tracker(std::vector<std::shared_ptr<mtsp_drones_gym::Payload>> payloads);
             void Workspace();
             //setter functions
             void setmissions_len(int x);
@@ -49,10 +51,9 @@ namespace swarm_scheduler{
 
             void missions();
             void mission_check(void);
-            void getpayload_data(std::vector<Eigen::Vector4d> payload_points_);
+            void getpayload_data(int lenght);
             std::vector<Eigen::Vector4d> read_payload();
             void print_mission();
-
             void print_payloads();
             friend class SwarmConfigTracker;
 
@@ -66,15 +67,26 @@ namespace swarm_scheduler{
         swarm_config_tracker_ = swarm_config_tracker;
     }
 
+    void SwarmScheduler::set_payload_tracker(std::vector<std::shared_ptr<mtsp_drones_gym::Payload>> payloads){
+        this->payloads_ = payloads;
+    }
+
     void SwarmScheduler::intilization(std::vector<std::vector<int>> mission_){
         this->set_swarm_config_tracker(this->swarm_config_tracker_);
+        this->set_payload_tracker(this->payloads_);
         this->setmissions_len(mission_.size());
+        this->mission_idx.resize(mission_.size());
         this->setmission_idx(mission_.size());
         this->setdrones_len(mission_[0].size());
+        this->drone_mission.resize(this->mission_len,std::vector<int>(this->drones_len));
         this->setdrones_mission(mission_);
+        this->status.resize(this->mission_len);
         this->createstatus_list();
         this->setdrones();
         this->missions();
+        this->payload_points.resize(this->mission_len);
+        //this->payloads_.resize(this->mission_len,std::shared_ptr<mtsp_drones_gym::Payload>);
+        this->payloads_.resize(this->mission_len);
         printf("completed initilization of mission");
     }
 
@@ -110,6 +122,7 @@ namespace swarm_scheduler{
         return drones_list;
     }
 
+
     std::vector<Eigen::Vector4d> SwarmScheduler::read_payload(){
         return payload_points;
     }
@@ -142,6 +155,7 @@ namespace swarm_scheduler{
     }
      
     void SwarmScheduler::setdrones(void){
+        this->drones_list.resize(this->drones_len);
         for(int i =0;i<drones_len;i++){
             drones_list.push_back(i);
         }
@@ -158,8 +172,11 @@ namespace swarm_scheduler{
         }
     }
     
-    void SwarmScheduler::getpayload_data(std::vector<Eigen::Vector4d> payload_){
-        payload_points = payload_;  
+    void SwarmScheduler::getpayload_data(int lenght){
+        for(int i =0;i<lenght;i++){
+            this->payload_points[i] = this->payloads_[i]->get_start_and_dest();
+            std::cout<<" added payload : "<<i<<std::endl;
+        }  
     }
 
     
@@ -177,11 +194,15 @@ namespace swarm_scheduler{
 
     void SwarmScheduler::print_payloads(){
         Eigen::Vector4d data;
-        for(int i =0; i<payload_points.size();i++){
+        for(int i =0; i<this->mission_len;i++){
             data = payload_points[i];
             std::cout<<data(0)<<" "<<data(1)<<" "<<data(2)<<" "<<data(3)<<std::endl;
+            std::cout<<"printted payload" << i<< std::endl;
         }
     }
+
+
+
     void SwarmScheduler::missions(void){
         int drone;
         std::vector<int> data;
@@ -219,6 +240,7 @@ namespace swarm_scheduler{
                 }
             }
         } 
+        std::cout<<"done all mission\n";
     }
 
     void SwarmScheduler::mission_check(void){
@@ -236,17 +258,30 @@ namespace swarm_scheduler{
         std::vector<Eigen::Vector4d> drone_states;
         Eigen::Vector2d pay_;
         std::vector<Eigen::Vector2d> goals_(mission_len);
-        std::vector<double> radii_;
-        std::vector<bool> drones_active;
+        std::vector<double> radii_(drones_len);
+        std::vector<bool> drones_active(drones_len);
         std::cout<<"intilized variables"<<std::endl;
         drone_states = this->swarm_config_tracker_->read_drone_states();
-        std::cout<<"got drone_states"<<std::endl;
+        //std::cout<<"got drone_states"<<std::endl;
+
+        for(int i=0; i<drones_len;i++){
+            radii_[i] = 0.1;
+        }
         for(int i=0 ;i<drones_len_;i++){
-            std::cout<<"inn for loop"<<std::endl;
+            //std::cout<<"inn for loop ";
             temp = drone_planner[i];
-            std::cout<<temp.size()<<std::endl;
+            //std::cout<<temp[0]<<std::endl;
+            //std::cout<<temp.size()<<std::endl;
             if(temp.size()==0){
                 continue;
+            }
+            else if(temp[0]==-1){
+                std::cout<<" no mission intilized"<<std::endl;
+                goals_[i](0) = drone_states[i][0];
+                goals_[i](1) = drone_states[i][1];
+                std::cout<<"goal given"<<std::endl;
+                drones_active[i]=false;
+
             }
             else{
                 std::cout<<"in else"<<std::endl;
@@ -263,6 +298,7 @@ namespace swarm_scheduler{
                     //goto pickup point
                     goals_[i](0) = final_x;
                     goals_[i](1) = final_y;
+                    drones_active[i] = true;
                     std::cout<<"assigned pick up goals"<<std::endl;
                     for(int j=0; j<drones_len_;j++){
                         if (drone_mission[drone_current_mission][j]==1){
@@ -299,7 +335,7 @@ namespace swarm_scheduler{
                             }
                         }
                         //change raduis 
-                        radii_[index_] = 0.15 + 0.5 *(counter-1); 
+                        radii_[index_] = 0.1 + 0.5 *(counter-1); 
                         
                         //update payload_idx with drone_active 
                         //add dict
@@ -352,7 +388,7 @@ namespace swarm_scheduler{
                             }
                         }
                         //change raduis 
-                        radii_[index_] = 0.15;
+                        radii_[index_] = 0.1;
                     }   
                 }
             }
