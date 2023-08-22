@@ -38,6 +38,7 @@ namespace swarm_planner {
         std::vector<Eigen::Vector4d> read_drone_states() const;
         std::vector<bool> read_drone_active() const;
         std::vector<double> read_drone_radii() const;
+        std::vector<Eigen::Vector2d> read_drone_goals() const;
 
         friend class SwarmPlannerSE2;
         friend class SwarmStateValidityChecker;

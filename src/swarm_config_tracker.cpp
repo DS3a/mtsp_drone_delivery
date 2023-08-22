@@ -39,7 +39,9 @@ namespace swarm_planner {
     bool SwarmConfigTracker::write_drone_goals(std::vector<Eigen::Vector2d> drone_goals) {
         if (this->num_drones_is_set()) {
             if (this->num_drones == drone_goals.size()) {
+                std::cout << "drone goals updated\n";
                 (*this->drone_goals_) = drone_goals;
+                std::cout << (*this->drone_goals_)[0] << std::endl;
                 return true;
             }
         }
@@ -133,4 +135,20 @@ namespace swarm_planner {
 
         return drone_active;
     }
+
+    std::vector<Eigen::Vector2d> SwarmConfigTracker::read_drone_goals() const {
+        std::vector<Eigen::Vector2d> drone_goals;
+        {
+            this->read_swarm_config();
+            std::cout << "the drone goals are\n";
+            drone_goals = *(this->drone_goals_);
+            for(int i=0; i < drone_goals.size(); i++) {
+                std::cout << drone_goals[i] << " ";
+            }
+            std::cout << std::endl;
+        }
+
+        return drone_goals;
+    }
+
 } // namespace swarm_planner

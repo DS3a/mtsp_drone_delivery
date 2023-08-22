@@ -106,9 +106,11 @@ namespace swarm_planner {
                         std::shared_lock<std::shared_mutex> current_lock =
                             this->swarm_config_tracker_->read_swarm_config();
 
-                        temp_drone_state =
+                        // std::cout << "\nreading drone state\n";
+                        temp_drone_state = // this->swarm_config_tracker_->read_drone_states()[i];
                             (*this->swarm_config_tracker_->drone_states_)[i];
-                        temp_drone_goal =
+                        std::cout << "\nreading drone goals\n";
+                        temp_drone_goal = // this->swarm_config_tracker_->read_drone_goals()[i];
                             (*this->swarm_config_tracker_->drone_goals_)[i];
 
                         current_lock.unlock();
@@ -136,7 +138,7 @@ namespace swarm_planner {
 
                         std::cout << "attempting to solve for a path for drone " << i
                                   << std::endl;
-                        // std::cout << "the start point is " << start << std::endl;
+                        std::cout << "the start point is " << start << std::endl;
                         // ob::PlannerStatus solved =
                         // this->planner_vector[i]->ob::Planner::solve(0.015);
                         ob::PlannerStatus solved = planner->ob::Planner::solve(0.175);
