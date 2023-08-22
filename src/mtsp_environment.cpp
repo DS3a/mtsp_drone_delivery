@@ -21,7 +21,7 @@ int main() {
     ws.add_payload(0,-1, 1,-2, 1);
     ws.add_payload(1, 2, 1, 1, 2);
     ws.add_payload(1, 0, 1,-1,-1);
-    ws.add_payload(1.7,-1,1, 0,-1);
+    ws.add_payload(1.7,-1,2, 0,-1);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(0, 0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, -0), Eigen::Vector2d(0, 0), Eigen::Vector2d(-0, 0)};
     // std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 0)};
     
