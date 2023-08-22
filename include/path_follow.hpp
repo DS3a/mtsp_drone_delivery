@@ -6,11 +6,7 @@
 #include "Eigen/Core"
 #include "Eigen/Dense"
 
-<<<<<<< HEAD
-#define kp 10
-=======
 #define kp 1
->>>>>>> parent of 5e13e50... changed freq
 
 namespace path_follow {
 
@@ -31,6 +27,7 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
     std::cout<<"got setpoint error\n";
     
     for (int i =0; i< path.size(); i++){
+        std::cout<<"path outside: "<<path[i][1][0] <<std::endl;
         std::cout << "in for loop; iteration " << i <<std::endl;
         if (found[i]){
             double current_drone_state_x = current_drone_state[i][0];
@@ -40,15 +37,16 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
             double path_y;
             if (path[i].size() > 0){
                 std::cout<<"okay size"<<i<<std::endl;
-                double path_x = path[i][1][0];
-                double path_y = path[i][1][1];
+                path_x = path[i][1][0];
+                path_y = path[i][1][1];
 
             }
             else {
                 std::cout<<"not okay size\n";
-                double path_x = path[i][0][0];
-                double path_y = path[i][0][1];
+                path_x = path[i][0][0];
+                path_y = path[i][0][1];
             }
+            std::cout<<"inside path is:"<<path_x<<","<<path_y<<std::endl;
             double drone_setpoint_error_x = path_x - current_drone_state_x;
             double drone_setpoint_error_y = path_y - current_drone_state_y;
             std::cout<<"setpoint error:"<<drone_setpoint_error_x<<","<<drone_setpoint_error_y<<std::endl;
