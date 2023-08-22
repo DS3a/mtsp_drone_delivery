@@ -236,17 +236,30 @@ namespace swarm_scheduler{
         std::vector<Eigen::Vector4d> drone_states;
         Eigen::Vector2d pay_;
         std::vector<Eigen::Vector2d> goals_(mission_len);
-        std::vector<double> radii_;
-        std::vector<bool> drones_active;
+        std::vector<double> radii_(drones_len);
+        std::vector<bool> drones_active(drones_len);
         std::cout<<"intilized variables"<<std::endl;
         drone_states = this->swarm_config_tracker_->read_drone_states();
-        std::cout<<"got drone_states"<<std::endl;
+        //std::cout<<"got drone_states"<<std::endl;
+
+        for(int i=0; i<drones_len;i++){
+            radii_[i] = 0.1;
+        }
         for(int i=0 ;i<drones_len_;i++){
-            std::cout<<"inn for loop"<<std::endl;
-            temp = drone_planner[i];
-            std::cout<<temp.size()<<std::endl;
+            //std::cout<<"inn for loop ";
+            /temp = drone_planner[i];
+            //std::cout<<temp[0]<<std::endl;
+            //std::cout<<temp.size()<<std::endl;
             if(temp.size()==0){
                 continue;
+            }
+            else if(temp[0]==-1){
+                std::cout<<" no mission intilized"<<std::endl;
+                goals_[i](0) = drone_states[i][0];
+                goals_[i](1) = drone_states[i][1];
+                std::cout<<"goal given"<<std::endl;
+                drones_active[i]=false;
+
             }
             else{
                 std::cout<<"in else"<<std::endl;
@@ -263,6 +276,7 @@ namespace swarm_scheduler{
                     //goto pickup point
                     goals_[i](0) = final_x;
                     goals_[i](1) = final_y;
+                    drones_active[i] = true;
                     std::cout<<"assigned pick up goals"<<std::endl;
                     for(int j=0; j<drones_len_;j++){
                         if (drone_mission[drone_current_mission][j]==1){
@@ -299,7 +313,7 @@ namespace swarm_scheduler{
                             }
                         }
                         //change raduis 
-                        radii_[index_] = 0.15 + 0.5 *(counter-1); 
+                        radii_[index_] = 0.1 + 0.5 *(counter-1); 
                         
                         //update payload_idx with drone_active 
                         //add dict
@@ -352,7 +366,7 @@ namespace swarm_scheduler{
                             }
                         }
                         //change raduis 
-                        radii_[index_] = 0.15;
+                        radii_[index_] = 0.1;
                     }   
                 }
             }
