@@ -52,7 +52,7 @@ namespace mtsp_drones_gym {
 
         vec irl_to_img(const vec* irl_point);
 
-        std::vector<DroneAction> actions_;
+        std::vector<Move> actions_;
 
         void update_window();
 
@@ -64,7 +64,7 @@ namespace mtsp_drones_gym {
         void draw_paths(std::vector<std::vector<vec>> paths, std::vector<bool> paths_found);
 
         // this function sets all the drones velocities
-        void set_actions(std::vector<DroneAction>);
+        void set_actions(std::vector<Move>);
 
         // this function steps the simulator forward with the velocities of all elements
         std::tuple<bool, std::vector<Eigen::Vector4d>, std::vector<Eigen::Vector4d>> step();
@@ -107,7 +107,7 @@ namespace mtsp_drones_gym {
         return std::vector<vec> {vec(length-origin[0], -length+origin[0]), vec(width-origin[0], -width+origin[0])};
     }
 
-    void Workspace::set_actions(std::vector<DroneAction> actions) {
+    void Workspace::set_actions(std::vector<Move> actions) {
         this->actions_ = actions;
     }
 
@@ -145,13 +145,14 @@ namespace mtsp_drones_gym {
             return std::make_tuple(false, drone_states, payload_states);
         } else {
             for (int i=0; i < this->actions_.size(); i++) {
-                std::visit(overloaded {
-                    [this, i](Move m) {this->drones[i].set_velocity(vec(m.x, m.y));},
-                    [this, i](Pick p) {this->drones[i].set_velocity(vec(0, 0));},
-                    [this, i](Drop d) {this->drones[i].set_velocity(vec(0, 0));},
-                    [this, i](Attach a) {this->drones[i].set_velocity(vec(0, 0));},
-                    [this, i](Detach d) {this->drones[i].set_velocity(vec(0, 0));}
-                }, this->actions_[i]);
+                // std::visit(overloaded {
+                    // [this, i](Move m) {this->drones[i].set_velocity(vec(m.x, m.y));},
+                    // [this, i](Pick p) {this->drones[i].set_velocity(vec(0, 0));},
+                    // [this, i](Drop d) {this->drones[i].set_velocity(vec(0, 0));},
+                    // [this, i](Attach a) {this->drones[i].set_velocity(vec(0, 0));},
+                    // [this, i](Detach d) {this->drones[i].set_velocity(vec(0, 0));}
+                // }, this->actions_[i]);
+                this->drones[i].set_velocity(vec(this->actions_[i].x, this->actions_[i].y));
             }
         }
 
