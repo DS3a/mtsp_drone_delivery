@@ -46,6 +46,7 @@ namespace mtsp_drones_gym {
         this->initial_position = vec(x, y);
         this->position = vec(x, y);
         this->mass_ = mass;
+        this->radius_ = mass*0.05;
         this->destination = vec(dest_x, dest_y);
 
         // std::cout << "initializing payload with mass " << this->mass_ << "\nand position " << this->position << std::endl;

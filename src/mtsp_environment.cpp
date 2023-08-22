@@ -68,14 +68,14 @@ int main() {
     };
     swarm_scheduler::SwarmScheduler sc;
     sc.intilization(mission_drones_list);
-    sc.getpayload_data(ws.read_payloads());
-    sc.set_swarm_config_tracker(swarm_config_tracker);
+    // sc.getpayload_data(ws.read_payloads());
+    // sc.set_swarm_config_tracker(swarm_config_tracker);
 
     for (int i=0; i<100; i++) {
         std::cout<<"in for loop"<<std::endl;
-        sc.print_mission();
-        sc.print_payloads();
-        sc.mission_check();
+        // sc.print_mission();
+        // sc.print_payloads();
+        // sc.mission_check();
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
         swarm_config_tracker->write_drone_states(drone_states);
@@ -83,12 +83,14 @@ int main() {
         // std::iota (std::begin(v), std::end(v), 0.1); // Fill with 0, 1, ..., 99.
 
         // swarm_config_tracker->write_drone_radii(v);
-        planner.plan_paths();
+        if (i==0 || i%20==0)
+            planner.plan_paths();
         // planner.write_states_and_goals(drone_states, goals);
-        std::vector<bool> paths_found;
-        std::vector<std::vector<Eigen::Vector2d>> paths;
+        static std::vector<bool> paths_found;
+        static std::vector<std::vector<Eigen::Vector2d>> paths;
 
-        std::tie(paths_found, paths) = planner.get_paths();
+        if (i==0 || i%20==0)
+            std::tie(paths_found, paths) = planner.get_paths();
         ws.draw_paths(paths, paths_found);
 
         // std::this_thread::sleep_for(std::chrono::milliseconds(75));
