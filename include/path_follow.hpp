@@ -35,13 +35,13 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
             double path_x;
             double path_y;
             if (path[i].size() > 0){
-                std::cout<<"okay size"<<i;
+                std::cout<<"okay size"<<i<<std::endl;
                 double path_x = path[i][1][0];
                 double path_y = path[i][1][1];
 
             }
             else {
-                std::cout<<"not okay size";
+                std::cout<<"not okay size\n";
                 double path_x = path[i][0][0];
                 double path_y = path[i][0][1];
             }
