@@ -182,6 +182,9 @@ namespace swarm_scheduler{
             std::cout<<data(0)<<" "<<data(1)<<" "<<data(2)<<" "<<data(3)<<std::endl;
         }
     }
+
+    
+
     void SwarmScheduler::missions(void){
         int drone;
         std::vector<int> data;
