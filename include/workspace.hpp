@@ -167,17 +167,48 @@ namespace mtsp_drones_gym {
                     vec img_coords = this->irl_to_img(drone.get_position());
                     center.x = img_coords[0];
                     center.y = img_coords[1];
-                    cv::circle(this->frame, center, drone_radii[i++]/this->render_resolution, cv::Scalar(255, 0, 0), -1);
+                    cv::circle(this->frame, center, drone_radii[i++]/this->render_resolution, cv::Scalar(230, 130, 155), -1);
                 }
             }
 
-            for (std::shared_ptr<Payload> payload: this->payloads) {
-                cv::Point center;
-                vec img_coords = this->irl_to_img(&payload->position);
-                center.x = img_coords[0];
-                center.y = img_coords[1];
-                cv::circle(this->frame, center, payload->radius_/this->render_resolution, cv::Scalar(0, 255, 0), -1);
-            }
+            int payload_id = 1;
+
+           for (std::shared_ptr<Payload> payload: this->payloads) {
+               cv::Point center;
+               vec img_coords = this->irl_to_img(&payload->position);
+               center.x = img_coords[0];
+               center.y = img_coords[1];
+
+               if ((payload->position - payload->destination).norm() >= 0.1) {
+                   vec img_coords = this->irl_to_img(&payload->position);
+                   center.x = img_coords[0];
+                   center.y = img_coords[1];
+                   cv::circle(this->frame, center,
+                              payload->radius_ / this->render_resolution,
+                              cv::Scalar(0, 255, 0), -1);
+
+                   cv::putText(this->frame, std::to_string(payload_id), center,
+                               2, 1.0, cv::Scalar(0, 0, 0), 2, cv::LINE_AA);
+
+                   img_coords = this->irl_to_img(&payload->destination);
+                   center.x = img_coords[0];
+                   center.y = img_coords[1];
+                   cv::circle(this->frame, center,
+                              payload->radius_ / this->render_resolution,
+                              cv::Scalar(155, 155, 155), -1);
+                   cv::putText(this->frame,
+                               std::to_string(payload_id++) + " dest", center, 2,
+                               1.0, cv::Scalar(0, 0, 0), 2, cv::LINE_AA);
+               } else {
+                   cv::circle(this->frame, center,
+                              payload->radius_ / this->render_resolution,
+                              cv::Scalar(0, 155, 155), -1);
+                   cv::putText(this->frame,
+                               std::to_string(payload_id++) + " delivered", center, 2,
+                               1.0, cv::Scalar(0, 0, 0), 2, cv::LINE_AA);
+
+               }
+           }
 
             // this->update_window();
             return std::make_tuple(true, drone_states, payload_states);

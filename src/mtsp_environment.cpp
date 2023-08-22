@@ -17,7 +17,7 @@ int main() {
     ws.add_drone(-1.5, -1, 0.1, 1);
     ws.set_step_time(0.015);
 
-    ws.add_payload(0, 1, 1, 2, 1);
+    ws.add_payload(-1, 0, 1, -1, 0);
     ws.add_payload(0,-1, 1,-2, 1);
     ws.add_payload(1, 2, 1, 1, 2);
     ws.add_payload(1, 0, 1,-1,-1);
@@ -71,7 +71,7 @@ int main() {
     // sc.getpayload_data(ws.read_payloads());
     // sc.set_swarm_config_tracker(swarm_config_tracker);
 
-    for (int i=0; i<100; i++) {
+    for (int i=0; i<1000; i++) {
         std::cout<<"in for loop"<<std::endl;
         // sc.print_mission();
         // sc.print_payloads();
