@@ -65,11 +65,11 @@ int main() {
     ws.set_swarm_config_tracker(swarm_config_tracker);
 
     std::vector<std::vector<int>> mission_drones_list = {
+        {0,0,0,0,1},
         {1,0,0,0,0},
-        {0,1,0,0,0},
         {0,0,1,0,0},
         {0,0,0,1,0},
-        {0,0,0,0,1}
+        {0,1,0,0,0}
         //{0,1,0,0,1}
     };
 
@@ -94,6 +94,7 @@ int main() {
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
         swarm_config_tracker->write_drone_states(drone_states);
         if(i%5 == 0|| i == 0)
+            
             planner.plan_paths();
 
         static std::vector<bool> paths_found;
@@ -106,7 +107,7 @@ int main() {
 
 
         std::vector<Eigen::Vector2d> drone_setpoints = path_follow::get_drone_velocity_setpoint(drone_states, paths, paths_found);
-              
+        std::cout<<"got drone_ setpoints\n";       
 
 
         drone_list.clear();
@@ -121,7 +122,7 @@ int main() {
              drone_list.push_back((mtsp_drones_gym::Move) {.x = drone_setpoints[j][0],.y = drone_setpoints[j][1]});
          }
         
-        // std::cout << "gave setpoint " << i << std::endl;
+        std::cout << "gave setpoint " << i << std::endl;
         
         ws.set_actions(drone_list);
         // std::this_thread::sleep_for(std::chrono::milliseconds(100));

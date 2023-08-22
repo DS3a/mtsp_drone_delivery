@@ -66,7 +66,7 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
 
 
     
-
+    std::cout<<"completed function\n";
     return drone_velocity_setpoint;
 }
 
