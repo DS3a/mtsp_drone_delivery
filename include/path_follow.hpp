@@ -6,7 +6,7 @@
 #include "Eigen/Core"
 #include "Eigen/Dense"
 
-#define kp 2
+#define kp 4
 
 namespace path_follow {
 
@@ -58,6 +58,7 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
 
         }
         else{
+            drone_velocity_setpoint[i] = Eigen::Vector2d(0, 0);
             continue;
         }    
     }

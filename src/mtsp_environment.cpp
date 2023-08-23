@@ -24,7 +24,7 @@ int main() {
     ws.add_payload(1.5, 0.25, 1, 0.5, -1);
     ws.add_payload(0.5, 0.25, 1, 1.5, -1);
     ws.add_payload(1, 0, 1,1,-0.5);
-    ws.add_payload(1,-1,1, 0,-1);
+    ws.add_payload(1,-1,1, 1,1);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(-1, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 0)};
  
         
@@ -123,9 +123,22 @@ int main() {
          }
         
         std::cout << "gave setpoint " << i << std::endl;
-        
+
+        // if (i == 20) {
+        //     std::cout << "changing radius of drones\n";
+        //     swarm_config_tracker->write_drone_active_vector(std::vector<bool>{true, true, true, false, true});
+        //     swarm_config_tracker->write_drone_radii(std::vector<double>({0.3, 0.2, 0.1, 0.1, 0.1}));
+        // }
+
+        // if (i == 50) {
+        //     std::cout << "changing radius of drones\n";
+        //     swarm_config_tracker->write_drone_active_vector(std::vector<bool>{true, true, true, true, true});
+        //     swarm_config_tracker->write_drone_radii(std::vector<double>({0.1, 0.1, 0.1, 0.1, 0.1}));
+        // }
+
+
         ws.set_actions(drone_list);
-        // std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
      }
 

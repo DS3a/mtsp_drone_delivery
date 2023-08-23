@@ -171,11 +171,12 @@ namespace mtsp_drones_gym {
                 std::cout<<drone_active[i]<<std::endl;
             }
             //std::cout<<"radii in workspace\n";
+            int drone_ind=0;
             for (Drone& drone: this->drones) {
                 std::cout<<"radii in for loop\n";
-                if (drone_active[i]) {
+                if (drone_active[drone_ind]) {
                     std::cout<<"radii in if condi\n";
-                    std::cout<<"radii in workspace"<<drone_radii[i]<<std::endl;
+                    std::cout<<"radii in workspace"<<drone_radii[drone_ind]<<std::endl;
                     cv::Point center;
                     vec img_coords = this->irl_to_img(drone.get_position());
                     center.x = img_coords[0];
@@ -183,6 +184,8 @@ namespace mtsp_drones_gym {
                     cv::circle(this->frame, center, drone_radii[i++]/this->render_resolution,
                               cv::Scalar(199, 157, 60), -1);
                 }
+
+                drone_ind++;
             }
 
             int payload_id = 1;

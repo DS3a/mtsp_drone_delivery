@@ -77,7 +77,7 @@ namespace swarm_planner {
                     collision = true;
                     return !collision;
                 }
-            } else if (calculate_distance(x, y, drone_x, drone_y) - current_drone_radius - drone_radius < 0.1) {
+            } else if (calculate_distance(x, y, drone_x, drone_y) - current_drone_radius - drone_radius < 0.05) {
                 // ENHANCEMENT check if the drone will be there in `time_to_reach_sampled_state`
                 collision = true;
                 return !collision;
