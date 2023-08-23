@@ -172,7 +172,8 @@ namespace mtsp_drones_gym {
                     vec img_coords = this->irl_to_img(drone.get_position());
                     center.x = img_coords[0];
                     center.y = img_coords[1];
-                    cv::circle(this->frame, center, drone_radii[i++]/this->render_resolution, cv::Scalar(230, 130, 155), -1);
+                    cv::circle(this->frame, center, drone_radii[i++]/this->render_resolution,
+                              cv::Scalar(199, 157, 60), -1);
                 }
             }
 
@@ -190,7 +191,7 @@ namespace mtsp_drones_gym {
                    center.y = img_coords[1];
                    cv::circle(this->frame, center,
                               payload->radius_ / this->render_resolution,
-                              cv::Scalar(0, 255, 0), -1);
+                               cv::Scalar(52, 204, 235), -1);
 
                    cv::putText(this->frame, std::to_string(payload_id), center,
                                2, 1.0, cv::Scalar(0, 0, 0), 2, cv::LINE_AA);
@@ -200,14 +201,14 @@ namespace mtsp_drones_gym {
                    center.y = img_coords[1];
                    cv::circle(this->frame, center,
                               payload->radius_ / this->render_resolution,
-                              cv::Scalar(155, 155, 155), -1);
+                              cv::Scalar(230, 149, 215), -1);
                    cv::putText(this->frame,
                                std::to_string(payload_id++) + " dest", center, 2,
                                1.0, cv::Scalar(0, 0, 0), 2, cv::LINE_AA);
                } else {
                    cv::circle(this->frame, center,
                               payload->radius_ / this->render_resolution,
-                              cv::Scalar(0, 155, 155), -1);
+                              cv::Scalar(149, 235, 52), -1);
                    cv::putText(this->frame,
                                std::to_string(payload_id++) + " delivered", center, 2,
                                1.0, cv::Scalar(0, 0, 0), 2, cv::LINE_AA);
