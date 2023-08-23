@@ -12,19 +12,19 @@
 
 int main() {
     mtsp_drones_gym::Workspace ws(true);
-    ws.add_drone(0, 1.5, 0.2, 1);
-    ws.add_drone(0, 1, 0.1, 1);
-    ws.add_drone(0, -1, 0.1, 1);
-    ws.add_drone(-1, -1, 0.1, 1);
+    ws.add_drone(0.5,0.5, 0.1, 1);
+    ws.add_drone(1.5, 0.5, 0.1, 1);
+    ws.add_drone(-0.25, -0.75, 0.1, 1);
+    ws.add_drone(-0.5, -0.5, 0.1, 1);
     ws.add_drone(-1.5, -1, 0.1, 1);
     ws.set_step_time(0.015);
     
 
-    ws.add_payload(0,-1, 1, 2, 1);
-    ws.add_payload(0,-1, 1,-2, 1);
-    ws.add_payload(1, 2, 1, 1, 2);
-    ws.add_payload(1, 0, 1,-1,-1);
-    ws.add_payload(1.7,-1,2, 0,-1);
+    ws.add_payload(0, 0, 2, -1, 0);
+    ws.add_payload(1.5, 0.25, 1, 0.5, -1);
+    ws.add_payload(0.5, 0.25, 1, 1.5, -1);
+    ws.add_payload(1, 0, 1,1,-0.5);
+    ws.add_payload(1,-1,1, 0,-1);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(-1, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 0)};
  
         
@@ -65,11 +65,11 @@ int main() {
     ws.set_swarm_config_tracker(swarm_config_tracker);
 
     std::vector<std::vector<int>> mission_drones_list = {
-        {1,0,0,0,0},
-        {0,1,0,0,0},
+        {1,1,0,0,0},
         {0,0,1,0,0},
         {0,0,0,1,0},
-        {0,0,0,0,1}
+        {0,0,0,0,1},
+        {0,1,0,0,0}
         //{0,1,0,0,1}
     };
 
@@ -85,8 +85,8 @@ int main() {
     // sc.set_swarm_config_tracker(swarm_config_tracker);
 
     for (int i=0; i<1000; i++) {
-        sc.print_mission();
-        sc.print_payloads();
+        //sc.print_mission();
+        //sc.print_payloads();
         sc.mission_check();
 
 
@@ -94,6 +94,7 @@ int main() {
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
         swarm_config_tracker->write_drone_states(drone_states);
         if(i%5 == 0|| i == 0)
+            
             planner.plan_paths();
 
         static std::vector<bool> paths_found;
@@ -106,12 +107,12 @@ int main() {
 
 
         std::vector<Eigen::Vector2d> drone_setpoints = path_follow::get_drone_velocity_setpoint(drone_states, paths, paths_found);
-              
+        std::cout<<"got drone_ setpoints\n";       
 
 
         drone_list.clear();
-         for (int j=0; j < paths.size(); j++) {
-             std::cout << "for path : " << paths[j][1][0] <<  paths[j][1][1] << std::endl;
+         for (int j=0; j < sc.getdrone_len(); j++) {
+             //std::cout << "for path : " << paths[j][1][0] <<  paths[j][1][1] << std::endl;
           
              std::cout << "current x: " << drone_states[j][0] << std::endl;
              std::cout << "current y: " << drone_states[j][1] << std::endl;
@@ -121,7 +122,7 @@ int main() {
              drone_list.push_back((mtsp_drones_gym::Move) {.x = drone_setpoints[j][0],.y = drone_setpoints[j][1]});
          }
         
-        // std::cout << "gave setpoint " << i << std::endl;
+        std::cout << "gave setpoint " << i << std::endl;
         
         ws.set_actions(drone_list);
         // std::this_thread::sleep_for(std::chrono::milliseconds(100));

@@ -62,6 +62,11 @@ namespace swarm_planner {
         if (this->num_drones_is_set()) {
             if (this->num_drones == drone_radii.size()) {
                 (*this->drone_radii_) = drone_radii;
+                std::cout<<"radii";
+                for(int i=0;i<this->num_drones;i++){
+                    std::cout<<(*this->drone_radii_)[i]<<" ";
+                }
+                std::cout<<std::endl;
                 return true;
             }
         }
