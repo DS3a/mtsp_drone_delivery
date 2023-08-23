@@ -166,8 +166,16 @@ namespace mtsp_drones_gym {
             // std::cout << "got drone radii " << drone_radii[0] << std::endl;
             this->frame = cv::Mat(this->length/this->render_resolution, this->width/this->render_resolution, CV_8UC3, cv::Scalar(255, 255, 255));
             int i = 0;
+            for(int i =0; i<drone_active.size();i++){
+                std::cout<<"radii in workspace outside "<<drone_radii[i]<<" ";
+                std::cout<<drone_active[i]<<std::endl;
+            }
+            //std::cout<<"radii in workspace\n";
             for (Drone& drone: this->drones) {
+                std::cout<<"radii in for loop\n";
                 if (drone_active[i]) {
+                    std::cout<<"radii in if condi\n";
+                    std::cout<<"radii in workspace"<<drone_radii[i]<<std::endl;
                     cv::Point center;
                     vec img_coords = this->irl_to_img(drone.get_position());
                     center.x = img_coords[0];

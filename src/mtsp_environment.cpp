@@ -12,19 +12,19 @@
 
 int main() {
     mtsp_drones_gym::Workspace ws(true);
-    ws.add_drone(0, 1.5, 0.2, 1);
-    ws.add_drone(0, 1, 0.1, 1);
-    ws.add_drone(0, -1, 0.1, 1);
-    ws.add_drone(-1, -1, 0.1, 1);
+    ws.add_drone(0.5,0.5, 0.1, 1);
+    ws.add_drone(1.5, 0.5, 0.1, 1);
+    ws.add_drone(-0.25, -0.75, 0.1, 1);
+    ws.add_drone(-0.5, -0.5, 0.1, 1);
     ws.add_drone(-1.5, -1, 0.1, 1);
     ws.set_step_time(0.015);
     
 
-    ws.add_payload(0,-1, 1, 0.5, -1.2);
-    ws.add_payload(0, 1, 1, -0.5, 1);
-    ws.add_payload(1, 1.5, 1, 1.3, 1.5);
+    ws.add_payload(0, 0, 2, -1, 0);
+    ws.add_payload(1.5, 0.25, 1, 0.5, -1);
+    ws.add_payload(0.5, 0.25, 1, 1.5, -1);
     ws.add_payload(1, 0, 1,1,-0.5);
-    ws.add_payload(1,-1,2, 0,-1);
+    ws.add_payload(1,-1,1, 0,-1);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(-1, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 0)};
  
         
@@ -65,10 +65,10 @@ int main() {
     ws.set_swarm_config_tracker(swarm_config_tracker);
 
     std::vector<std::vector<int>> mission_drones_list = {
-        {0,0,0,0,1},
-        {1,0,0,0,0},
+        {1,1,0,0,0},
         {0,0,1,0,0},
         {0,0,0,1,0},
+        {0,0,0,0,1},
         {0,1,0,0,0}
         //{0,1,0,0,1}
     };
