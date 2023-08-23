@@ -20,11 +20,11 @@ int main() {
     ws.set_step_time(0.015);
     
 
-    ws.add_payload(0,-1, 1, 2, 1);
-    ws.add_payload(0,-1, 1,-2, 1);
-    ws.add_payload(1, 2, 1, 1, 2);
-    ws.add_payload(1, 0, 1,-1,-1);
-    ws.add_payload(1.7,-1,2, 0,-1);
+    ws.add_payload(0,-1, 1, 0.5, -1.2);
+    ws.add_payload(0, 1, 1, -0.5, 1);
+    ws.add_payload(1, 1.5, 1, 1.3, 1.5);
+    ws.add_payload(1, 0, 1,1,-0.5);
+    ws.add_payload(1,-1,2, 0,-1);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(-1, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 0)};
  
         
@@ -85,8 +85,8 @@ int main() {
     // sc.set_swarm_config_tracker(swarm_config_tracker);
 
     for (int i=0; i<1000; i++) {
-        sc.print_mission();
-        sc.print_payloads();
+        //sc.print_mission();
+        //sc.print_payloads();
         sc.mission_check();
 
 
@@ -111,8 +111,8 @@ int main() {
 
 
         drone_list.clear();
-         for (int j=0; j < paths.size(); j++) {
-             std::cout << "for path : " << paths[j][1][0] <<  paths[j][1][1] << std::endl;
+         for (int j=0; j < sc.getdrone_len(); j++) {
+             //std::cout << "for path : " << paths[j][1][0] <<  paths[j][1][1] << std::endl;
           
              std::cout << "current x: " << drone_states[j][0] << std::endl;
              std::cout << "current y: " << drone_states[j][1] << std::endl;

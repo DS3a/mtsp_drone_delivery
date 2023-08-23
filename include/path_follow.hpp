@@ -6,7 +6,7 @@
 #include "Eigen/Core"
 #include "Eigen/Dense"
 
-#define kp 8
+#define kp 1
 
 namespace path_follow {
 
@@ -26,9 +26,9 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
     static std::vector<Eigen::Vector2d> drone_setpoint_error(path.size());
     std::cout<<"got setpoint error\n";
     
-    for (int i =0; i< path.size(); i++){
-        std::cout<<"path outside: "<<path[i][1][0] <<std::endl;
-        std::cout << "in for loop; iteration " << i <<std::endl;
+    for (int i =0; i< current_drone_state.size(); i++){
+        //std::cout<<"path outside: "<<path[i][1][0] <<std::endl;
+        //std::cout << "in for loop; iteration " << i <<std::endl;
         if (found[i]){
             double current_drone_state_x = current_drone_state[i][0];
             double current_drone_state_y = current_drone_state[i][1];
