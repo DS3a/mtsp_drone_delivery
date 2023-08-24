@@ -341,7 +341,7 @@ namespace swarm_scheduler{
                     
                 }
                 else if (status[drone_current_mission]==1){
-                    check = 1;
+                    check = 0;
                     std::cout<<"in status 1\n";
                     std::cout <<"current mission "<<drone_current_mission<<std::endl;
                     //std::cout << "x :" <<this->payload_points[drone_current_mission][2]<<std::endl;
@@ -368,10 +368,10 @@ namespace swarm_scheduler{
                             else{
                                 reach = 0;
                             } 
-                            check = check * reach;
+                            check = check + reach;
                         }
                     }
-                    if(check != 0){
+                    if(check == 1){
                         status[drone_current_mission]=2; 
                         for(int j = 0;j<this->drones_len;j++){
                             if(drone_mission[drone_current_mission][j]==1){ 
