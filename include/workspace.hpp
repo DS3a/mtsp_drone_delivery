@@ -181,7 +181,7 @@ namespace mtsp_drones_gym {
                     vec img_coords = this->irl_to_img(drone.get_position());
                     center.x = img_coords[0];
                     center.y = img_coords[1];
-                    cv::circle(this->frame, center, drone_radii[i++]/this->render_resolution,
+                    cv::circle(this->frame, center, drone_radii[drone_ind]/this->render_resolution,
                               cv::Scalar(199, 157, 60), -1);
                 }
 
