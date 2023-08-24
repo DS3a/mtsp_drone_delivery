@@ -20,11 +20,11 @@ int main() {
     ws.set_step_time(0.015);
     
 
-    ws.add_payload(0, 0, 2, -1, 0);
-    ws.add_payload(1.5, 0.25, 1, 0.5, -1);
-    ws.add_payload(0.5, 0.25, 1, 1.5, -1);
-    ws.add_payload(1, 0, 1,1,-0.5);
-    ws.add_payload(1,-1,1, 1,1);
+    ws.add_payload(3, 0, 2, 2.5, 3);
+    ws.add_payload(-3.5, 0.25, 1, 0.5, -1);
+    ws.add_payload(2.5, 0.25, 1, 1.5, -1);
+    ws.add_payload(-3, 0, 1,1,-0.5);
+    ws.add_payload(2,-1,1, 1,1);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(-1, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 0)};
  
         
@@ -41,8 +41,8 @@ int main() {
     // ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea});
 
     std::vector<Eigen::Vector2d> workspace_dims = std::vector<Eigen::Vector2d>();
-    workspace_dims.push_back(Eigen::Vector2d(2.25, -2.25));
-    workspace_dims.push_back(Eigen::Vector2d(2, -2));
+    workspace_dims.push_back(Eigen::Vector2d(4, -4));
+    workspace_dims.push_back(Eigen::Vector2d(4, -4));
 
     std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker = std::make_shared<swarm_planner::SwarmConfigTracker>();
     swarm_config_tracker->set_num_drones(5);
@@ -55,7 +55,7 @@ int main() {
         Eigen::Vector4d(-1.5, -1, 0.1, 0)
     }, goals);
     swarm_config_tracker->write_drone_active_vector(std::vector<bool>({true, true, true, true, true}));
-    swarm_config_tracker->write_drone_radii(std::vector<double>({0.05, 0.05, 0.05, 0.05, 0.05}));
+    swarm_config_tracker->write_drone_radii(std::vector<double>({0.10, 0.10, 0.10, 0.10, 0.10}));
 
     swarm_planner::SwarmPlannerSE2 planner(workspace_dims, swarm_config_tracker);
 
@@ -68,7 +68,7 @@ int main() {
         {1,1,1,0,0},
         {0,1,0,0,0},
         {0,0,1,0,0},
-        {0,0,0,1,1},
+        {0,0,0,1,0},
         {0,0,0,0,1}
         //{0,1,0,0,1}
     };
@@ -93,13 +93,12 @@ int main() {
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
         swarm_config_tracker->write_drone_states(drone_states);
-        if(i%5 == 0|| i == 0)
-            
+        if(i%40 == 0|| i == 0)
             planner.plan_paths();
 
         static std::vector<bool> paths_found;
         static std::vector<std::vector<Eigen::Vector2d>> paths;
-        if(i%5 == 0 || i == 0)
+        if(i%40 == 0 || i == 0)
             std::tie(paths_found, paths) = planner.get_paths();
         drone_states = swarm_config_tracker->read_drone_states();
         
@@ -135,7 +134,7 @@ int main() {
         //     swarm_config_tracker->write_drone_radii(std::vector<double>({0.2, 0.1, 0.1, 0.1, 0.1}));
         // }
 
-        // if (i == 50) {
+        // if (i == 150) {
         //     std::cout << "changing radius of drones\n";
         //     swarm_config_tracker->write_drone_active_vector(std::vector<bool>{true, true, true, true, true});
         //     swarm_config_tracker->write_drone_radii(std::vector<double>({0.1, 0.1, 0.1, 0.1, 0.1}));
@@ -143,7 +142,7 @@ int main() {
 
 
         ws.set_actions(drone_list);
-        std::this_thread::sleep_for(std::chrono::milliseconds(150));
+        // std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
      }
 

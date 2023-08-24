@@ -42,6 +42,8 @@ namespace mtsp_drones_gym {
 
         void set_velocity(vec velocity_);
 
+        // void set_follow(const Drone* drone_to_follow);
+
         Eigen::Vector4d step(double step_time);
 
         bool is_carrying_payload();

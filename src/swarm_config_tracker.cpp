@@ -29,7 +29,12 @@ namespace swarm_planner {
     bool SwarmConfigTracker::write_drone_states(std::vector<Eigen::Vector4d> drone_states) {
         if (this->num_drones_is_set()) {
             if (this->num_drones == drone_states.size()) {
-                (*this->drone_states_) = drone_states;
+                for (int i=0; i < this->num_drones; i++) {
+                    if ((*this->drone_active_)[i]) {
+                        (*this->drone_states_)[i] = drone_states[i];
+                    }
+                }
+                // (*this->drone_states_) = drone_states;
                 return true;
             }
         }
@@ -158,5 +163,6 @@ namespace swarm_planner {
 
     void SwarmConfigTracker::deactivate_drone(int drone_idx, Eigen::Vector2d destination) {
         (*this->drone_states_)[drone_idx] = Eigen::Vector4d(destination.x(), destination.y(), 0, 0);
+        std::cout << "deactivate new drone position is " << (*this->drone_states_)[drone_idx];
     }
 } // namespace swarm_planner
