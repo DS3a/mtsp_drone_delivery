@@ -156,4 +156,7 @@ namespace swarm_planner {
         return drone_goals;
     }
 
+    void SwarmConfigTracker::deactivate_drone(int drone_idx, Eigen::Vector2d destination) {
+        (*this->drone_states_)[drone_idx] = Eigen::Vector4d(destination.x(), destination.y(), 0, 0);
+    }
 } // namespace swarm_planner
