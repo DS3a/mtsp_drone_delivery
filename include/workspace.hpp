@@ -156,7 +156,7 @@ namespace mtsp_drones_gym {
         std::vector<bool> drone_active = this->swarm_config_tracker_->read_drone_active();
         int drone_idx = 0;
         for (Drone& drone: this->drones) {
-            if (drone_active[drone_idx++])
+            // if (drone_active[drone_idx++])
                 drone_states.push_back(drone.step(this->step_time_));
         }
 
