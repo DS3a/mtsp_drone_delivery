@@ -153,8 +153,11 @@ namespace mtsp_drones_gym {
             }
         }
 
+        std::vector<bool> drone_active = this->swarm_config_tracker_->read_drone_active();
+        int drone_idx = 0;
         for (Drone& drone: this->drones) {
-            drone_states.push_back(drone.step(this->step_time_));
+            if (drone_active[drone_idx++])
+                drone_states.push_back(drone.step(this->step_time_));
         }
 
         this->check_collisions();
@@ -162,7 +165,8 @@ namespace mtsp_drones_gym {
         if (this->render_) {
             std::cout << "getting drone radii\n";
             std::vector<double> drone_radii = this->swarm_config_tracker_->read_drone_radii();
-            std::vector<bool> drone_active = this->swarm_config_tracker_->read_drone_active();
+            // std::vector<bool> drone_active = this->swarm_config_tracker_->read_drone_active();
+            std::vector<Eigen::Vector4d> drone_states_ = this->swarm_config_tracker_->read_drone_states();
             // std::cout << "got drone radii " << drone_radii[0] << std::endl;
             this->frame = cv::Mat(this->length/this->render_resolution, this->width/this->render_resolution, CV_8UC3, cv::Scalar(255, 255, 255));
             int i = 0;
@@ -178,7 +182,8 @@ namespace mtsp_drones_gym {
                     std::cout<<"radii in if condi\n";
                     std::cout<<"radii in workspace"<<drone_radii[drone_ind]<<std::endl;
                     cv::Point center;
-                    vec img_coords = this->irl_to_img(drone.get_position());
+                    Eigen::Vector2d drone_position(drone_states_[drone_ind].x(), drone_states_[drone_ind].y());
+                    vec img_coords = this->irl_to_img((const vec*)&drone_position);
                     center.x = img_coords[0];
                     center.y = img_coords[1];
                     cv::circle(this->frame, center, drone_radii[drone_ind]/this->render_resolution,
