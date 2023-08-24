@@ -16,7 +16,7 @@ int main() {
     ws.add_drone(1.5, 0.5, 0.1, 1);
     ws.add_drone(-0.25, -0.75, 0.1, 1);
     ws.add_drone(-0.5, -0.5, 0.1, 1);
-    ws.add_drone(-1.5, -1, 0.1, 1);
+    ws.add_drone(0, 1, 0.1, 1);
     ws.set_step_time(0.015);
     
 
@@ -55,7 +55,7 @@ int main() {
         Eigen::Vector4d(-1.5, -1, 0.1, 0)
     }, goals);
     swarm_config_tracker->write_drone_active_vector(std::vector<bool>({true, true, true, true, true}));
-    swarm_config_tracker->write_drone_radii(std::vector<double>({0.1, 0.1, 0.1, 0.1, 0.1}));
+    swarm_config_tracker->write_drone_radii(std::vector<double>({0.05, 0.05, 0.05, 0.05, 0.05}));
 
     swarm_planner::SwarmPlannerSE2 planner(workspace_dims, swarm_config_tracker);
 
@@ -65,11 +65,11 @@ int main() {
     ws.set_swarm_config_tracker(swarm_config_tracker);
 
     std::vector<std::vector<int>> mission_drones_list = {
-        {1,1,0,0,0},
+        {1,1,1,0,0},
+        {0,1,0,0,0},
         {0,0,1,0,0},
-        {0,0,0,1,0},
-        {0,0,0,0,1},
-        {0,1,0,0,0}
+        {0,0,0,1,1},
+        {0,0,0,0,1}
         //{0,1,0,0,1}
     };
 
@@ -123,11 +123,16 @@ int main() {
          }
         
         std::cout << "gave setpoint " << i << std::endl;
-
-        // if (i == 20) {
+//
+        // if (i == 50) {
         //     std::cout << "changing radius of drones\n";
-        //     swarm_config_tracker->write_drone_active_vector(std::vector<bool>{true, true, true, false, true});
-        //     swarm_config_tracker->write_drone_radii(std::vector<double>({0.3, 0.2, 0.1, 0.1, 0.1}));
+        //     swarm_config_tracker->write_drone_active_vector(std::vector<bool>{false, true, true, true, true});
+        //     swarm_config_tracker->write_drone_radii(std::vector<double>({0.1, 0.2, 0.1, 0.1, 0.1}));
+        // }
+        // if (i == 100) {
+        //     std::cout << "changing radius of drones\n";
+        //     swarm_config_tracker->write_drone_active_vector(std::vector<bool>{true, false, true, true, true});
+        //     swarm_config_tracker->write_drone_radii(std::vector<double>({0.2, 0.1, 0.1, 0.1, 0.1}));
         // }
 
         // if (i == 50) {
@@ -138,7 +143,7 @@ int main() {
 
 
         ws.set_actions(drone_list);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::this_thread::sleep_for(std::chrono::milliseconds(150));
 
      }
 
