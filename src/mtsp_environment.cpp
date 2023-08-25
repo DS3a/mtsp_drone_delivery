@@ -89,22 +89,21 @@ int main() {
         //sc.print_payloads();
         sc.mission_check();
 
-
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
         swarm_config_tracker->write_drone_states(drone_states);
-        if(i%40 == 0|| i == 0)
-            planner.plan_paths();
-
         static std::vector<bool> paths_found;
         static std::vector<std::vector<Eigen::Vector2d>> paths;
-        if(i%40 == 0 || i == 0)
+
+        if (i % 40 == 0 || i == 0) {
+            planner.plan_paths();
             std::tie(paths_found, paths) = planner.get_paths();
-        drone_states = swarm_config_tracker->read_drone_states();
-        
+        }
+
         ws.draw_paths(paths, paths_found);
 
 
+        drone_states = swarm_config_tracker->read_drone_states();
         std::vector<Eigen::Vector2d> drone_setpoints = path_follow::get_drone_velocity_setpoint(drone_states, paths, paths_found);
         std::cout<<"got drone_ setpoints\n";       
 
@@ -113,8 +112,8 @@ int main() {
          for (int j=0; j < sc.getdrone_len(); j++) {
              //std::cout << "for path : " << paths[j][1][0] <<  paths[j][1][1] << std::endl;
           
-             std::cout << "current x: " << drone_states[j][2] << std::endl;
-             std::cout << "current y: " << drone_states[j][3] << std::endl;
+             std::cout << "current x: " << drone_states[j][0] << std::endl;
+             std::cout << "current y: " << drone_states[j][1] << std::endl;
              std::cout << "drone setpoints are : " << drone_setpoints[j] << std::endl;
             
 
@@ -126,12 +125,19 @@ int main() {
         // if (i == 50) {
         //     std::cout << "changing radius of drones\n";
         //     swarm_config_tracker->write_drone_active_vector(std::vector<bool>{false, true, true, true, true});
-        //     swarm_config_tracker->write_drone_radii(std::vector<double>({0.1, 0.2, 0.1, 0.1, 0.1}));
+        //     std::vector<Eigen::Vector4d> read_drone_states = swarm_config_tracker->read_drone_states();
+        //     read_drone_states[0] = Eigen::Vector4d(-3, 1, 0, 0);
+        //     swarm_config_tracker->write_drone_states(read_drone_states);
+        //     // swarm_config_tracker->write_drone_radii(std::vector<double>({0.1, 0.2, 0.1, 0.1, 0.1}));
         // }
-        // if (i == 100) {
+        // if (i == 200) {
         //     std::cout << "changing radius of drones\n";
-        //     swarm_config_tracker->write_drone_active_vector(std::vector<bool>{true, false, true, true, true});
-        //     swarm_config_tracker->write_drone_radii(std::vector<double>({0.2, 0.1, 0.1, 0.1, 0.1}));
+        //     swarm_config_tracker->write_drone_active_vector(std::vector<bool>{true, true, true, true, true});
+        //     // swarm_config_tracker->deactivate_drone(0, Eigen::Vector2d(-3, 1));
+        //     std::vector<Eigen::Vector4d> read_drone_states = swarm_config_tracker->read_drone_states();
+        //     read_drone_states[0] = Eigen::Vector4d(-3, 1, 0, 0);
+        //     swarm_config_tracker->write_drone_states(read_drone_states);
+        //     // swarm_config_tracker->write_drone_radii(std::vector<double>({0.2, 0.1, 0.1, 0.1, 0.1}));
         // }
 
         // if (i == 150) {

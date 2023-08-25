@@ -2,6 +2,7 @@
 
 namespace swarm_planner {
     SwarmConfigTracker::SwarmConfigTracker() {
+        std::cout << "making configtracker\n";
         this->drone_states_ = std::make_shared<std::vector<Eigen::Vector4d>>();
         this->drone_goals_ = std::make_shared<std::vector<Eigen::Vector2d>>();
         this->drone_active_ = std::make_shared<std::vector<bool>>();
@@ -30,9 +31,9 @@ namespace swarm_planner {
         if (this->num_drones_is_set()) {
             if (this->num_drones == drone_states.size()) {
                 for (int i=0; i < this->num_drones; i++) {
-                    if ((*this->drone_active_)[i]) {
+                    // if ((*this->drone_active_)[i]) {
                         (*this->drone_states_)[i] = drone_states[i];
-                    }
+                    // }
                 }
                 // (*this->drone_states_) = drone_states;
                 return true;

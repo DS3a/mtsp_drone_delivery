@@ -397,7 +397,7 @@ namespace swarm_scheduler{
                 }
             }
         }
-        //std::cout<<"completed, yet to write"<<std::endl;
+        std::cout<<"completed, yet to write"<<std::endl;
         swarm_config_tracker_->write_drone_goals(goals_);
         std::cout<<"wrote drone goals"<<std::endl;
         swarm_config_tracker_->write_drone_active_vector(drones_active);

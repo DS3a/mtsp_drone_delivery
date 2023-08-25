@@ -159,6 +159,7 @@ namespace mtsp_drones_gym {
             } else {
                 std::cout << "drone " << drone_idx << " is inactive, not stepping it\n";
                 drone_states.push_back(drone_states_[drone_idx]);
+                drone.set_position(Eigen::Vector2d(drone_states_[drone_idx].x(), drone_states_[drone_idx].y()));
                 std::cout << "position after not stepping " << drone_states_[drone_idx] << std::endl;
                 // std::cout << "position after not stepping " << *drone.get_position() << std::endl;
             }
@@ -166,7 +167,7 @@ namespace mtsp_drones_gym {
             drone_idx++;
         }
 
-        this->check_collisions();
+        // this->check_collisions();
 
         if (this->render_) {
             std::cout << "getting drone radii\n";
