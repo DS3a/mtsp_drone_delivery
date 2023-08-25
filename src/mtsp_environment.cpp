@@ -84,7 +84,7 @@ int main() {
     // sc.getpayload_data(ws.read_payloads());
     // sc.set_swarm_config_tracker(swarm_config_tracker);
 
-    for (int i=0; i<1000; i++) {
+    for (int i=0; i<10000; i++) {
         //sc.print_mission();
         //sc.print_payloads();
         sc.mission_check();
