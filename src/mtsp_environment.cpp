@@ -117,7 +117,7 @@ int main() {
              std::cout << "drone setpoints are : " << drone_setpoints[j] << std::endl;
             
 
-             //drone_list.push_back((mtsp_drones_gym::Move) {.x = drone_setpoints[j][0],.y = drone_setpoints[j][1]});
+             drone_list.push_back((mtsp_drones_gym::Move) {.x = drone_setpoints[j][0],.y = drone_setpoints[j][1]});
          }
         
         std::cout << "gave setpoint " << i << std::endl;
