@@ -20,7 +20,7 @@ int main() {
     ws.set_step_time(0.015);
     
 
-    ws.add_payload(0, 1, 1, 2, 1);
+    ws.add_payload(0, 1, 1, 0, 1);
     ws.add_payload(0,-1, 1,-2, 1);
     ws.add_payload(1, 2, 1, 1, 2);
     ws.add_payload(1, 0, 1,-1,-1);
