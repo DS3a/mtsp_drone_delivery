@@ -72,11 +72,12 @@ int main() {
         {0,0,0,0,1}
         //{0,1,0,0,1}
     };
-    std::vector <int> mission_idx = {2,1,0,3,4};
+    std::vector <int> mission_idx = {2,4,1,0,3};
     swarm_scheduler::SwarmScheduler sc;
     sc.set_payload_tracker(ws.get_payloads()); // sharing payload pointer with scheduler;
     sc.set_swarm_config_tracker(swarm_config_tracker);
     sc.setmission_idx(mission_idx);
+    sc.set_step_time(0.015);
     sc.intilization(mission_drones_list);
 
 
@@ -85,11 +86,11 @@ int main() {
     // sc.set_swarm_config_tracker(swarm_config_tracker);
 
     for (int i=0; i<10000; i++) {
-        //sc.print_mission();
+        sc.print_mission();
         //sc.print_mision_idx();
         //sc.print_payloads();
         sc.mission_check();
-
+        sc.print_wait_time();
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
         swarm_config_tracker->write_drone_states(drone_states);
