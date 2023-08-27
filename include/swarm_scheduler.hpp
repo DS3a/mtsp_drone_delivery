@@ -26,7 +26,7 @@ namespace swarm_scheduler{
             std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker_;
             std::vector<Eigen::Vector4d> payload_points={{0,0,0,0}};
             std::vector<std::shared_ptr<mtsp_drones_gym::Payload>> payloads_;
-            
+
             std::vector<Eigen::Vector4d> initialstate={{0,0,0,0}};
 
         public:
@@ -46,7 +46,7 @@ namespace swarm_scheduler{
             void Workspace();
             //setter functions
             void setmissions_len(int x);
-            void setmission_idx(int x);
+            void setmission_idx(std::vector<int> x);
             void setdrones_len(int x);
             void setdrones_mission(std::vector<std::vector<int>> x);
             void setdrones(void);
@@ -60,12 +60,14 @@ namespace swarm_scheduler{
             double point();
             void print_payloads();
             Eigen::Vector2d point_genrator();
+            void print_mision_idx();
             friend class SwarmConfigTracker;
 
 
 
 
     };
+    
  // namespace swarm_scheduler
 
     void SwarmScheduler::set_swarm_config_tracker(std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker) {
@@ -81,7 +83,6 @@ namespace swarm_scheduler{
         this->set_payload_tracker(this->payloads_);
         this->setmissions_len(mission_.size());
         this->mission_idx.resize(mission_.size());
-        this->setmission_idx(mission_.size());
         this->setdrones_len(mission_[0].size());
         this->drone_mission.resize(this->mission_len,std::vector<int>(this->drones_len));
         this->setdrones_mission(mission_);
@@ -93,6 +94,7 @@ namespace swarm_scheduler{
         this->payloads_.resize(this->mission_len);
         this->initialstate.resize(this->drones_len);
         this->initialstate = this->swarm_config_tracker_->read_drone_states();
+        this->getpayload_data(mission_len);
         printf("completed initilization of mission");
     }
 
@@ -138,11 +140,7 @@ namespace swarm_scheduler{
     void SwarmScheduler::setmissions_len(int x){
         this->mission_len = x;
     }
-    void SwarmScheduler::setmission_idx(int x){
-        std::vector<int> payload_idx; 
-        for(int i=0;i<x;i++){
-            payload_idx.push_back(i);
-        }
+    void SwarmScheduler::setmission_idx(std::vector<int> payload_idx){
         this->mission_idx = payload_idx;
     }
     
@@ -187,6 +185,13 @@ namespace swarm_scheduler{
 
     
     //other methods
+    void  SwarmScheduler::print_mision_idx(){
+        for(int i=0; i<this->mission_len; i++){
+            std::cout<<this->mission_idx[i]<<" ";
+        }
+        std::cout<<" \n";
+    }
+
     void SwarmScheduler::print_mission(){
         std::vector<int> x;
         for(int j =0; j<this ->drones_len;j++){
@@ -238,24 +243,27 @@ namespace swarm_scheduler{
         for(int i = 0; i<=this->drones_len;i++){
             this->drone_planner[this->drones_list[i]] = temp;
             //initiliziation of drone_planner
-        }
-        for(int i =0; i<this->mission_len;i++){
-            this->mission_logger[this->mission_idx[i]] = temp;
-            //initilization of mission planner
-        }  
+        } 
         for(int i=0; i<this->mission_len;i++){
-            //current_mission_drones.clear();
+            int mission_data = this->mission_idx[i];
             for(int j=0; j<this->drones_len;j++){
-                
                 if(drone_mission[i][j]==1){
-                    std::cout<<"drone :" << j <<" doing mission"<< i<<std::endl; 
+                    std::cout<<"drone :" << j <<" doing mission"<< mission_data<<std::endl; 
                     temp = this->drone_planner[j];
+                    std::cout<<"current temp";
+                    for(int k =0; k<temp.size();k++){
+                        std::cout<<temp[k]<<" "; 
+                    }
+                    std::cout<<std::endl;
                     if (temp[0] == -1){
                         temp.clear();
-                        temp.push_back(i);
+                        temp.push_back(mission_data);
+                        std::cout<<"added first mission"<< mission_data<<"to drone"<<j<<std::endl;
                     }
                     else{
-                        temp.push_back(i);
+                        temp.push_back(mission_data);
+                        std::cout<<"added mission"<< mission_data<<"to drone"<<j<<std::endl;
+
                     }
                     this->drone_planner[j] = temp;
                 }
@@ -267,7 +275,7 @@ namespace swarm_scheduler{
     void SwarmScheduler::mission_check(void){
 
         std::vector<int> temp;
-        int drone_current_mission;
+        int drone_current_mission_idx,drone_current_mission;
         int check = 1;
         int reach = 0;
         double final_x,final_y,current_x,current_y;
@@ -304,10 +312,15 @@ namespace swarm_scheduler{
             else{
                 std::cout<<"in else"<<std::endl;
                 // payload_points
-                drone_current_mission = temp[0];
+                drone_current_mission= temp[0];
+                for(int k=0; k<this->drones_len;k++){
+                    if(drone_current_mission==this->mission_idx[k]){
+                        drone_current_mission_idx = k;
+                    }
+                }
                 std::cout<<"current mission"<<" "<<drone_current_mission<<std::endl;
                 std::cout<<"status of current mission"<<" "<<status[drone_current_mission]<<std::endl;
-                if (status[drone_current_mission] == 0) {
+                if (status[drone_current_mission_idx] == 0) {
                     check = 1;
                     std::cout<<"in status 0 condition"<<std::endl;
                     final_x = this->payload_points[drone_current_mission][0];
@@ -319,11 +332,12 @@ namespace swarm_scheduler{
                     drones_active[i] = true;
                     std::cout<<"assigned pick up goals"<<std::endl;
                     for(int j=0; j<this->drones_len;j++) {
-                        if (drone_mission[drone_current_mission][j]==1) {
+                        if (drone_mission[drone_current_mission_idx][j]==1) {
                             current_x = drone_states[j][0];
                             current_y = drone_states[j][1];
                             std::cout<<"got current x and y"<<current_x<<current_y<<std::endl;
                             distance = sqrt(pow((current_x-final_x),2)+pow((current_y-final_y),2));
+                            std::cout<<distance<<std::endl;
                             if (distance<=0.55){
                                 reach = 1;
                             }
@@ -336,12 +350,12 @@ namespace swarm_scheduler{
                     std::cout<<"drone "<< i <<" done checking in status 0 :";
                     std::cout<<check<<std::endl;
                     if(check == 1){
-                        this->status[drone_current_mission] = 1;
+                        this->status[drone_current_mission_idx] = 1;
                         counter = 0.1;
                         first_check = 0;
                         
                         for(int j = this->drones_len -1;j>=0;j--){
-                            if(this->drone_mission[drone_current_mission][j]==1){
+                            if(this->drone_mission[drone_current_mission_idx][j]==1){
                                 //change drones active li
                                 
                                 if(first_check ==0){
@@ -372,7 +386,7 @@ namespace swarm_scheduler{
                     
                     
                 }
-                else if (status[drone_current_mission]==1){
+                else if (status[drone_current_mission_idx]==1){
                     check = 0;
                     std::cout<<"in status 1\n";
                     std::cout <<"current mission "<<drone_current_mission<<std::endl;
@@ -386,7 +400,7 @@ namespace swarm_scheduler{
                     std::cout<<"given new goals\n";
 
                     for(int j=0; j<this->drones_len;j++){
-                        if (drone_mission[drone_current_mission][j]==1){
+                        if (drone_mission[drone_current_mission_idx][j]==1){
                             current_x = drone_states[j][0];
                             current_y = drone_states[j][1];
                             pay_(0) = current_x;
@@ -406,7 +420,7 @@ namespace swarm_scheduler{
                     if(check != 0){
                         status[drone_current_mission]=2; 
                         for(int j = 0;j<this->drones_len;j++){
-                            if(drone_mission[drone_current_mission][j]==1){ 
+                            if(drone_mission[drone_current_mission_idx][j]==1){ 
                                 radii_[j] = 0.1;
                                 goals_[i](0) = this->payload_points[drone_current_mission][2];
                                 goals_[i](1) = this->payload_points[drone_current_mission][3];
