@@ -20,9 +20,9 @@ int main() {
     ws.set_step_time(0.015);
     
 
-    ws.add_payload(3, 0, 2, 2.5, 3);
+    ws.add_payload(3, 0, 1, 2.5, 3);
     ws.add_payload(-3.5, 0.25, 1, 0.5, -1);
-    ws.add_payload(2.5, 0.25, 1, 1.5, -1);
+    ws.add_payload(2.5, 0.25, 3, 1.5, -1);
     ws.add_payload(-3, 0, 1,1,-0.5);
     ws.add_payload(2,-1,1, 1,1);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(-1, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 0)};
@@ -72,12 +72,12 @@ int main() {
         {0,0,0,0,1}
         //{0,1,0,0,1}
     };
-
+    std::vector <int> mission_idx = {2,1,0,3,4};
     swarm_scheduler::SwarmScheduler sc;
     sc.set_payload_tracker(ws.get_payloads()); // sharing payload pointer with scheduler;
     sc.set_swarm_config_tracker(swarm_config_tracker);
+    sc.setmission_idx(mission_idx);
     sc.intilization(mission_drones_list);
-    sc.getpayload_data(sc.get_mission_len());
 
 
 
@@ -86,6 +86,7 @@ int main() {
 
     for (int i=0; i<10000; i++) {
         //sc.print_mission();
+        //sc.print_mision_idx();
         //sc.print_payloads();
         sc.mission_check();
 
