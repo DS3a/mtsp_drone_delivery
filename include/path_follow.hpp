@@ -6,7 +6,7 @@
 #include "Eigen/Core"
 #include "Eigen/Dense"
 
-#define kp 2.5
+#define kp 0.5
 
 namespace path_follow {
 
