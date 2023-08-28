@@ -114,8 +114,8 @@ int main() {
          for (int j=0; j < sc.getdrone_len(); j++) {
              //std::cout << "for path : " << paths[j][1][0] <<  paths[j][1][1] << std::endl;
           
-             std::cout << "current x: " << drone_states[j][0] << std::endl;
-             std::cout << "current y: " << drone_states[j][1] << std::endl;
+             std::cout << "current x: " << drone_states[j][2] << std::endl;
+             std::cout << "current y: " << drone_states[j][3] << std::endl;
              std::cout << "drone setpoints are : " << drone_setpoints[j] << std::endl;
             
 
