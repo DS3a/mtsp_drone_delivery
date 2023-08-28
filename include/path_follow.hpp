@@ -6,7 +6,7 @@
 #include "Eigen/Core"
 #include "Eigen/Dense"
 
-#define kp 0.5
+#define kp 1
 
 namespace path_follow {
 
@@ -50,8 +50,8 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
             double drone_setpoint_error_x = path_x - current_drone_state_x;
             double drone_setpoint_error_y = path_y - current_drone_state_y;
             std::cout<<"setpoint error:"<<drone_setpoint_error_x<<","<<drone_setpoint_error_y<<std::endl;
-            drone_setpoint_error[i][0] = drone_setpoint_error_x/std::sqrt(drone_setpoint_error_x*drone_setpoint_error_x + drone_setpoint_error_y*drone_setpoint_error_y);
-            drone_setpoint_error[i][1] = drone_setpoint_error_y/std::sqrt(drone_setpoint_error_x*drone_setpoint_error_x + drone_setpoint_error_y*drone_setpoint_error_y);
+            drone_setpoint_error[i][0] = drone_setpoint_error_x/std::sqrt(pow(drone_setpoint_error_x,2) + pow(drone_setpoint_error_y,2));
+            drone_setpoint_error[i][1] = drone_setpoint_error_y/std::sqrt(pow(drone_setpoint_error_x,2) + pow(drone_setpoint_error_y,2));
             std::cout<<"added errors insidn\n";
             drone_velocity_setpoint[i] = kp*drone_setpoint_error[i] ;
             std::cout<<"got setpoints:"<<drone_velocity_setpoint[i]<<std::endl;
