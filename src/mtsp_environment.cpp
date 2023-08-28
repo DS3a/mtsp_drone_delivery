@@ -9,22 +9,21 @@
 #include<string>
 #include<vector>
 #include "swarm_scheduler.hpp"
+#include "read_csv.hpp"
 
 int main() {
     mtsp_drones_gym::Workspace ws(true);
-    ws.add_drone(0.5,0.5, 0.1, 1);
-    ws.add_drone(1.5, 0.5, 0.1, 1);
-    ws.add_drone(-0.25, -0.75, 0.1, 1);
-    ws.add_drone(-0.5, -0.5, 0.1, 1);
-    ws.add_drone(0, 1, 0.1, 1);
-    ws.set_step_time(0.015);
-    
+    std::vector<std::vector<double> > drone_params = read_csv::read_csv_drones("../csv/10drones.csv");
+    std::vector<std::vector<double> > payload_params = read_csv::read_csv_payloads("../csv/60payloads.csv");
 
-    ws.add_payload(3, 0, 1, 2.5, 3);
-    ws.add_payload(-3.5, 0.25, 1, 0.5, -1);
-    ws.add_payload(2.5, 0.25, 3, 1.5, -1);
-    ws.add_payload(-3, 0, 1,1,-0.5);
-    ws.add_payload(2,-1,1, 1,1);
+    for(int k = 0;k<drone_params[0].size();k++){
+        ws.add_drone(drone_params[0][k],drone_params[1][k], 0.1, 1);
+    }
+
+    for(int w = 0;w<payload_params[0].size();w++){
+        ws.add_payload(payload_params[0][w], payload_params[1][w], payload_params[2][w], payload_params[3][w], payload_params[4][w]);
+    }
+    ws.set_step_time(0.015);
     std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(-1, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 0)};
  
         
@@ -41,8 +40,8 @@ int main() {
     // ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea});
 
     std::vector<Eigen::Vector2d> workspace_dims = std::vector<Eigen::Vector2d>();
-    workspace_dims.push_back(Eigen::Vector2d(4, -4));
-    workspace_dims.push_back(Eigen::Vector2d(4, -4));
+    workspace_dims.push_back(Eigen::Vector2d(5, -5));
+    workspace_dims.push_back(Eigen::Vector2d(5, -5));
 
     std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker = std::make_shared<swarm_planner::SwarmConfigTracker>();
     swarm_config_tracker->set_num_drones(5);
@@ -52,10 +51,15 @@ int main() {
         Eigen::Vector4d(0, 1, 0.1, 1),
         Eigen::Vector4d(0, -1, 0.1, 0),
         Eigen::Vector4d(1, -1, 0.1, 0),
+        Eigen::Vector4d(-1.5, -1, 0.1, 0),
+                Eigen::Vector4d(0, 1.50, 0.1, 0),
+        Eigen::Vector4d(0, 1, 0.1, 1),
+        Eigen::Vector4d(0, -1, 0.1, 0),
+        Eigen::Vector4d(1, -1, 0.1, 0),
         Eigen::Vector4d(-1.5, -1, 0.1, 0)
     }, goals);
-    swarm_config_tracker->write_drone_active_vector(std::vector<bool>({true, true, true, true, true}));
-    swarm_config_tracker->write_drone_radii(std::vector<double>({0.10, 0.10, 0.10, 0.10, 0.10}));
+    swarm_config_tracker->write_drone_active_vector(std::vector<bool>({true, true, true, true, true,true, true, true, true, true}));
+    swarm_config_tracker->write_drone_radii(std::vector<double>({0.10, 0.10, 0.10, 0.10, 0.10,0.10, 0.10, 0.10, 0.10, 0.10}));
 
     swarm_planner::SwarmPlannerSE2 planner(workspace_dims, swarm_config_tracker);
 
@@ -64,15 +68,10 @@ int main() {
 
     ws.set_swarm_config_tracker(swarm_config_tracker);
 
-    std::vector<std::vector<int>> mission_drones_list = {
-        {1,1,1,0,0},
-        {0,1,0,0,0},
-        {0,0,1,0,0},
-        {0,0,0,1,0},
-        {0,0,0,0,1}
-        //{0,1,0,0,1}
-    };
-    std::vector <int> mission_idx = {2,4,1,0,3};
+    std::vector<std::vector<int>> mission_drones_list = 
+        {{0, 0, 0, 0, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 0}, {1, 0, 1, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 1, 0, 0, 0, 1, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 1, 1, 0, 0, 0, 0, 0}, {0, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 1, 1, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 0, 0, 0, 0, 1, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 0, 0, 0, 1, 0, 1, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 1}, {0, 0, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 1, 0, 0}, {1, 1, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 1, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 1, 0, 0, 0, 1}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 1, 0, 1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 1, 0, 1}, {0, 0, 1, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, {1, 0, 0, 0, 0, 0, 1, 0, 1, 0}, {0, 0, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 0, 0, 1, 0, 0, 0, 1, 1, 0}, {1, 1, 0, 0, 0, 0, 1, 0, 0, 0}, {1, 1, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 1, 1, 0}, {1, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 1, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 1, 0, 0, 0, 0, 1}}
+    ;
+    std::vector <int> mission_idx = {30, 39, 43, 1, 6, 37, 11, 9, 41, 46, 24, 58, 32, 4, 10, 18, 28, 52, 45, 55, 14, 29, 42, 12, 48, 57, 38, 2, 40, 19, 17, 7, 15, 27, 56, 36, 34, 47, 54, 8, 51, 33, 20, 13, 16, 59, 23, 0, 26, 50, 53, 31, 44, 35, 3, 21, 5, 49, 25, 22};
     swarm_scheduler::SwarmScheduler sc;
     sc.set_payload_tracker(ws.get_payloads()); // sharing payload pointer with scheduler;
     sc.set_swarm_config_tracker(swarm_config_tracker);
@@ -89,9 +88,10 @@ int main() {
         sc.print_mission();
         //sc.print_mision_idx();
         //sc.print_payloads();
-        sc.mission_check();
         sc.print_total_distance();
         sc.print_wait_time();
+        sc.mission_check();
+       
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
         swarm_config_tracker->write_drone_states(drone_states);
