@@ -14,7 +14,7 @@
 int main() {
     mtsp_drones_gym::Workspace ws(true);
     std::vector<std::vector<double> > drone_params = read_csv::read_csv_drones("../csv/10drones.csv");
-    std::vector<std::vector<double> > payload_params = read_csv::read_csv_payloads("../csv/60payloads.csv");
+    std::vector<std::vector<double> > payload_params = read_csv::read_csv_payloads("../csv/10payloads.csv");
 
     for(int k = 0;k<drone_params[0].size();k++){
         ws.add_drone(drone_params[0][k],drone_params[1][k], 0.1, 1);
@@ -24,7 +24,7 @@ int main() {
         ws.add_payload(payload_params[0][w], payload_params[1][w], payload_params[2][w], payload_params[3][w], payload_params[4][w]);
     }
     ws.set_step_time(0.015);
-    std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(-1, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 0)};
+    std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(-1, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 0),Eigen::Vector2d(-1, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 1), Eigen::Vector2d(1, 0), Eigen::Vector2d(-1, 0)};
  
         
     // std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 0)};
@@ -44,7 +44,7 @@ int main() {
     workspace_dims.push_back(Eigen::Vector2d(5, -5));
 
     std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker = std::make_shared<swarm_planner::SwarmConfigTracker>();
-    swarm_config_tracker->set_num_drones(5);
+    swarm_config_tracker->set_num_drones(10);
 
     swarm_config_tracker->write_swarm_config(std::vector<Eigen::Vector4d> {
         Eigen::Vector4d(0, 1.50, 0.1, 0),
@@ -69,9 +69,8 @@ int main() {
     ws.set_swarm_config_tracker(swarm_config_tracker);
 
     std::vector<std::vector<int>> mission_drones_list = 
-        {{0, 0, 0, 0, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 0}, {1, 0, 1, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 1, 0, 0, 0, 1, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 1, 1, 0, 0, 0, 0, 0}, {0, 1, 1, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 1, 1, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 0, 0, 0, 0, 1, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 0, 0, 0, 1, 0, 1, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 1, 1, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 1}, {0, 0, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 0, 1, 0, 0}, {1, 1, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 1, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 1, 0, 0, 0, 1}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 1, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 1, 0, 1, 0, 0, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 1, 1, 0, 0, 0}, {0, 0, 1, 0, 1, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 1, 0, 1}, {0, 0, 1, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, {1, 0, 0, 0, 0, 0, 1, 0, 1, 0}, {0, 0, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 1, 1, 0}, {0, 0, 0, 1, 0, 0, 0, 1, 1, 0}, {1, 1, 0, 0, 0, 0, 1, 0, 0, 0}, {1, 1, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 1, 1, 0}, {1, 0, 0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 1, 0, 1, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 1, 0, 0, 0, 0, 1}}
-    ;
-    std::vector <int> mission_idx = {30, 39, 43, 1, 6, 37, 11, 9, 41, 46, 24, 58, 32, 4, 10, 18, 28, 52, 45, 55, 14, 29, 42, 12, 48, 57, 38, 2, 40, 19, 17, 7, 15, 27, 56, 36, 34, 47, 54, 8, 51, 33, 20, 13, 16, 59, 23, 0, 26, 50, 53, 31, 44, 35, 3, 21, 5, 49, 25, 22};
+       {{0, 0, 1, 1, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 1}, {0, 1, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 1, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 1, 0, 0, 1, 0, 0, 0}, {1, 0, 1, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 1, 0, 0, 1, 0, 0, 0}, {1, 0, 1, 0, 0, 0, 0, 0, 1, 0}, {1, 0, 1, 0, 0, 0, 0, 0, 1, 0}};
+    std::vector <int> mission_idx = {7, 8, 6, 5, 3, 1, 0, 4, 2, 9};
     swarm_scheduler::SwarmScheduler sc;
     sc.set_payload_tracker(ws.get_payloads()); // sharing payload pointer with scheduler;
     sc.set_swarm_config_tracker(swarm_config_tracker);
