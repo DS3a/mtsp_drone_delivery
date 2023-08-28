@@ -151,9 +151,11 @@ namespace swarm_scheduler{
         for(int i=0 ;i<drones_len_;i++){
             drone_ = drones_list[i];
             temp = drone_planner[drone_];
+            std::cout<<"temp "<<temp[0]<<std::endl;
             if(temp.size()==0){
                 continue;
             }
+            
             else{
                 drone_states = swarm_config_tracker->read_drone_states();
                 payload_points = workspace->read_payloads()
@@ -179,6 +181,9 @@ namespace swarm_scheduler{
                                 reach = 0;
                             } 
                             check = check *reach;
+                        }
+                        else{
+                            continue;
                         }
                     }
                     if(check == 1){

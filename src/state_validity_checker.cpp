@@ -69,11 +69,11 @@ namespace swarm_planner {
             double l1_dist = std::abs(A*x + B*y + Cl1) / std::sqrt(A*A + B*B);
             double l2_dist = std::abs(A*x + B*y + Cl2) / std::sqrt(A*A + B*B);
 
-            if (l1_dist+l2_dist - dist_to_future_state <= 0.01) {
+            if (l1_dist+l2_dist - dist_to_future_state <= 0.02) {
                 A = line_slope;
                 double C = -line_slope * drone_position.x() + drone_position.y();
                 double l0_dist = std::abs(A*x + B*y + C) / std::sqrt(A*A + B*B);
-                if (l0_dist < 0.3) {
+                if (l0_dist < 0.15) {
                     collision = true;
                     return !collision;
                 }

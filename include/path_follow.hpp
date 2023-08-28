@@ -26,9 +26,9 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
     static std::vector<Eigen::Vector2d> drone_setpoint_error(path.size());
     std::cout<<"got setpoint error\n";
     
-    for (int i =0; i< path.size(); i++){
-        std::cout<<"path outside: "<<path[i][1][0] <<std::endl;
-        std::cout << "in for loop; iteration " << i <<std::endl;
+    for (int i =0; i< current_drone_state.size(); i++){
+        //std::cout<<"path outside: "<<path[i][1][0] <<std::endl;
+        //std::cout << "in for loop; iteration " << i <<std::endl;
         if (found[i]){
             double current_drone_state_x = current_drone_state[i][0];
             double current_drone_state_y = current_drone_state[i][1];
@@ -50,14 +50,15 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
             double drone_setpoint_error_x = path_x - current_drone_state_x;
             double drone_setpoint_error_y = path_y - current_drone_state_y;
             std::cout<<"setpoint error:"<<drone_setpoint_error_x<<","<<drone_setpoint_error_y<<std::endl;
-            drone_setpoint_error[i][0] = drone_setpoint_error_x;
-            drone_setpoint_error[i][1] = drone_setpoint_error_y;
+            drone_setpoint_error[i][0] = drone_setpoint_error_x/std::sqrt(pow(drone_setpoint_error_x,2) + pow(drone_setpoint_error_y,2));
+            drone_setpoint_error[i][1] = drone_setpoint_error_y/std::sqrt(pow(drone_setpoint_error_x,2) + pow(drone_setpoint_error_y,2));
             std::cout<<"added errors insidn\n";
             drone_velocity_setpoint[i] = kp*drone_setpoint_error[i] ;
             std::cout<<"got setpoints:"<<drone_velocity_setpoint[i]<<std::endl;
 
         }
         else{
+            drone_velocity_setpoint[i] = Eigen::Vector2d(0, 0);
             continue;
         }    
     }
@@ -66,7 +67,7 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
 
 
     
-
+    std::cout<<"completed function\n";
     return drone_velocity_setpoint;
 }
 

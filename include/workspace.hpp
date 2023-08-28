@@ -18,10 +18,10 @@ namespace mtsp_drones_gym {
     class Workspace {
     private:
         // in meters
-        double length = 4.5; // along x axis
-        double width = 4; // along y axis
+        double length = 8; // along x axis
+        double width = 8; // along y axis
 
-        vec origin = vec(2.25, 2.00);
+        vec origin = vec(4, 4.00);
 
         double step_time_;
         std::vector<mtsp_drones_gym::Drone> drones;
@@ -29,7 +29,7 @@ namespace mtsp_drones_gym {
         std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker_;
 
         bool render_ = false;
-        double render_resolution = 0.005;
+        double render_resolution = 0.009;
         cv::Mat frame;
 
         // the distance between the center points of drones below which they will be assumed to be colliding
@@ -111,8 +111,10 @@ namespace mtsp_drones_gym {
     }
 
     void Workspace::draw_paths(std::vector<std::vector<vec>> paths, std::vector<bool> paths_found) {
+        std::cout << "drawing paths\n";
         int i=0;
         for (auto path: paths) {
+            std::cout << "inside the for loop\n";
             if (paths_found[i++]) {
                 for (int i=0; i < path.size() - 1; i++) {
                     vec img_coords_0 = this->irl_to_img(&path[i]);
@@ -120,55 +122,82 @@ namespace mtsp_drones_gym {
                     cv::Point start_point(img_coords_0[0], img_coords_0[1]);
                     cv::Point end_point(img_coords_1[0], img_coords_1[1]);
                     cv::line(this->frame, start_point, end_point, cv::Scalar(0, 0, 255), 2);
+                    std::cout << "drawing a new line\n";
                 }
             }
         }
+        std::cout << "done drawing lines\n";
 
         this->update_window();
+        std::cout << "donen updating window\n";
     }
 
     // TODO
     std::tuple<bool, std::vector<Eigen::Vector4d>, std::vector<Eigen::Vector4d>> Workspace::step() {
         std::vector<Eigen::Vector4d> drone_states;
         std::vector<Eigen::Vector4d> payload_states;
-
+        std::vector<bool> drone_active = this->swarm_config_tracker_->read_drone_active();
+        std::vector<Eigen::Vector4d> drone_states_ = this->swarm_config_tracker_->read_drone_states();
 
         if (this->actions_.size() != this->drones.size()) {
             return std::make_tuple(false, drone_states, payload_states);
         } else {
             for (int i=0; i < this->actions_.size(); i++) {
-                // std::visit(overloaded {
-                    // [this, i](Move m) {this->drones[i].set_velocity(vec(m.x, m.y));},
-                    // [this, i](Pick p) {this->drones[i].set_velocity(vec(0, 0));},
-                    // [this, i](Drop d) {this->drones[i].set_velocity(vec(0, 0));},
-                    // [this, i](Attach a) {this->drones[i].set_velocity(vec(0, 0));},
-                    // [this, i](Detach d) {this->drones[i].set_velocity(vec(0, 0));}
-                // }, this->actions_[i]);
-                this->drones[i].set_velocity(vec(this->actions_[i].x, this->actions_[i].y));
+                if (drone_active[i])
+                    this->drones[i].set_velocity(vec(this->actions_[i].x, this->actions_[i].y));
             }
         }
 
+        int drone_idx = 0;
         for (Drone& drone: this->drones) {
-            drone_states.push_back(drone.step(this->step_time_));
+            std::cout << "drone " << drone_idx << " is active?? " << drone_active[drone_idx] << std::endl;
+            if (drone_active[drone_idx]) {
+                std::cout << "drone " << drone_idx << " is active, stepping it through\n";
+                std::cout << "position before stepping " << *drone.get_position() << std::endl;
+                drone_states.push_back(drone.step(this->step_time_));
+                std::cout << "position after stepping " << *drone.get_position() << std::endl;
+            } else {
+                std::cout << "drone " << drone_idx << " is inactive, not stepping it\n";
+                drone_states.push_back(drone_states_[drone_idx]);
+                drone.set_position(Eigen::Vector2d(drone_states_[drone_idx].x(), drone_states_[drone_idx].y()));
+                std::cout << "position after not stepping " << drone_states_[drone_idx] << std::endl;
+                // std::cout << "position after not stepping " << *drone.get_position() << std::endl;
+            }
+
+            drone_idx++;
         }
 
-        this->check_collisions();
+        // this->check_collisions();
 
         if (this->render_) {
             std::cout << "getting drone radii\n";
             std::vector<double> drone_radii = this->swarm_config_tracker_->read_drone_radii();
-            std::vector<bool> drone_active = this->swarm_config_tracker_->read_drone_active();
+            drone_active = this->swarm_config_tracker_->read_drone_active();
             // std::cout << "got drone radii " << drone_radii[0] << std::endl;
             this->frame = cv::Mat(this->length/this->render_resolution, this->width/this->render_resolution, CV_8UC3, cv::Scalar(255, 255, 255));
-            int i = 0;
+            for(int i =0; i<drone_active.size();i++){
+                std::cout<<"radii in workspace outside "<<drone_radii[i]<<" ";
+                std::cout<<drone_active[i]<<std::endl;
+            }
+            //std::cout<<"radii in workspace\n";
+            int drone_ind=0;
             for (Drone& drone: this->drones) {
-                if (drone_active[i]) {
+                std::cout<<"radii in for loop\n";
+                if (drone_active[drone_ind]) {
+                    // std::cout<<"radii in if condi\n";
+                    // std::cout<<"radii in workspace"<<drone_radii[drone_ind]<<std::endl;
                     cv::Point center;
-                    vec img_coords = this->irl_to_img(drone.get_position());
+                    Eigen::Vector2d drone_position(drone_states_[drone_ind].x(), drone_states_[drone_ind].y());
+                    std::cout << "drone position " << drone_position << std::endl;
+                    vec img_coords = this->irl_to_img((const vec*)&drone_position);
+                    // vec img_coords = this->irl_to_img(drone.get_position());
                     center.x = img_coords[0];
                     center.y = img_coords[1];
-                    cv::circle(this->frame, center, drone_radii[i++]/this->render_resolution, cv::Scalar(230, 130, 155), -1);
+                    cv::circle(this->frame, center, drone_radii[drone_ind]/this->render_resolution,
+                              cv::Scalar(199, 157, 60), -1);
                 }
+
+                drone_ind++;
             }
 
             int payload_id = 1;
@@ -185,7 +214,7 @@ namespace mtsp_drones_gym {
                    center.y = img_coords[1];
                    cv::circle(this->frame, center,
                               payload->radius_ / this->render_resolution,
-                              cv::Scalar(0, 255, 0), -1);
+                               cv::Scalar(52, 204, 235), -1);
 
                    cv::putText(this->frame, std::to_string(payload_id), center,
                                2, 1.0, cv::Scalar(0, 0, 0), 2, cv::LINE_AA);
@@ -195,14 +224,14 @@ namespace mtsp_drones_gym {
                    center.y = img_coords[1];
                    cv::circle(this->frame, center,
                               payload->radius_ / this->render_resolution,
-                              cv::Scalar(155, 155, 155), -1);
+                              cv::Scalar(230, 149, 215), -1);
                    cv::putText(this->frame,
                                std::to_string(payload_id++) + " dest", center, 2,
                                1.0, cv::Scalar(0, 0, 0), 2, cv::LINE_AA);
                } else {
                    cv::circle(this->frame, center,
                               payload->radius_ / this->render_resolution,
-                              cv::Scalar(0, 155, 155), -1);
+                              cv::Scalar(149, 235, 52), -1);
                    cv::putText(this->frame,
                                std::to_string(payload_id++) + " delivered", center, 2,
                                1.0, cv::Scalar(0, 0, 0), 2, cv::LINE_AA);

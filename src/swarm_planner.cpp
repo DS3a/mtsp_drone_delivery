@@ -86,9 +86,9 @@ namespace swarm_planner {
                                                             this]() {
                         auto planner(
                             std::make_shared<current_planner>(this->si_vector[i]));
-                        planner->setRange(0.9);
+                        // planner->setRange(0.9);
                         // planner->setNearestNeighbors();
-                        planner->setKNearest(20);
+                        // planner->setKNearest(20);
                         // planner->setGoalBias(0.1); // Adjust the goalBias parameter
                         // planner->setPruneThreshold(5.1); // Adjust the
                         // pruneThreshold parameter
@@ -107,11 +107,11 @@ namespace swarm_planner {
                             this->swarm_config_tracker_->read_swarm_config();
 
                         // std::cout << "\nreading drone state\n";
-                        temp_drone_state = // this->swarm_config_tracker_->read_drone_states()[i];
-                            (*this->swarm_config_tracker_->drone_states_)[i];
+                        temp_drone_state = this->swarm_config_tracker_->read_drone_states()[i];
+                            // (*this->swarm_config_tracker_->drone_states_)[i];
                         std::cout << "\nreading drone goals\n";
-                        temp_drone_goal = // this->swarm_config_tracker_->read_drone_goals()[i];
-                            (*this->swarm_config_tracker_->drone_goals_)[i];
+                        temp_drone_goal = this->swarm_config_tracker_->read_drone_goals()[i];
+                            // (*this->swarm_config_tracker_->drone_goals_)[i];
 
                         current_lock.unlock();
 
@@ -141,7 +141,7 @@ namespace swarm_planner {
                         std::cout << "the start point is " << start << std::endl;
                         // ob::PlannerStatus solved =
                         // this->planner_vector[i]->ob::Planner::solve(0.015);
-                        ob::PlannerStatus solved = planner->ob::Planner::solve(0.175);
+                        ob::PlannerStatus solved = planner->ob::Planner::solve(0.105);
                         std::cout << "attempt complete for drone " << i << std::endl;
                         if (solved) {
                             std::cout << "path for drone " << i << " found\n";

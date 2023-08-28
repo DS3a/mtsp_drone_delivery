@@ -2,6 +2,7 @@
 
 namespace swarm_planner {
     SwarmConfigTracker::SwarmConfigTracker() {
+        std::cout << "making configtracker\n";
         this->drone_states_ = std::make_shared<std::vector<Eigen::Vector4d>>();
         this->drone_goals_ = std::make_shared<std::vector<Eigen::Vector2d>>();
         this->drone_active_ = std::make_shared<std::vector<bool>>();
@@ -29,7 +30,12 @@ namespace swarm_planner {
     bool SwarmConfigTracker::write_drone_states(std::vector<Eigen::Vector4d> drone_states) {
         if (this->num_drones_is_set()) {
             if (this->num_drones == drone_states.size()) {
-                (*this->drone_states_) = drone_states;
+                for (int i=0; i < this->num_drones; i++) {
+                    // if ((*this->drone_active_)[i]) {
+                        (*this->drone_states_)[i] = drone_states[i];
+                    // }
+                }
+                // (*this->drone_states_) = drone_states;
                 return true;
             }
         }
@@ -62,6 +68,11 @@ namespace swarm_planner {
         if (this->num_drones_is_set()) {
             if (this->num_drones == drone_radii.size()) {
                 (*this->drone_radii_) = drone_radii;
+                std::cout<<"radii";
+                for(int i=0;i<this->num_drones;i++){
+                    std::cout<<(*this->drone_radii_)[i]<<" ";
+                }
+                std::cout<<std::endl;
                 return true;
             }
         }
@@ -151,4 +162,8 @@ namespace swarm_planner {
         return drone_goals;
     }
 
+    void SwarmConfigTracker::deactivate_drone(int drone_idx, Eigen::Vector2d destination) {
+        (*this->drone_states_)[drone_idx] = Eigen::Vector4d(destination.x(), destination.y(), 0, 0);
+        std::cout << "deactivate new drone position is " << (*this->drone_states_)[drone_idx];
+    }
 } // namespace swarm_planner

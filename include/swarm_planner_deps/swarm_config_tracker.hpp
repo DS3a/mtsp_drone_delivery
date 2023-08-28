@@ -35,6 +35,7 @@ namespace swarm_planner {
                                 std::vector<Eigen::Vector2d> drone_goals);
 
 
+        void deactivate_drone(int drone_idx, Eigen::Vector2d destination);
         std::vector<Eigen::Vector4d> read_drone_states() const;
         std::vector<bool> read_drone_active() const;
         std::vector<double> read_drone_radii() const;

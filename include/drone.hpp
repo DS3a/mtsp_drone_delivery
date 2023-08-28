@@ -42,14 +42,22 @@ namespace mtsp_drones_gym {
 
         void set_velocity(vec velocity_);
 
+        // void set_follow(const Drone* drone_to_follow);
+
         Eigen::Vector4d step(double step_time);
 
         bool is_carrying_payload();
 
         Eigen::Vector4d get_state();
 
+        void set_position(Eigen::Vector2d new_pos);
+
         friend class Workspace;
     };
+
+    void Drone::set_position(Eigen::Vector2d new_pos) {
+        this->position = new_pos;
+    }
 
     Drone::Drone(double x, double y, double radius, double capacity) {
         this->initial_position = vec(x, y);
@@ -82,9 +90,9 @@ namespace mtsp_drones_gym {
         this->position += this->velocity * step_time;
         // std:: cout << "\nthe new position is " << this->position << std::endl << std::endl;
 
-        if (this->is_carrying_payload_) {
-            this->payload_->position = this->position;
-        }
+        // if (this->is_carrying_payload_) {
+        //     this->payload_->position = this->position;
+        // }
 
         return this->get_state();
     }
