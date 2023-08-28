@@ -36,7 +36,11 @@ namespace swarm_planner {
         }
 
         double time_to_reach_sampled_state = dist_to_sampled_point / drone_speed;
+        if (time_to_reach_sampled_state >= 0.8) {
+            time_to_reach_sampled_state = 0.8;
+        }
         // TODO propagate the state of each drone in the for loop by this time and avoid those regions as well.
+
 
         for (int i=0; i < this->swarm_config_tracker_->drone_states_->size(); i++) {
             if (i == this->drone_index_) {
