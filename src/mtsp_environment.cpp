@@ -90,6 +90,7 @@ int main() {
         //sc.print_mision_idx();
         //sc.print_payloads();
         sc.mission_check();
+        sc.print_total_distance();
         sc.print_wait_time();
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
