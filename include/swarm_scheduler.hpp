@@ -464,7 +464,7 @@ namespace swarm_scheduler{
                             this->payloads_[drone_current_mission]->write_position(pay_);
                             distance = sqrt(pow((current_x-final_x),2)+pow((current_y-final_y),2));
                             std::cout<<"distance "<<distance<<std::endl;
-                            if (distance<=0.01){
+                            if (distance<=0.1){
                                 reach = 1;
                             }
                             else{
