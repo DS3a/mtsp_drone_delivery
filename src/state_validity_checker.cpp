@@ -36,8 +36,8 @@ namespace swarm_planner {
         }
 
         double time_to_reach_sampled_state = dist_to_sampled_point / drone_speed;
-        if (time_to_reach_sampled_state >= 1.2) {
-            time_to_reach_sampled_state = 1.2;
+        if (time_to_reach_sampled_state >= 2.5) {
+            time_to_reach_sampled_state = 2.5;
         }
         // TODO propagate the state of each drone in the for loop by this time and avoid those regions as well.
 
@@ -45,6 +45,7 @@ namespace swarm_planner {
         for (int i=0; i < this->swarm_config_tracker_->drone_states_->size(); i++) {
             if (i == this->drone_index_) {
                 continue;
+
             } else if ((*this->swarm_config_tracker_->drone_active_)[i] != true) {
                 continue;
             }
@@ -77,7 +78,7 @@ namespace swarm_planner {
                 A = line_slope;
                 double C = -line_slope * drone_position.x() + drone_position.y();
                 double l0_dist = std::abs(A*x + B*y + C) / std::sqrt(A*A + B*B);
-                if (l0_dist < 0.15) {
+                if (l0_dist  - current_drone_radius - drone_radius < 0.25) {
                     collision = true;
                     return !collision;
                 }
