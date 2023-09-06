@@ -92,18 +92,18 @@ int main() {
     sc.intilization(mission_drones_list);
 
     bool checker;
-    for (int i=0; i<100000; i++) {
-        sc.print_total_distance();
-        sc.print_total_time();
+    int i =0;
+    while(checker){
         sc.mission_check();
         checker = sc.update_total_time();
-       
+        sc.print_total_distance();
+        sc.print_total_time();
+        std::cout<<checker<<std::endl;
         auto output = ws.step();
         std::vector<Eigen::Vector4d> drone_states = std::get<1>(output);
         swarm_config_tracker->write_drone_states(drone_states);
         static std::vector<bool> paths_found;
         static std::vector<std::vector<Eigen::Vector2d>> paths;
-
         if (i % 20 == 0 || i == 0) {
             planner.plan_paths();
             std::tie(paths_found, paths) = planner.get_paths();
@@ -158,8 +158,12 @@ int main() {
 
         ws.set_actions(drone_list);
         // std::this_thread::sleep_for(std::chrono::milliseconds(50));
-
+        i++;
+        
      }
+    sc.print_total_distance();
+    sc.print_total_time();
+
 
 
         
