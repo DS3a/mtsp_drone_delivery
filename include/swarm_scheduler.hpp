@@ -406,7 +406,8 @@ namespace swarm_scheduler{
                 previous_y = this->previous_state[i][1];
                 distance = sqrt(pow((current_x-previous_x),2)+pow((current_y-previous_y),2));
                 this->total_distance[i]+= distance; 
-                if(distance<0.05){
+                double distance_reach = sqrt(pow((current_x-this->initialstate[i][0]),2)+pow((current_y-this->initialstate[i][1]),2));
+                if(distance_reach<0.05){
                     this->drones_reached[i]=false;
                 }
             }
@@ -499,7 +500,7 @@ namespace swarm_scheduler{
                                 else{
                                     drones_active[j]=false;
                                     Eigen::Vector2d ran;
-                                    ran = this->point_genrator(0.4,0.001);
+                                    ran = this->point_genrator(0.5,0.001);
                                     std::cout << "deactivating drones, setting their destination to ";
                                     Eigen::Vector2d payload_dest(this->payload_location[drone_current_mission][0]+sign_data*ran(0), this->payload_location[drone_current_mission][1]+sign_data*ran(1));
                                     sign_data = sign_data * -1;
@@ -536,8 +537,16 @@ namespace swarm_scheduler{
                                 previous_x = this->previous_state[j][0];
                                 previous_y = this->previous_state[j][1]; 
                                 distance_ = sqrt(pow((current_x-previous_x),2)+pow((current_y-previous_y),2));
+                                int sum_=0;
+                                for(int k = 0; k<this->drones_len;k++){
+                                    if(this->drone_mission[drone_current_mission_idx][j]==1){
+                                        sum_+=1; 
+                                    }
+                                }
+                                distance_ = distance_*3;
+                                this->total_distance[j]+=distance_;
                             }
-                            this->total_distance[j]+=distance_;
+                            
                             pay_(0) = current_x;
                             pay_(1) = current_y;
                             this->payloads_[drone_current_mission]->write_position(pay_);

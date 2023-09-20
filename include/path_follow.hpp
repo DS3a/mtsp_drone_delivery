@@ -53,7 +53,7 @@ std::vector<Eigen::Vector2d> get_drone_velocity_setpoint(std::vector<Eigen::Vect
             drone_setpoint_error[i][0] = drone_setpoint_error_x/std::sqrt(pow(drone_setpoint_error_x,2) + pow(drone_setpoint_error_y,2));
             drone_setpoint_error[i][1] = drone_setpoint_error_y/std::sqrt(pow(drone_setpoint_error_x,2) + pow(drone_setpoint_error_y,2));
             std::cout<<"added errors insidn\n";
-            if(abs(drone_setpoint_error[i][0])+abs(drone_setpoint_error[i][1]) < 0.1){
+            if(abs(drone_setpoint_error_x)+abs(drone_setpoint_error_y) < 0.01){
                 drone_setpoint_error[i][0] = 0;
                 drone_setpoint_error[i][1] = 0;
             }
