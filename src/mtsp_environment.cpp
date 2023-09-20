@@ -24,19 +24,19 @@ int main() {
         ws.add_payload(payload_params[0][w], payload_params[1][w], payload_params[2][w], payload_params[3][w], payload_params[4][w]);
     }
     ws.set_step_time(0.015);
-    std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(1.8, -0.5),Eigen::Vector2d(1.8, 0.5)};
+    std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(0, 0), Eigen::Vector2d(0, 0), Eigen::Vector2d(1.8, -0.5)};
  
         
     /// std::vector<Eigen::Vector2d> goals = std::vector<Eigen::Vector2d> {Eigen::Vector2d(1, 0)};
     
 
-    mtsp_drones_gym::Move dronea, droneb, dronec, droned;
+    mtsp_drones_gym::Move dronea, droneb, dronec;
     dronea = (mtsp_drones_gym::Move) {.x = 0.0, .y = 0.5};
     droneb = (mtsp_drones_gym::Move) {.x = 2, .y = -4};
     dronec = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
-    droned = (mtsp_drones_gym::Move) {.x = 1, .y = 0.5};
+    //droned = (mtsp_drones_gym::Move) {.x = 1, .y = 0.5};
     //dronee = (mtsp_drones_gym::Move) {.x = 0, .y = 0};
-    ws.set_actions(std::vector<mtsp_drones_gym::Move>{dronea, droneb, dronec,droned});
+    ws.set_actions(std::vector<mtsp_drones_gym::Move>{dronea, droneb, dronec});
 
     // ws.set_actions(std::vector<mtsp_drones_gym::DroneAction>{dronea});
 
@@ -45,7 +45,7 @@ int main() {
     workspace_dims.push_back(Eigen::Vector2d(5, -5));
 
     std::shared_ptr<swarm_planner::SwarmConfigTracker> swarm_config_tracker = std::make_shared<swarm_planner::SwarmConfigTracker>();
-    swarm_config_tracker->set_num_drones(4);
+    swarm_config_tracker->set_num_drones(3);
 
     std::vector<Eigen::Vector4d> initial_states_;
     initial_states_.resize(drone_params[0].size());
@@ -71,17 +71,8 @@ int main() {
     ws.set_swarm_config_tracker(swarm_config_tracker);
     
     std::vector<std::vector<int>> mission_drones_list = 
-     {{1, 1, 0, 1}, 
-     {1, 0, 0, 1}, 
-     {0, 1, 0, 0}, 
-     {1, 0, 1, 1}, 
-     {1, 0, 1, 0}, 
-     {1, 0, 1, 1}, 
-     {1, 0, 1, 0}, 
-     {1, 0, 1, 1}, 
-     {0, 1, 0, 1}, 
-     {1, 0, 1, 0}};
-    std::vector <int> mission_idx = {5, 4, 0, 2, 6, 1, 7, 9, 3, 8};
+     {{1, 1, 1}, {0, 1, 0}, {1, 0, 1}, {0, 1, 0}, {1, 0, 0}, {1, 1, 1}};
+    std::vector <int> mission_idx = {4, 5, 0, 2, 1, 3};
     swarm_scheduler::SwarmScheduler sc;
     
     sc.set_payload_tracker(ws.get_payloads()); // sharing payload pointer with scheduler;

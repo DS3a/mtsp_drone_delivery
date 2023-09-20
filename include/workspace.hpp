@@ -233,7 +233,7 @@ namespace mtsp_drones_gym {
                               payload->radius_ / this->render_resolution,
                               cv::Scalar(149, 235, 52), -1);
                    cv::putText(this->frame,
-                               std::to_string(payload_id++) + " delivered", center, 2,
+                               std::to_string(payload_id++) + " done", center, 2,
                                1.0, cv::Scalar(0, 0, 0), 2, cv::LINE_AA);
 
                }
